@@ -4,9 +4,10 @@
 
 ## Team
 
-  - __Product Owner__: teamMember
-  - __Scrum Master__: teamMember
-  - __Development Team Members__: teamMember, teamMember
+Chris Clark
+Song Gao
+Adam Dobkin
+Becky Jaimes
 
 ## Table of Contents
 

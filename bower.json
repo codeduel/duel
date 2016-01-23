@@ -1,0 +1,10 @@
+{
+  "name": "duel",
+  "version": "0.0.0",
+  "homepage": "https://github.com/cream-and-copper/duel",
+  "dependencies": {
+    "angular": "~1.4.9",
+    "angular-ui-router": "~0.2.15",
+    "jquery": "~2.2.0"
+  }
+}

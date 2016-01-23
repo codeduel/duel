@@ -1,5 +1,9 @@
 ### node etc ###
 
+#floo
+.floo
+.flooignore
+
 # Logs
 logs
 *.log

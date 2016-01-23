@@ -1,0 +1,25 @@
+{
+  "name": "duel",
+  "version": "0.0.0",
+  "description": "Cream & Copper's Thesis Project",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cream-and-copper/duel.git"
+  },
+  "scripts": {
+    "start": "nodemon src/server/server.js"
+    },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/cream-and-copper/duel/issues"
+  },
+  "homepage": "https://github.com/cream-and-copper/duel#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "mongoose": "^4.3.6",
+    "socket.io": "^1.4.4",
+    "body-parser": "^1.14.2",
+    "morgan": "^1.6.1"
+  },
+  "engines": {}
+}
