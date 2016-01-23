@@ -4,6 +4,8 @@
  *  var featureController = require('./featureController.js');
  */
 
+var gameController = require('./gameController.js');
+
 module.exports = function(apiRouter) {
 
   /*
@@ -12,5 +14,7 @@ module.exports = function(apiRouter) {
    *  GET request to localhost:3000/api/feature
    *  apiRouter.get('/feature', featureController.someFunction);
    */
+
+   apiRouter.post('/game/create', gameController.createGame)
 
 }

@@ -2,7 +2,6 @@ var express = require('express');
 var mongoose = require('mongoose');
 
 var app = express();
-var server = require('http').Server(app);
 
 var port = 3000; //TODO: change for deploy
 var dbURL = 'mongodb://localhost/duel';
@@ -17,11 +16,12 @@ var dbURL = 'mongodb://localhost/duel';
 
 require('./config/middleware.js')(app, express);
 
-app.listen(port, function() {
+var server = app.listen(port, function() {
   console.log('Server listening on port ' + port);
   //Mount the websocket server onto the express server
-  require('./socketServer.js')(server);
 });
+
+require('./socketServer.js')(server);
 
 module.exports = {
   app: app,

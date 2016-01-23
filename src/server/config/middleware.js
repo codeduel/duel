@@ -3,7 +3,7 @@ var bodyParser = require('body-parser');
 
 module.exports = function(app, express) {
   var apiRouter = express.Router();
-  console.log(__dirname + '/../../client');
+
   app.use(express.static(__dirname + '/../../client'));
   app.use(morgan('dev'));
 

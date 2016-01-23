@@ -4,13 +4,12 @@ module.exports = function(server) {
   console.log('Socket.io server successfully mounted.')
 
 
-  io.on('connection', function(socket){
+  io.on('connection', function(socket) {
 
-  socket.on('chat message', function(msg){
-    
-  });
+    socket.on('challenge/ready', function(msg) {
+      console.log(msg.data.userid + ' joined ' + msg.data.gameid);
+    })
 
-  socket.on('disconnect', function(){
+    socket.on('disconnect', function() {});
   });
-});
 }
