@@ -4,7 +4,7 @@
  *  var featureController = require('./featureController.js');
  */
 
-var gameController = require('./gameController.js');
+var gameController = require('../controllers/gameController.js');
 
 module.exports = function(apiRouter) {
 

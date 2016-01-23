@@ -4,6 +4,10 @@
  */
 var games = {};
 
+//****************
+//HTTP CONTROLLERS
+//****************
+
 /*
  *  Generates a game object inside games with default properties
  */
@@ -22,4 +26,17 @@ exports.createGame = function(req, res) {
   res.send({
     gameid: gameid
   });
+}
+
+
+//******************
+//SOCKET CONTROLLERS
+//******************
+
+
+exports.playerJoin = function(msg) {
+  games[msg.data.gameid].players.push(msg.data.userid);
+  console.log(games);
+
+  
 }

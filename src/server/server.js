@@ -21,7 +21,10 @@ var server = app.listen(port, function() {
   //Mount the websocket server onto the express server
 });
 
-require('./socketServer.js')(server);
+var io = require('socket.io')(server);
+console.log('Socket.io server successfully mounted.');
+
+require('./api/socketRoutes.js')(io);
 
 module.exports = {
   app: app,
