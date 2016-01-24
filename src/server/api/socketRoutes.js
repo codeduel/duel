@@ -6,13 +6,34 @@
 
 var gameController = require('../controllers/gameController.js');
 
-module.exports = function(io) {
-  console.log('Socket routes created.');
+var io = null;
+
+module.exports.init = function(newIo) {
+  console.log('Socket Server initialized.')
+  io = newIo;
+  listeners();
+}
+
+var listeners = function() {
+  if (!io) {
+    return;
+  }
+  console.log('Socket listeners created.');
 
   io.on('connection', function(socket) {
+    socket.on('register', function(data) {});
 
-    socket.on('challenge/ready', gameController.playerJoin);
-    
+    socket.on('challenge/ready', function(data) {
+      gameController.playerJoin(data, socket);
+    });
+
     socket.on('disconnect', function() {});
   });
-}
+};
+
+module.exports.sendTo = function(to, event, data) {
+  if (!io) {
+    return;
+  }
+  io.to(to).emit(event, data);
+};

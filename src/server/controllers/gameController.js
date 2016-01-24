@@ -1,8 +1,12 @@
+//Imports the sendTo function from socketRoutes
+var sendTo = require('../api/socketRoutes.js').sendTo;
+
 /*
  *  Object that holds all game sessions in memory
  *  TODO: refactor to pull from DB
  */
 var games = {};
+
 
 //****************
 //HTTP CONTROLLERS
@@ -28,15 +32,20 @@ exports.createGame = function(req, res) {
   });
 }
 
+//********************
+//SOngCKET CONTROLLERS
+//********************
 
-//******************
-//SOCKET CONTROLLERS
-//******************
+/*
+ *  Adds the specified user to the specified game, and sends a "challenge/start" event to all clients connected to the game
+ */
+exports.playerJoin = function(msg, socket) {
+  socket.join(msg.data.gameid); //TODO: implement separate socket rooms for chat,etc
 
-
-exports.playerJoin = function(msg) {
   games[msg.data.gameid].players.push(msg.data.userid);
-  console.log(games);
 
-  
+  if (games[msg.data.gameid].players.length === 2) {
+    games[msg.data.gameid].active = true;
+    sendTo(msg.data.gameid, 'challenge/gameStart', games[msg.data.gameid]);
+  }
 }
