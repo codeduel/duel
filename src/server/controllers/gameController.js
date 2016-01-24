@@ -1,3 +1,5 @@
+//Imports the codewars Controller to make requests to/from the Code Wars API
+var codewarsController = require('./codewarsController.js');
 //Imports the sendTo function from socketRoutes
 var sendTo = require('../api/socketRoutes.js').sendTo;
 
@@ -17,19 +19,26 @@ var games = {};
  */
 exports.createGame = function(req, res) {
   var gameid = Math.floor(Math.random() * 100000);
-  games[gameid] = {
-    difficulty: req.body.difficulty,
-    players: [],
-    active: false,
-    spectators: [], //TODO: implement spectators
-    createdAt: Date.now(),
-    question: 'This is a question' //TODO: pull from codewars api
-  }
 
-  //Sends a response to the client with the gameid
-  res.send({
-    gameid: gameid
-  });
+  var questionDetails = codewarsController.generateQuestion(req.body.difficulty)
+    .then(function(data) {
+      data = JSON.parse(data);
+      games[gameid] = {
+        players: [],
+        active: false,
+        spectators: [], //TODO: implement spectators
+        createdAt: Date.now(),
+        question: data.description,
+        initialCode: data.session.setup,
+        pID: data.session.projectId,
+        sID: data.session.solutionId
+      }
+
+      //Sends a response to the client with the gameid
+      res.send({
+        gameid: gameid
+      });
+    })
 }
 
 //********************
