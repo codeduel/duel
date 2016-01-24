@@ -4,7 +4,7 @@ angular.module('duel.challengeFact', ['duel.socketFact'])
 
   var connectToGame = function(connectionData) {
     var msg = SocketFact.buildMessage(connectionData);
-    SocketFact.socket.emit('challenge/ready', msg)
+    SocketFact.socket.emit('challenge/ready', msg);
   }
 
   return {

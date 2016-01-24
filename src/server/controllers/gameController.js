@@ -1,8 +1,12 @@
+//Imports the sendTo function from socketRoutes
+var sendTo = require('../api/socketRoutes.js').sendTo;
+
 /*
  *  Object that holds all game sessions in memory
  *  TODO: refactor to pull from DB
  */
 var games = {};
+
 
 //****************
 //HTTP CONTROLLERS
@@ -28,15 +32,21 @@ exports.createGame = function(req, res) {
   });
 }
 
+//********************
+//SOngCKET CONTROLLERS
+//********************
 
-//******************
-//SOCKET CONTROLLERS
-//******************
 
+exports.playerJoin = function(msg, socket) {
+  socket.join(msg.data.gameid); //TODO: implement separate socket rooms for chat,etc
 
-exports.playerJoin = function(msg) {
   games[msg.data.gameid].players.push(msg.data.userid);
   console.log(games);
 
-  
+  //player 1 creates game, and joins
+    //playerJoin(); --> players === ['player1']
+
+  //player 2 joins the same game
+    //playerJoin(); --> players === ['player1', 'player2']
+      //broadcast 'gameStart' event to both players
 }

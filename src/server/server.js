@@ -24,7 +24,7 @@ var server = app.listen(port, function() {
 var io = require('socket.io')(server);
 console.log('Socket.io server successfully mounted.');
 
-require('./api/socketRoutes.js')(io);
+require('./api/socketRoutes.js').init(io);
 
 module.exports = {
   app: app,
