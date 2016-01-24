@@ -12,9 +12,5 @@ angular.module('duel.socketFact', [])
     };
   }
 
-  socketFact.socket.on('test', function(data) {
-    console.log(data);
-  })
-  
   return socketFact;
 }]);

@@ -36,17 +36,16 @@ exports.createGame = function(req, res) {
 //SOngCKET CONTROLLERS
 //********************
 
-
+/*
+ *  Adds the specified user to the specified game, and sends a "challenge/start" event to all clients connected to the game
+ */
 exports.playerJoin = function(msg, socket) {
   socket.join(msg.data.gameid); //TODO: implement separate socket rooms for chat,etc
 
   games[msg.data.gameid].players.push(msg.data.userid);
-  console.log(games);
 
-  //player 1 creates game, and joins
-    //playerJoin(); --> players === ['player1']
-
-  //player 2 joins the same game
-    //playerJoin(); --> players === ['player1', 'player2']
-      //broadcast 'gameStart' event to both players
+  if (games[msg.data.gameid].players.length === 2) {
+    games[msg.data.gameid].active = true;
+    sendTo(msg.data.gameid, 'challenge/gameStart', games[msg.data.gameid]);
+  }
 }
