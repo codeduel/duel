@@ -12,6 +12,11 @@ angular.module('duel.challengeFact', ['duel.socketFact'])
     SocketFact.socket.emit('challenge/ready', msg);
   }
 
+  challengeFact.submitSolution = function(solutionData) {
+    var msg = SocketFact.buildMessage(solutionData);
+    SocketFact.socket.emit('challenge/submit', msg);
+  }
+
   return challengeFact;
 
 }]);
