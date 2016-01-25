@@ -12,6 +12,9 @@ var config = {
     },
     submitSolution: function(solutionID, projectID) {
       return 'https://www.codewars.com/api/v1/code-challenges/projects/' + projectID + '/solutions/' + solutionID + '/attempt';
+    },
+    getSolutionResults: function(dmid) {
+      return 'https://www.codewars.com/api/v1/deferred/' + dmid;
     }
   },
 
@@ -59,6 +62,12 @@ exports.submitSolution = function(solutionID, projectID, code) {
     code: code, //code of the potential solution
     output_format: 'html' //desired output - 'html' or 'raw'
   }
-  console.log(config.routes.submitSolution(solutionID, projectID));
-  return query('POST', config.routes.submitSolution(solutionID, projectID), data)
+  return query('POST', config.routes.submitSolution(solutionID, projectID), data);
+}
+
+/*
+ *  Queries the Code Wars API for the results of the specified dmid
+ */
+exports.getSolutionResults = function(dmid) {
+  return query('GET', config.routes.getSolutionResults(dmid));
 }

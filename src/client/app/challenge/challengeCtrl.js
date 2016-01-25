@@ -5,6 +5,7 @@ angular.module('duel.challengeCtrl', ['duel.challengeFact'])
   $scope.gameid = $stateParams.gameid;
   $scope.data = {}
 
+  //Calls ChallengeFact's connectToGame() once the user enters the 'challenge' state
   ChallengeFact.connectToGame({
     userid: window.localStorage.getItem('duel.userid'),
     gameid: $scope.gameid

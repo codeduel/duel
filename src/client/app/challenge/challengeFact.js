@@ -3,9 +3,27 @@ angular.module('duel.challengeFact', ['duel.socketFact'])
 .factory('ChallengeFact', ['SocketFact', function(SocketFact) {
   var challengeFact = {};
 
-  SocketFact.socket.on('challenge/gameStart', function(data){
+  //****************
+  //Socket Listeners
+  //****************
+
+  SocketFact.socket.on('challenge/gameStart', function(data) {
     console.log(data);
-  });  
+  });
+
+  SocketFact.socket.on('challenge/invalidSolution', function(data) {
+    console.log('Invalid solution!');
+    console.log(data);
+  })
+
+  SocketFact.socket.on('challenge/winner', function(data) {
+    console.log(data.winner + ' won the challenge!');
+  })
+
+
+  //***************
+  //Socket Triggers
+  //***************
 
   challengeFact.connectToGame = function(connectionData) {
     var msg = SocketFact.buildMessage(connectionData);
