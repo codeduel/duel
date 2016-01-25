@@ -14,7 +14,8 @@
     <form id="create" ng-if="currentView === 'create'" ng-submit="create()">
        <h5>Choose your difficulty level</h5>
        <select ng-model="data.difficulty">
-          <option value="easy">Easy</option>
+          <option hidden></option>
+          <option selected value="easy">Easy</option>
           <option value="medium">Medium</option>
           <option value="hard">Hard</option>
        </select>

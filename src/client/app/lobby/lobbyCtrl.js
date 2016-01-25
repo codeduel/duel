@@ -6,9 +6,11 @@ angular.module('duel.lobbyCtrl', ['duel.lobbyFact'])
   $scope.currentView = false;
   $scope.data = {};
 
+
   $scope.join = function() {
     $state.go('challenge', {
-      gameid: $scope.data.gameid
+      gameid: $scope.data.gameid,
+      userid: $scope.currentUser
     });
   }
 
@@ -16,7 +18,8 @@ angular.module('duel.lobbyCtrl', ['duel.lobbyFact'])
     LobbyFact.createGame($scope.data.difficulty)
       .then(function(response) {
         $state.go('challenge', {
-          gameid: response.data.gameid
+          gameid: response.data.gameid,
+          userid: $scope.currentUser
         });
       })
   }

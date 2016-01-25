@@ -1,14 +1,22 @@
 angular.module('duel.challengeFact', ['duel.socketFact'])
 
-.factory('ChallengeFact', ['SocketFact', function(SocketFact) {
+.factory('ChallengeFact', ['SocketFact', '$rootScope', function(SocketFact, $rootScope) {
   var challengeFact = {};
-
+  challengeFact.client = {
+    question: "question loading..."
+  };
+  challengeFact.getQuestion = function(){
+    return challengeFact.client.question;
+  }
   //****************
   //Socket Listeners
   //****************
 
   SocketFact.socket.on('challenge/gameStart', function(data) {
-    console.log(data);
+    console.log("Game has begun", data);
+    //console.log(data.question)
+    challengeFact.client.question = data.question;
+    $rootScope.$apply();
   });
 
   SocketFact.socket.on('challenge/invalidSolution', function(data) {

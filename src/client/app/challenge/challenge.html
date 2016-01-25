@@ -1,5 +1,3 @@
-Game ID: {{gameid}}
-
 <div id="ChallengeContainer">
   <div id="ChallengeHeader">
     <h4 class="Head">Hello {{currentUser}}</h5>
@@ -7,6 +5,7 @@ Game ID: {{gameid}}
   </div>
   <h5>Problem:</h5>
   <div id="ChallengePrompt">
+  {{getQuestion()}}
   </div>
   <form id="PlayerAnswer">
     <textarea id="AnswerText" ng-model="data.solution" placeholder="Your Code Here"></textarea>
