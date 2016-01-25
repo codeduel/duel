@@ -1,7 +1,7 @@
 angular.module('duel.challengeCtrl', ['duel.challengeFact'])
 
 .controller('ChallengeCtrl', ['$scope', '$state', '$stateParams', 'ChallengeFact', function($scope, $state, $stateParams, ChallengeFact) {
-
+  $scope.currentUser = $stateParams.userid;
   $scope.gameid = $stateParams.gameid;
   $scope.data = {}
 

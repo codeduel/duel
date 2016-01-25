@@ -39,7 +39,8 @@ angular.module('duel', [
     .state('challenge', {
       url: '/challenge',
       params: {
-        gameid: null
+        gameid: null,
+        userid: 'Anonymous'
       },
       views: {
         'duelContent@': {
