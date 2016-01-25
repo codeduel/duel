@@ -6,6 +6,7 @@ angular.module('duel.lobbyCtrl', ['duel.lobbyFact'])
   $scope.currentView = false;
   $scope.data = {};
 
+
   $scope.join = function() {
     $state.go('challenge', {
       gameid: $scope.data.gameid,
