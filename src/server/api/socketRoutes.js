@@ -23,9 +23,16 @@ var listeners = function() {
   io.on('connection', function(socket) {
     socket.on('register', function(data) {});
 
+    /*
+     *  Challenge events
+     */
     socket.on('challenge/ready', function(data) {
       gameController.playerJoin(data, socket);
     });
+
+    socket.on('challenge/submit', function(data) {
+      gameController.submitSolution(data, socket);
+    })
 
     socket.on('disconnect', function() {});
   });
