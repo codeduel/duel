@@ -1,4 +1,19 @@
 Game ID: {{gameid}}
 
-<input type="text" ng-model="data.solution" />
-<button type="button" ng-click="submitSolution()">Submit Solution</button>
+<div id="ChallengeContainer">
+  <div id="ChallengeHeader">
+    <h4 class="Head">Hello {{currentUser}}</h5>
+    <h4 class="Head">Game ID: {{gameid}}</h5>
+  </div>
+  <h5>Problem:</h5>
+  <div id="ChallengePrompt">
+  </div>
+  <form id="PlayerAnswer">
+    <textarea id="AnswerText" ng-model="data.solution" placeholder="Your Code Here"></textarea>
+    <button type="button" ng-click="submitSolution()">Submit Solution</button>
+  </form>
+  <h5>Your Answer Must Pass The Following Tests:</h5>
+  <div id="ChallengeTests">
+  </div>
+</div>
+
