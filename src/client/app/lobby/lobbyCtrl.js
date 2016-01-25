@@ -8,7 +8,8 @@ angular.module('duel.lobbyCtrl', ['duel.lobbyFact'])
 
   $scope.join = function() {
     $state.go('challenge', {
-      gameid: $scope.data.gameid
+      gameid: $scope.data.gameid,
+      userid: $scope.currentUser
     });
   }
 
