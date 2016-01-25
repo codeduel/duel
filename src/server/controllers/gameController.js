@@ -48,7 +48,11 @@ var resolveSolutionAttempt = function() {
             sendTo(solutionAttempt.socketid, 'challenge/invalidSolution', data);
           }
           //remove the solution
+          console.log(solutionAttempt.dmid + ' has been processed.');
           solutionsQueue.dequeue();
+        } else {
+          //solution is still processing
+          console.log(solutionAttempt.dmid + ' is still processing.');
         }
       }, function(err) {
         throw err;
