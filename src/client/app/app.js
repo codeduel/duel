@@ -2,7 +2,8 @@ angular.module('duel', [
   'ui.router',
   'duel.loginCtrl',
   'duel.lobbyCtrl',
-  'duel.challengeCtrl'
+  'duel.challengeCtrl',
+  'duel.authCtrl'
 ])
 
 .run(function() {
@@ -19,6 +20,16 @@ angular.module('duel', [
         'duelContent@': {
           templateUrl: 'app/login/login.html',
           controller: 'LoginCtrl'
+        }
+      }
+    })
+
+    .state('auth', {
+      url: '/:userID',  // Server routes back here after authenticating with GitHub
+      views: {
+        'duelContent@': {
+          templateUrl: 'app/login/login.html',
+          controller: 'AuthCtrl'
         }
       }
     })
