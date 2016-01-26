@@ -84,6 +84,7 @@ exports.createGame = function(req, res) {
         rank: data.rank
       }
 
+      console.log('\n\n\n',games[gameid]);
       //Sends a response to the client with the gameid
       res.send({
         gameid: gameid
