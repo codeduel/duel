@@ -22,7 +22,9 @@
     "morgan": "^1.6.1",
     "querystring": "^0.2.0",
     "request-promise": "^2.0.0",
-    "socket.io": "^1.4.4"
+    "socket.io": "^1.4.4",
+    "passport": "^0.3.2",
+    "passport-github2": "^0.1.9"
   },
   "engines": {}
 }

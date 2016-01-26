@@ -1,5 +1,6 @@
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
+var authRouter = require('../api/authRoutes.js');
 
 module.exports = function(app, express) {
   var apiRouter = express.Router();
@@ -15,6 +16,7 @@ module.exports = function(app, express) {
     limit: '50mb'
   }));
 
+  app.use('/auth',authRouter);
   app.use('/api', apiRouter); //localhost:3000/api/
   require('../api/httpRoutes.js')(apiRouter);
 
