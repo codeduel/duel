@@ -3,10 +3,14 @@ angular.module('duel.challengeFact', ['duel.socketFact'])
 .factory('ChallengeFact', ['SocketFact', '$rootScope', function(SocketFact, $rootScope) {
   var challengeFact = {};
   challengeFact.client = {
-    question: "question loading..."
+    question: "question loading...",
+    winner: false
   };
   challengeFact.getQuestion = function(){
     return challengeFact.client.question;
+  }
+  challengeFact.endGame = function(){
+    return challengeFact.client.winner;
   }
   //****************
   //Socket Listeners
@@ -14,8 +18,8 @@ angular.module('duel.challengeFact', ['duel.socketFact'])
 
   SocketFact.socket.on('challenge/gameStart', function(data) {
     console.log("Game has begun", data);
-    //console.log(data.question)
     challengeFact.client.question = data.question;
+    //should refactor to not use rootScope?
     $rootScope.$apply();
   });
 
@@ -26,6 +30,9 @@ angular.module('duel.challengeFact', ['duel.socketFact'])
 
   SocketFact.socket.on('challenge/winner', function(data) {
     console.log(data.winner + ' won the challenge!');
+    challengeFact.client.winner = data.winner;
+    //should refactor to not use rootScope?
+    $rootScope.$apply();
   })
 
 
