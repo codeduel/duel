@@ -22,9 +22,10 @@ var gameSchema = new Schema({
 //createSchema
 var Game = mongoose.model('Game', gameSchema);
 
-//hash that is used in addition to database checking to account for async bursts
+//hash for checking gameId during async save bursts
 var currentGameIdHash = {};
 
+//create the game id from a random number
 var buildGameId = function(digits){
   //max at 16 digits
   if(digits > 16){
@@ -35,6 +36,7 @@ var buildGameId = function(digits){
   //makes collisions less likely via random and time
   var randStamp = zeros + Math.floor(Math.random() * randMultiple);
   randStamp = randStamp.slice(randStamp.length - digits);
+  //add a hyphen half way though
   if(digits > 1){
     var half = Math.floor(randStamp.length / 2);
     randStamp = randStamp.slice(0,half) + '-' + randStamp.slice(half);
@@ -45,7 +47,7 @@ var buildGameId = function(digits){
 //pre hook inserts properly formatted gameId
 gameSchema.pre('save', function(next){
   //default digits
-  var digits = 1;
+  var digits = 7;
   var thisGame = this;
   if(this.gameId){
     console.log('gameId already set');
@@ -54,6 +56,7 @@ gameSchema.pre('save', function(next){
   }
   //recurse until unique id is found
   var checkAndSetGameId = function(dbTryCount){
+    dbTryCount = dbTryCount || 1;
     var hashTryCount = 0;
     var newGameId = buildGameId(digits);
 
@@ -62,7 +65,7 @@ gameSchema.pre('save', function(next){
       hashTryCount ++;
       newGameId = buildGameId(digits);
       //if we try 10 ids and they dont work, add a digit to make id longer
-      if(hashTryCount % 10 === 0){
+      if(hashTryCount % 2 === 0){
         digits ++;
       }
     }
@@ -78,9 +81,8 @@ gameSchema.pre('save', function(next){
         thisGame.gameId = newGameId;
         next();
       } else {
-        console.log('collision found in database');
-        //increase digits to help prevent collisions in case our database is getting full
-        if(dbTryCount % 5 === 0){
+        //increase digits to help prevent collisions in case the database is getting full
+        if(dbTryCount % 2 === 0){
           digits ++;
         }
         //remove gameId from hash since we aren't using it
@@ -96,24 +98,17 @@ gameSchema.pre('save', function(next){
 
 //remove gameId from hash to reduce memory consumption after save has completed
 gameSchema.post('save', function(doc){
+  //console.log('\n\n\n',currentGameIdHash);
   delete currentGameIdHash[doc.gameId];
 });
 
 
-
-
-
-
-
-
-
-var testing = function(){
-  for(var i = 0; i < 10; i++){
-    var test = new Game();
-    test.save();
-  }
-};
-testing();
-setTimeout(testing, 2000);
+// var testing = function(){
+//   for(var i = 0; i < 10000; i++){
+//     var test = new Game();
+//     test.save();
+//   }
+// };
+// testing();
 
 module.exports.Game = Game;
