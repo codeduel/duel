@@ -7,8 +7,8 @@ var querystring = require('querystring');
 var config = {
   //Routes object holding functions that will generate a URI based on the parameters given
   routes: {
-    generateQuestion: function(language) {
-      return 'https://www.codewars.com/api/v1/code-challenges/' + language + '/train';
+    generateQuestion: function(challenge, language) {
+      return 'https://www.codewars.com/api/v1/code-challenges/' + challenge + '/' + language + '/train';
     },
     submitSolution: function(solutionID, projectID) {
       return 'https://www.codewars.com/api/v1/code-challenges/projects/' + projectID + '/solutions/' + solutionID + '/attempt';
@@ -25,10 +25,41 @@ var config = {
 
   //Dictionary object that maps front-end descriptions to API-specific strings as key-value pairs (respectively)
   difficultyMappings: {
-    easy: 'kyu_7_workout',
-    medium: 'kyu_6_workout',
-    hard: 'kyu_5_workout'
+    easy: [
+      'count-by-x',
+      'stringy-strings',
+      'convert-number-to-reversed-array-of-digits',
+      'beginner-series-number-3-sum-of-numbers',
+      'exes-and-ohs',
+      'credit-card-mask',
+      'the-coupon-code'
+    ],
+    medium: [
+      'jaden-casing-strings',
+      'list-to-array',
+      'remove-the-minimum',
+      'unique-in-order',
+      'longest-palindrome',
+      'sum-of-pairs',
+      'moving-zeros-to-the-end'
+    ],
+    hard: [
+      'snail',
+      'sum-strings-as-numbers',
+      'next-bigger-number-with-the-same-digits',
+      'valid-braces',
+      'pascals-triangle'
+    ],
+    demo: [
+      'multiply'
+    ]
   }
+}
+
+
+//Returns a random pre-defined question 'slug' of the specified difficulty
+var getRandomChallenge = function(difficulty) {
+  return config.difficultyMappings[difficulty][Math.floor(config.difficultyMappings[difficulty].length * Math.random())]
 }
 
 /*
@@ -47,11 +78,11 @@ var query = function(method, uri, data) {
  *  Queries the Code Wars API for a question
  */
 exports.generateQuestion = function(difficulty) {
-  var data = {
-    strategy: config.difficultyMappings[difficulty], //difficulty of the question
-    peek: false //peek at the question queue, without removing it from the queue
+  if (difficulty in config.difficultyMappings) {
+    var challenge = getRandomChallenge(difficulty);
+    console.log(challenge);
+    return query('POST', config.routes.generateQuestion(challenge, 'javascript'), {});
   }
-  return query('POST', config.routes.generateQuestion('javascript'), data);
 }
 
 /*
@@ -69,5 +100,5 @@ exports.submitSolution = function(solutionID, projectID, code) {
  *  Queries the Code Wars API for the results of the specified dmid
  */
 exports.getSolutionResults = function(dmid) {
-  return query('GET', config.routes.getSolutionResults(dmid));
+  return query('GET', config.routes.getSolutionResults(dmid), {});
 }
