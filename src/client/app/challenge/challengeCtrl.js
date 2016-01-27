@@ -6,6 +6,13 @@ angular.module('duel.challengeCtrl', ['duel.challengeFact'])
   $scope.data = {}
   $scope.question = ChallengeFact.client.question;
   $scope.getQuestion = ChallengeFact.getQuestion;
+  $scope.winner = ChallengeFact.endGame();
+  if(!$scope.winner === false){
+    alert($scope.winner() + ' won the challenge!')
+    $state.go('lobby', {
+      userid: $scope.userid
+    });
+  }
   //Calls ChallengeFact's connectToGame() once the user enters the 'challenge' state
   ChallengeFact.connectToGame({
     userid: window.localStorage.getItem('duel.userid'),
