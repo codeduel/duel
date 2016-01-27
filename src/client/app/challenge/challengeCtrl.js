@@ -1,8 +1,8 @@
 angular.module('duel.challengeCtrl', ['duel.challengeFact'])
 
 .controller('ChallengeCtrl', ['$scope', '$state', '$stateParams', 'ChallengeFact', function($scope, $state, $stateParams, ChallengeFact) {
-  $scope.currentUser = $stateParams.userid;
-  $scope.gameid = $stateParams.gameid;
+  $scope.currentUser = $stateParams.userId;
+  $scope.gameId = $stateParams.gameId;
   $scope.data = {}
 
   $scope.getMessage = ChallengeFact.getMessage;
@@ -14,19 +14,19 @@ angular.module('duel.challengeCtrl', ['duel.challengeFact'])
     console.log("if statement working");
     // alert($scope.winner + ' won the challenge!')
     // $state.go('lobby', {
-    //   userid: $scope.userid
+    //   userId: $scope.userId
     // });
   }
   //Calls ChallengeFact's connectToGame() once the user enters the 'challenge' state
   ChallengeFact.connectToGame({
-    userid: window.localStorage.getItem('duel.userid'),
-    gameid: $scope.gameid
+    userId: window.localStorage.getItem('duel.userId'),
+    gameId: $scope.gameId
   });
 
   $scope.submitSolution = function() {
     ChallengeFact.submitSolution({
-      userid: window.localStorage.getItem('duel.userid'),
-      gameid: $scope.gameid,
+      userId: window.localStorage.getItem('duel.userId'),
+      gameId: $scope.gameId,
       solution: $scope.data.solution
     })
   }

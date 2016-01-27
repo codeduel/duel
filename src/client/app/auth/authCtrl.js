@@ -3,12 +3,12 @@ angular.module('duel.authCtrl', ['ui.router'])
 
 .controller('AuthCtrl', ['$scope', '$stateParams', '$state', 'User',  function ($scope, $stateParams, $state, User){
 
-  var userid = $stateParams.userid;
+  var userId = $stateParams.userId;
  
-  User.login(userid)
+  User.login(userId)
       .then(function() {
       $state.go('lobby', {
-      userid: $scope.userid
+      userId: $scope.userId
       });
     });
 }]);

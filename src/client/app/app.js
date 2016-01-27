@@ -37,7 +37,7 @@ angular.module('duel', [
     .state('lobby', {
       url: '/lobby',
       params: {
-        userid: 'Anonymous'
+        userId: 'Anonymous'
       },
       views: {
         'duelContent@': {
@@ -50,8 +50,8 @@ angular.module('duel', [
     .state('challenge', {
       url: '/challenge',
       params: {
-        gameid: null,
-        userid: 'Anonymous'
+        gameId: null,
+        userId: 'Anonymous'
       },
       views: {
         'duelContent@': {

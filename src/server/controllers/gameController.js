@@ -6,7 +6,7 @@ var sendTo = require('../api/socketRoutes.js').sendTo;
 var fastQueue = require('../models/fastQueue.js');
 //Imports the game model
 var Game = require('../models/gameModel.js').Game;
-var gameHelpers = require('../models/gameModelHelpers.js').Game;
+var gameHelpers = require('../models/gameModelHelpers.js');
 
 /*
  *  Custom queue data structure that will hold all dmid's generated from submitSolutions function
@@ -111,10 +111,12 @@ exports.playerJoin = function(msg, socket) {
     }
     if (foundGame) {
       foundGame.players.push(msg.data.userId);
+      foundGame.save();
       //make game active if there are 2 or more players
       if (foundGame.players.length === 2) {
         foundGame.active = true;
-        sendTo(msg.data.gameId, 'challenge/gameStart', gameHelpers.buildClientGameObj(foundGame));
+        foundGame.save();
+        sendTo(msg.data.gameId, 'challenge/gameStart', gameHelpers.buildGameObj(foundGame));
       }
     } else {
       //If foundGame is null... TODO: implement better error handling
@@ -140,7 +142,7 @@ exports.submitSolution = function(msg, socket) {
             solutionsQueue.enqueue({
               dmid: data.dmid,
               gameId: msg.data.gameId,
-              submittedBy: msg.data.userid,
+              submittedBy: msg.data.userId,
               socketid: socket.id
             });
           } else {
