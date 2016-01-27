@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 //defines new game schema
 var gameSchema = new Schema({
-  gameId: String,
+  gameId: {type: String, unique: true},
   players: [String], //TODO: refactor to ObjectId when player schema is created
   active: Boolean,
   spectators: [String], //TODO: implement spectators via ObjectId
@@ -18,30 +18,102 @@ var gameSchema = new Schema({
   timestamps: true
 });
 
+
 //createSchema
 var Game = mongoose.model('Game', gameSchema);
 
-
-//pre hook inserts properly formatted gameId
-gameSchema.pre('init', function(next){
-  var checkAndSetGameId = function(){
-
-  };
-});
-
-
+//hash that is used in addition to database checking to account for async bursts
+var currentGameIdHash = {};
 
 var buildGameId = function(digits){
+  //max at 16 digits
   if(digits > 16){
     digits = 16;
   }
   var randMultiple = Math.pow(10, digits);
   var zeros = (randMultiple + '').slice(1);
   //makes collisions less likely via random and time
-  var startStamp = zeros + Math.floor(Math.random() * randMultiple);
-  startStamp = startStamp.slice(startStamp.length - digits);
-  //returns current second in ms
-  var endStamp = Date.now() + '';
-  endStamp = endStamp.slice(endStamp.length - 4);
-  return startStamp + '-' + endStamp;
+  var randStamp = zeros + Math.floor(Math.random() * randMultiple);
+  randStamp = randStamp.slice(randStamp.length - digits);
+  if(digits > 1){
+    var half = Math.floor(randStamp.length / 2);
+    randStamp = randStamp.slice(0,half) + '-' + randStamp.slice(half);
+  }
+  return randStamp;
 };
+
+//pre hook inserts properly formatted gameId
+gameSchema.pre('save', function(next){
+  //default digits
+  var digits = 1;
+  var thisGame = this;
+  if(this.gameId){
+    console.log('gameId already set');
+    next();
+    return;
+  }
+  //recurse until unique id is found
+  var checkAndSetGameId = function(dbTryCount){
+    var hashTryCount = 0;
+    var newGameId = buildGameId(digits);
+
+    //if the game id is in use by another async, try again
+    while(newGameId in currentGameIdHash){
+      hashTryCount ++;
+      newGameId = buildGameId(digits);
+      //if we try 10 ids and they dont work, add a digit to make id longer
+      if(hashTryCount % 10 === 0){
+        digits ++;
+      }
+    }
+    //save game id on hash
+    currentGameIdHash[newGameId] = true;
+    //check database for gameId and recurse if found
+    Game.findOne({ gameId: newGameId }, function(error, data){
+      if(error){
+        console.log('error setting game id:', error);
+      }
+      //if there are no games with newGameId then we can set it on newGame!
+      if(data === null){
+        thisGame.gameId = newGameId;
+        next();
+      } else {
+        console.log('collision found in database');
+        //increase digits to help prevent collisions in case our database is getting full
+        if(dbTryCount % 5 === 0){
+          digits ++;
+        }
+        //remove gameId from hash since we aren't using it
+        delete currentGameIdHash[newGameId];
+        //try again and increase the try count
+        checkAndSetGameId(dbTryCount + 1);
+      }
+    });
+  };
+  //run recursive function
+  checkAndSetGameId();
+});
+
+//remove gameId from hash to reduce memory consumption after save has completed
+gameSchema.post('save', function(doc){
+  delete currentGameIdHash[doc.gameId];
+});
+
+
+
+
+
+
+
+
+
+var testing = function(){
+  for(var i = 0; i < 10; i++){
+    var test = new Game();
+    test.save();
+  }
+};
+testing();
+setTimeout(testing, 2000);
+
+module.exports.Game = Game;
