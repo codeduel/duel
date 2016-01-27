@@ -4,6 +4,8 @@ var codewarsController = require('./codewarsController.js');
 var sendTo = require('../api/socketRoutes.js').sendTo;
 //Imports the constructor for a SolutionsQueue data structure
 var fastQueue = require('../models/fastQueue.js');
+//Imports the game model
+var Game = require('../models/gameModel.js').Game;
 
 /*
  *  Object that holds all game sessions in memory
@@ -84,6 +86,7 @@ exports.createGame = function(req, res) {
         rank: data.rank
       }
 
+      console.log('\n\n\n',games[gameid]);
       //Sends a response to the client with the gameid
       res.send({
         gameid: gameid

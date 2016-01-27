@@ -8,16 +8,26 @@ var dbURL = 'mongodb://localhost/duel';
 
 require('./config/passportAuth.js')(app); //must list before middleware
 
-// mongoose.connect(dbURL, function(err, res) {
-//   if(err) {
-//     console.log('Error connecting to: ' + dbURL + '.' + err);
-//   } else {
-//     console.log('Succeeded connecting to: ' + dbURL);
-//   }
-// });
+//mongoose connection setup for heroku deployment
+if (process.env.NODE_ENV !== 'production') {
+  mongoose.connect('mongodb://localhost/duel', function(err, res) {
+    if(err) {
+      console.log('Can not connect to database!');
+    } else {
+      console.log('Connected to database.');
+    }
+  });
+} else {
+  mongoose.connect(process.env.MONGOLAB_URI, function(err, res) {
+    if(err) {
+      console.log('Can not connect to database!');
+    } else {
+      console.log('Connected to database.');
+    }
+  });
+}
 
 require('./config/middleware.js')(app, express);
-
 
 var server = app.listen(port, function() {
   console.log('Server listening on port ' + port);
@@ -29,7 +39,4 @@ console.log('Socket.io server successfully mounted.');
 
 require('./api/socketRoutes.js').init(io);
 
-module.exports = {
-  app: app,
-  mongoose: mongoose
-}
+module.exports.app = app;
