@@ -35,7 +35,6 @@ var resolveSolutionAttempt = function() {
   if (solutionAttempt) {
     codewarsController.getSolutionResults(solutionAttempt.dmid)
       .then(function(data) {
-        data = JSON.parse(data);
         //If the solution is done processing
         if (data.valid === true || data.valid === false) {
           if (data.valid) {
