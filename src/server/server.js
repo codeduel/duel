@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 
 var app = express();
 
-var port = 3000; //TODO: change for deploy
+var port = process.env.PORT || 3000;
 var dbURL = 'mongodb://localhost/duel';
 
 require('./config/passportAuth.js')(app); //must list before middleware
