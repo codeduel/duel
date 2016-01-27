@@ -18,7 +18,6 @@ var gameSchema = new Schema({
   timestamps: true
 });
 
-
 //createSchema
 var Game = mongoose.model('Game', gameSchema);
 
@@ -98,10 +97,8 @@ gameSchema.pre('save', function(next){
 
 //remove gameId from hash to reduce memory consumption after save has completed
 gameSchema.post('save', function(doc){
-  //console.log('\n\n\n',currentGameIdHash);
   delete currentGameIdHash[doc.gameId];
 });
-
 
 // var testing = function(){
 //   for(var i = 0; i < 10000; i++){
