@@ -9,19 +9,20 @@
 #ChallengePrompt{
   border: 1px solid black;
   height: 150px;
-  width: 500px;
+  width: 600px;
+  overflow: scroll;
 }
 #PlayerAnswer{
   margin: 40px 0px 40px 0px;
-  height: 150px;
-  width: 500px;
+  height: 200px;
+  width: 600px;
 }
 #AnswerText{
   height: 150px;
-  width: 500px;
+  width: 600px;
 }
-#ChallengeTests{
+/*#ChallengeTests{
   border: 1px solid black;
   height: 150px;
   width: 500px;	
-}
+}*/

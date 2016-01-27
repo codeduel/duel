@@ -3,15 +3,15 @@
     <h4 class="Head">Hello {{currentUser}}</h5>
     <h4 class="Head">Game ID: {{gameid}}</h5>
   </div>
-  <h5>Problem:</h5>
+  <h3 id = "message">{{getMessage()}}</h3>
   <div id="ChallengePrompt">
   {{getQuestion()}}
   </div>
   <form id="PlayerAnswer">
-    <textarea id="AnswerText" ng-model="data.solution" placeholder="Your Code Here"></textarea>
+    <textarea id="AnswerText" ng-model="data.solution" placeholder={{getInitial()}}></textarea>
     <button type="button" ng-click="submitSolution()">Submit Solution</button>
   </form>
-  <h5>Your Answer Must Pass The Following Tests:</h5>
+  <!-- <h5>Your Answer Must Pass The Following Tests:</h5> -->
   <div id="ChallengeTests">
   </div>
 </div>
