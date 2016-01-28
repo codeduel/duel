@@ -6,7 +6,8 @@ var sendTo = require('../api/socketRoutes.js').sendTo;
 var fastQueue = require('../models/fastQueue.js');
 //Imports the game model
 var Game = require('../models/gameModel.js').Game;
-var gameHelpers = require('../models/gameModelHelpers.js');
+//Imports model helper functions
+var modelHelpers = require('../models/modelHelpers.js');
 
 /*
  *  Custom queue data structure that will hold all dmid's generated from submitSolutions function
@@ -79,7 +80,6 @@ exports.createGame = function(req, res) {
           //If error on save... TODO: implement better error handling
           throw error;
         }
-        console.log(createdGame);
         res.send({
           gameId: createdGame.gameId
         });
@@ -116,7 +116,7 @@ exports.playerJoin = function(msg, socket) {
       if (foundGame.players.length === 2) {
         foundGame.active = true;
         foundGame.save();
-        sendTo(msg.data.gameId, 'challenge/gameStart', gameHelpers.buildGameObj(foundGame));
+        sendTo(msg.data.gameId, 'challenge/gameStart', modelHelpers.buildGameObj(foundGame));
       }
     } else {
       //If foundGame is null... TODO: implement better error handling

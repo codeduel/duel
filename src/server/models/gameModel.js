@@ -15,7 +15,7 @@ var gameSchema = new Schema({
 },
 {
   //mongoose option that adds createdAt and updatedAt fields
-  timestamps: true
+  timestamps: true,
 });
 
 //createSchema
@@ -43,13 +43,13 @@ var buildGameId = function(digits){
   return randStamp;
 };
 
-//pre hook inserts properly formatted gameId
+//pre hook inserts properly formatted gameId TODO: test possible refactor to init rather than save
 gameSchema.pre('save', function(next){
   //default digits
   var digits = 7;
   var thisGame = this;
+  //if we already have a gameId then run the next middleware and exit
   if(this.gameId){
-    console.log('gameId already set');
     next();
     return;
   }
