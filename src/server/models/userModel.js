@@ -29,9 +29,5 @@ var userSchema = new Schema({
 //create Schema
 var User = mongoose.model('User', userSchema);
 
-for(var i = 0; i < 10; i++){
-  new User().save();
-}
-
 //export Schema
 module.exports.User = User;
