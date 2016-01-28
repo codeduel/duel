@@ -1,6 +1,6 @@
 angular.module('duel.challengeFact', ['duel.socketFact'])
 
-.factory('ChallengeFact', ['SocketFact', '$rootScope', function(SocketFact, $rootScope) {
+.factory('ChallengeFact', ['SocketFact', '$rootScope', '$timeout', '$state', function(SocketFact, $rootScope, $timeout, $state) {
   var challengeFact = {};
   challengeFact.client = {
     question: "question will be displayed when challenge commences",
@@ -8,25 +8,14 @@ angular.module('duel.challengeFact', ['duel.socketFact'])
     initial: "Your Code Here",
     winner: null
   };
-  challengeFact.getQuestion = function(){
-    return challengeFact.client.question;
-  }
-  challengeFact.getMessage = function(){
-    return challengeFact.client.message;
-  }
-   challengeFact.getInitial = function(){
-    return challengeFact.client.initial;
-  }
-  challengeFact.getWinner = function(){
-    console.log("getting winner: " + challengeFact.client.winner)
-    return challengeFact.client.winner;
-  }
+
   //****************
   //Socket Listeners
   //****************
 
   SocketFact.socket.on('challenge/gameStart', function(data) {
     console.log("Game has begun", data);
+    //updates message, question, and initial code once game starts
     challengeFact.client.message = "The challenge has begun";
     challengeFact.client.question = data.question;
     challengeFact.client.initial = data.initialCode;
@@ -41,12 +30,19 @@ angular.module('duel.challengeFact', ['duel.socketFact'])
   })
 
   SocketFact.socket.on('challenge/winner', function(data) {
-    console.log(data.winner + ' won the challenge!');
+    //console.log(data.winner + ' won the challenge!');
     challengeFact.client.winner = data.winner;
     challengeFact.client.message = data.winner + ' won the challenge!  Taking you back to the lobby...';
     //should refactor to not use rootScope?
-    challengeFact.getWinner();
     $rootScope.$apply();
+
+    //reroutes to Lobby 3 seconds after a someone wins
+    $timeout(function(){
+      $state.go('lobby', {
+        //must be refactored with sessions
+        //userid: $scope.userid
+      });
+    }, 3000)
   })
 
 
@@ -65,5 +61,4 @@ angular.module('duel.challengeFact', ['duel.socketFact'])
   }
 
   return challengeFact;
-
 }]);
