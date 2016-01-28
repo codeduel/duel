@@ -6,12 +6,7 @@ var sendTo = require('../api/socketRoutes.js').sendTo;
 var fastQueue = require('../models/fastQueue.js');
 //Imports the game model
 var Game = require('../models/gameModel.js').Game;
-
-/*
- *  Object that holds all game sessions in memory
- *  TODO: refactor to pull from DB
- */
-var games = {};
+var gameHelpers = require('../models/gameModelHelpers.js');
 
 /*
  *  Custom queue data structure that will hold all dmid's generated from submitSolutions function
@@ -41,9 +36,9 @@ var resolveSolutionAttempt = function() {
         if (data.valid === true || data.valid === false) {
           if (data.valid) {
             //emit 'challenge/winner' event to everyone in the game
-            sendTo(solutionAttempt.gameid, 'challenge/winner', {
+            sendTo(solutionAttempt.gameId, 'challenge/winner', {
               winner: solutionAttempt.submittedBy
-            })
+            });
           } else {
             //emit 'challenge/invalidSolution' event to origin of the solution
             sendTo(solutionAttempt.socketid, 'challenge/invalidSolution', data);
@@ -55,11 +50,11 @@ var resolveSolutionAttempt = function() {
           //solution is still processing
           console.log(solutionAttempt.dmid + ' is still processing.');
         }
-      }, function(err) {
-        throw err;
-      })
+      }, function(error) {
+        throw error;
+      });
   }
-}
+};
 setInterval(resolveSolutionAttempt, apiPollInterval);
 
 //****************
@@ -67,34 +62,34 @@ setInterval(resolveSolutionAttempt, apiPollInterval);
 //****************
 
 /*
- *  Generates a game object inside games with default properties
+ *  Generates a Game in database
  */
 exports.createGame = function(req, res) {
-  var gameid = Math.floor(Math.random() * 100000);
-
-  var questionDetails = codewarsController.generateQuestion(req.body.difficulty)
+  codewarsController.generateQuestion(req.body.difficulty)
     .then(function(data) {
-      games[gameid] = {
-        players: [],
+      new Game({
         active: false,
-        spectators: [], //TODO: implement spectators
-        createdAt: Date.now(),
         question: data.description,
         initialCode: data.session.setup,
-        pID: data.session.projectId,
-        sID: data.session.solutionId,
+        projectId: data.session.projectId,
+        solutionId: data.session.solutionId,
         rank: data.rank
-      }
-
-      console.log('\n\n\n',games[gameid]);
-      //Sends a response to the client with the gameid
-      res.send({
-        gameid: gameid
+      }).save(function(error, createdGame) {
+        if (error) {
+          //If error on save... TODO: implement better error handling
+          throw error;
+        }
+        console.log(createdGame);
+        res.send({
+          gameId: createdGame.gameId
+        });
       });
-    }, function(err) {
-      throw err;
-    })
-}
+
+    }, function(error) {
+      //If error generating question... TODO: implement better error handling
+      throw error;
+    });
+};
 
 //********************
 //SOngCKET CONTROLLERS
@@ -104,35 +99,63 @@ exports.createGame = function(req, res) {
  *  Adds the specified user to the specified game, and sends a "challenge/start" event to all clients connected to the game
  */
 exports.playerJoin = function(msg, socket) {
-  //Connects the player to the gameid's socket room
-  socket.join(msg.data.gameid); //TODO: implement separate socket rooms for chat,etc
+  //Connects the player to the gameId's socket room
+  socket.join(msg.data.gameId); //TODO: implement separate socket rooms for chat,etc
 
-  var game = games[msg.data.gameid];
-  game.players.push(msg.data.userid);
-
-  if (game.players.length === 2) {
-    game.active = true;
-    sendTo(msg.data.gameid, 'challenge/gameStart', game);
-  }
-}
-
+  Game.findOne({
+    gameId: msg.data.gameId
+  }, function(error, foundGame) {
+    if (error) {
+      //If error on findOne... TODO: implement better error handling
+      throw error;
+    }
+    if (foundGame) {
+      foundGame.players.push(msg.data.userId);
+      foundGame.save();
+      //make game active if there are 2 or more players
+      if (foundGame.players.length === 2) {
+        foundGame.active = true;
+        foundGame.save();
+        sendTo(msg.data.gameId, 'challenge/gameStart', gameHelpers.buildGameObj(foundGame));
+      }
+    } else {
+      //If foundGame is null... TODO: implement better error handling
+      throw 'Game not found during playerJoin in gameController.js!';
+    }
+  });
+};
 /*
  *  Adds the specified user to the specified game, and sends a "challenge/start" event to all clients connected to the game
  */
 exports.submitSolution = function(msg, socket) {
-  var game = games[msg.data.gameid];
-
-  codewarsController.submitSolution(game.sID, game.pID, msg.data.solution)
-    .then(function(data) {
-      if (data.success) {
-        solutionsQueue.enqueue({
-          dmid: data.dmid,
-          gameid: msg.data.gameid,
-          submittedBy: msg.data.userid,
-          socketid: socket.id
+  Game.findOne({
+    gameId: msg.data.gameId
+  }, function(error, foundGame) {
+    if (error) {
+      //If error on findOne... TODO: implement better error handling
+      throw error;
+    }
+    if (foundGame) {
+      codewarsController.submitSolution(foundGame.solutionId, foundGame.projectId, msg.data.solution)
+        .then(function(data) {
+          if (data.success) {
+            solutionsQueue.enqueue({
+              dmid: data.dmid,
+              gameId: msg.data.gameId,
+              submittedBy: msg.data.userId,
+              socketid: socket.id
+            });
+          } else {
+            //If error submitting solution to codewars... TODO: implement better error handling
+            throw err;
+          }
+        }, function(err) {
+          //If error submitting solution... TODO: implement better error handling
+          throw err;
         });
-      }
-    }, function(err) {
-      throw err;
-    });
-}
+    } else {
+      //If foundGame is null... TODO: implement better error handling
+      throw 'Game not found during submitSolution in gameController.js!';
+    }
+  });
+};
