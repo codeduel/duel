@@ -8,23 +8,22 @@ var fastQueue = require('../models/fastQueue.js');
 var Game = require('../models/gameModel.js').Game;
 //Imports model helper functions
 var modelHelpers = require('../models/modelHelpers.js');
-​
+
 /*
  *  Custom queue data structure that will hold all dmid's generated from submitSolutions function
  */
 var solutionsQueue = new fastQueue();
-​
+
 /*
  *  Interval between dmid queries to the Code Wars API
  *  ***DO NOT SET LOWER THAN 500***
  */
 var apiPollInterval = 750;
-var attempts = 0;
-​
+
 //***************
 //INNER FUNCTIONS
 //***************
-​
+
 /*
  *  Resolves a solution attempt by dequeueing it and querying its dmid against the Code Wars API
  */
@@ -32,13 +31,6 @@ var resolveSolutionAttempt = function() {
   //peek first, in case the queued solution is not done processing on the Code Wars server
   var solutionAttempt = solutionsQueue.peek();
   if (solutionAttempt) {
-    attempts++;
-    if(attempts >= 5) {
-      console.log('Solution took too long to process. Terminating')
-      solutionsQueue.dequeue();
-      attempts = 0;
-      return;
-    }
     codewarsController.getSolutionResults(solutionAttempt.dmid)
       .then(function(data) {
         //If the solution is done processing
@@ -65,11 +57,11 @@ var resolveSolutionAttempt = function() {
   }
 };
 setInterval(resolveSolutionAttempt, apiPollInterval);
-​
+
 //****************
 //HTTP CONTROLLERS
 //****************
-​
+
 /*
  *  Generates a Game in database
  */
@@ -92,24 +84,24 @@ exports.createGame = function(req, res) {
           gameId: createdGame.gameId
         });
       });
-​
+
     }, function(error) {
       //If error generating question... TODO: implement better error handling
       throw error;
     });
 };
-​
+
 //********************
 //SOngCKET CONTROLLERS
 //********************
-​
+
 /*
  *  Adds the specified user to the specified game, and sends a "challenge/start" event to all clients connected to the game
  */
 exports.playerJoin = function(msg, socket) {
   //Connects the player to the gameId's socket room
   socket.join(msg.data.gameId); //TODO: implement separate socket rooms for chat,etc
-​
+
   Game.findOne({
     gameId: msg.data.gameId
   }, function(error, foundGame) {
