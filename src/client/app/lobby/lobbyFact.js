@@ -15,7 +15,7 @@ angular.module('duel.lobbyFact', [])
       }, function(err) {
         throw err;
       });
-  }
+  };
 
   return lobbyFact;
-}])
+}]);

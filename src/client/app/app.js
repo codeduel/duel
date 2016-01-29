@@ -5,7 +5,8 @@ angular.module('duel', [
   'duel.challengeCtrl',
   'duel.authCtrl',
   'duel.showErrorCtrl',
-  'duel.errorFact'
+  'duel.errorFact',
+  'duel.userFact'
 ])
 
 .run(function() {
@@ -42,9 +43,6 @@ angular.module('duel', [
 
     .state('lobby', {
       url: '/lobby',
-      params: {
-        userId: 'Anonymous'
-      },
       views: {
         'duelContent@': {
           templateUrl: 'app/lobby/lobby.html',
@@ -56,8 +54,7 @@ angular.module('duel', [
     .state('challenge', {
       url: '/game/:gameId',
       params: {
-        gameId: null,
-        userId: 'Anonymous'
+        gameId: null
       },
       views: {
         'duelContent@': {

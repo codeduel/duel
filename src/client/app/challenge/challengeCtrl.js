@@ -1,14 +1,14 @@
 angular.module('duel.challengeCtrl', ['duel.challengeFact'])
 
-.controller('ChallengeCtrl', ['$scope', '$state', '$stateParams', 'ChallengeFact', function($scope, $state, $stateParams, ChallengeFact) {
+.controller('ChallengeCtrl', ['$scope', '$state', '$stateParams', 'ChallengeFact', 'UserFact', function($scope, $state, $stateParams, ChallengeFact, UserFact) {
 
   angular.extend($scope, ChallengeFact);
-  
-  $scope.currentUser = $stateParams.userId;
+
   $scope.gameId = $stateParams.gameId;
+  $scope.currentUser = UserFact.getUser().userName;
   $scope.data = {};
   $scope.data.solution = $scope.client.initial;
-  
+
   //updates solution textarea when initial code is loaded
   $scope.$watch('client.initial', function(newVal, oldVal){
     $scope.data.solution = $scope.client.initial;
@@ -25,7 +25,7 @@ angular.module('duel.challengeCtrl', ['duel.challengeFact'])
       userId: window.localStorage.getItem('duel.userId'),
       gameId: $scope.gameId,
       solution: $scope.data.solution
-    })
-  }
+    });
+  };
 
 }]);
