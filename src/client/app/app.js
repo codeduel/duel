@@ -25,7 +25,7 @@ angular.module('duel', [
     })
 
     .state('auth', {
-      url: '/:userID',  // Server routes back here after authenticating with GitHub
+      url: '/auth/:userID',  // Server routes back here after authenticating with GitHub
       views: {
         'duelContent@': {
           templateUrl: 'app/login/login.html',

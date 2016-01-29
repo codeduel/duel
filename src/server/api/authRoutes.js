@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var GithubStrategy = require('passport-github2').Strategy;
+var userController = require('../controllers/userController.js');
 
 router.get('/github',
   passport.authenticate('github', {
@@ -17,7 +18,16 @@ router.get('/github/callback',
     failureRedirect: '/#/login'
   }),
   function(req, res) {
-    res.redirect('/#/lobby');
+    userController.userExists(req.user.username)
+      .then(function(user) {
+        console.log(req.user.displayName, ' logged in');
+        //if user exists, send to lobby
+        if (user) {
+          res.redirect('/#/lobby');          
+        }
+        //user doesnt exist, create one
+        else userController.createUser({body:req.user, fromGitHub:true}, res);
+      })
   });
 
 router.get('/logout', function(req, res){
