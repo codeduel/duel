@@ -32,7 +32,7 @@ var buildGameId = function(digits){
   }
   var randMultiple = Math.pow(10, digits);
   var zeros = (randMultiple + '').slice(1);
-  //makes collisions less likely via random and time
+  //create random id with specified digits
   var randStamp = zeros + Math.floor(Math.random() * randMultiple);
   randStamp = randStamp.slice(randStamp.length - digits);
   //add a hyphen half way though
@@ -99,13 +99,5 @@ gameSchema.pre('save', function(next){
 gameSchema.post('save', function(doc){
   delete currentGameIdHash[doc.gameId];
 });
-
-// var testing = function(){
-//   for(var i = 0; i < 10000; i++){
-//     var test = new Game();
-//     test.save();
-//   }
-// };
-// testing();
 
 module.exports.Game = Game;
