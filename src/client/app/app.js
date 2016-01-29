@@ -3,7 +3,8 @@ angular.module('duel', [
   'duel.loginCtrl',
   'duel.lobbyCtrl',
   'duel.challengeCtrl',
-  'duel.authCtrl'
+  'duel.authCtrl',
+  'duel.errorFact'
 ])
 
 .run(function() {

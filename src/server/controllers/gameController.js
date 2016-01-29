@@ -77,8 +77,8 @@ exports.createGame = function(req, res) {
         rank: data.rank
       }).save(function(error, createdGame) {
         if (error) {
-          //If error on save... TODO: implement better error handling
-          throw error;
+          console.log('error saving new game in gameController.js');
+          res.status(500).send(error);
         }
         res.send({
           gameId: createdGame.gameId
@@ -86,8 +86,8 @@ exports.createGame = function(req, res) {
       });
 
     }, function(error) {
-      //If error generating question... TODO: implement better error handling
-      throw error;
+      console.log('error generating question in gameController.js');
+      res.status(500).send(error);
     });
 };
 
