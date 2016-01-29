@@ -5,6 +5,7 @@
  */
 
 var gameController = require('../controllers/gameController.js');
+var userController = require('../controllers/userController.js')
 
 module.exports = function(apiRouter) {
 
@@ -16,5 +17,6 @@ module.exports = function(apiRouter) {
    */
 
    apiRouter.post('/game/create', gameController.createGame)
-
+   apiRouter.get( '/user/:githubName', userController.findOne);
+   apiRouter.post('/user/login',       userController.login);
 }
