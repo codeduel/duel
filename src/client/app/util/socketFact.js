@@ -10,7 +10,7 @@ angular.module('duel.socketFact', [])
     return {
       data: data
     };
-  }
+  };  
 
   return socketFact;
 }]);

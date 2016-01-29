@@ -3,12 +3,18 @@ angular.module('duel', [
   'duel.loginCtrl',
   'duel.lobbyCtrl',
   'duel.challengeCtrl',
-  'duel.authCtrl'
+  'duel.authCtrl',
+  'duel.showErrorCtrl',
+  'duel.errorFact'
 ])
 
 .run(function() {
 
 })
+//temporary controller until I can refactor ErrorFact as a provider
+.controller('appController',['ErrorFact', function(ErrorFact){
+
+}])
 
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/login');
@@ -57,6 +63,19 @@ angular.module('duel', [
         'duelContent@': {
           templateUrl: 'app/challenge/challenge.html',
           controller: 'ChallengeCtrl'
+        }
+      }
+    })
+
+    .state('showError', {
+      params: {
+        errorType: undefined,
+        errorData: undefined
+      },
+      views: {
+        'duelContent@': {
+          templateUrl: 'app/showError/showError.html',
+          controller: 'ShowErrorCtrl'
         }
       }
     });

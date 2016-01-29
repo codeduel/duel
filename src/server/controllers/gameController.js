@@ -2,6 +2,8 @@
 var codewarsController = require('./codewarsController.js');
 //Imports the sendTo function from socketRoutes
 var sendTo = require('../api/socketRoutes.js').sendTo;
+//Imports the socketError function from socketRoutes
+var socketError = require('../api/socketRoutes.js').socketError;
 //Imports the constructor for a SolutionsQueue data structure
 var fastQueue = require('../models/fastQueue.js');
 //Imports the game model
@@ -77,8 +79,8 @@ exports.createGame = function(req, res) {
         rank: data.rank
       }).save(function(error, createdGame) {
         if (error) {
-          //If error on save... TODO: implement better error handling
-          throw error;
+          console.log('error saving new game in gameController.js');
+          res.status(500).send(error);
         }
         res.send({
           gameId: createdGame.gameId
@@ -86,8 +88,8 @@ exports.createGame = function(req, res) {
       });
 
     }, function(error) {
-      //If error generating question... TODO: implement better error handling
-      throw error;
+      console.log('error generating question in gameController.js');
+      res.status(500).send(error);
     });
 };
 
@@ -106,8 +108,8 @@ exports.playerJoin = function(msg, socket) {
     gameId: msg.data.gameId
   }, function(error, foundGame) {
     if (error) {
-      //If error on findOne... TODO: implement better error handling
-      throw error;
+      console.log('Database error in function playerJoin in gameController.js');
+      socketError(socket.id, 'playerJoin', {userErrorMessage: 'Unfortunately we couldn\'t start your game!'});
     }
     if (foundGame) {
       foundGame.players.push(msg.data.userId);
@@ -119,8 +121,8 @@ exports.playerJoin = function(msg, socket) {
         sendTo(msg.data.gameId, 'challenge/gameStart', modelHelpers.buildGameObj(foundGame));
       }
     } else {
-      //If foundGame is null... TODO: implement better error handling
-      throw 'Game not found during playerJoin in gameController.js!';
+      console.log('Game not found in function playerJoin in gameController.js');
+      socketError(socket.id, 'playerJoin', {userErrorMessage: 'Unfortunately we couldn\'t start your game!'});
     }
   });
 };
@@ -132,8 +134,8 @@ exports.submitSolution = function(msg, socket) {
     gameId: msg.data.gameId
   }, function(error, foundGame) {
     if (error) {
-      //If error on findOne... TODO: implement better error handling
-      throw error;
+      console.log('Database error in function submitSolution in gameController.js');
+      socketError(socket.id, 'submitSolution', {userErrorMessage: 'Unfortunately something went wrong when submitting your solution!'});
     }
     if (foundGame) {
       codewarsController.submitSolution(foundGame.solutionId, foundGame.projectId, msg.data.solution)
@@ -146,16 +148,16 @@ exports.submitSolution = function(msg, socket) {
               socketid: socket.id
             });
           } else {
-            //If error submitting solution to codewars... TODO: implement better error handling
-            throw err;
+            console.log('Codewars API error in function submitSolution in gameController.js');
+            socketError(socket.id, 'submitSolution', {userErrorMessage: 'Unfortunately something went wrong when submitting your solution!'});
           }
         }, function(err) {
           //If error submitting solution... TODO: implement better error handling
           throw err;
         });
     } else {
-      //If foundGame is null... TODO: implement better error handling
-      throw 'Game not found during submitSolution in gameController.js!';
+      console.log('Game not found in function submitSolution in gameController.js');
+      socketError(socket.id, 'submitSolution', {userErrorMessage: 'Unfortunately something went wrong when submitting your solution!'});
     }
   });
 };
