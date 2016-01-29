@@ -5,14 +5,18 @@ angular.module('duel', [
   'duel.challengeCtrl',
   'duel.authCtrl',
   'duel.showErrorCtrl',
-  'duel.errorProv'
+  'duel.errorFact'
 ])
 
 .run(function() {
 
 })
+//temporary controller until I can refactor ErrorFact as a provider
+.controller('appController',['ErrorFact', function(ErrorFact){
 
-.config(['$stateProvider', '$urlRouterProvider', 'ErrorProvProvider', function($stateProvider, $urlRouterProvider, ErrorProvProvider) {
+}])
+
+.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/login');
 
   $stateProvider

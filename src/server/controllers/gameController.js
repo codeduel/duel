@@ -134,8 +134,8 @@ exports.submitSolution = function(msg, socket) {
     gameId: msg.data.gameId
   }, function(error, foundGame) {
     if (error) {
-      //If error on findOne... TODO: implement better error handling
-      throw error;
+      console.log('Database error in function submitSolution in gameController.js');
+      socketError(socket.id, 'submitSolution', {userErrorMessage: 'Unfortunately something went wrong when submitting your solution!'});
     }
     if (foundGame) {
       codewarsController.submitSolution(foundGame.solutionId, foundGame.projectId, msg.data.solution)
@@ -148,16 +148,16 @@ exports.submitSolution = function(msg, socket) {
               socketid: socket.id
             });
           } else {
-            //If error submitting solution to codewars... TODO: implement better error handling
-            throw err;
+            console.log('Codewars API error in function submitSolution in gameController.js');
+            socketError(socket.id, 'submitSolution', {userErrorMessage: 'Unfortunately something went wrong when submitting your solution!'});
           }
         }, function(err) {
           //If error submitting solution... TODO: implement better error handling
           throw err;
         });
     } else {
-      //If foundGame is null... TODO: implement better error handling
-      throw 'Game not found during submitSolution in gameController.js!';
+      console.log('Game not found in function submitSolution in gameController.js');
+      socketError(socket.id, 'submitSolution', {userErrorMessage: 'Unfortunately something went wrong when submitting your solution!'});
     }
   });
 };
