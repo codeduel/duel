@@ -1,18 +1,17 @@
 angular.module('duel.lobbyCtrl', ['duel.lobbyFact'])
 
-.controller('LobbyCtrl', ['$scope', '$state', '$stateParams', 'LobbyFact', function($scope, $state, $stateParams, LobbyFact) {
+.controller('LobbyCtrl', ['$scope', '$state', 'LobbyFact', 'UserFact', function($scope, $state, LobbyFact, UserFact) {
 
-  $scope.currentUser = $stateParams.userId;
+  $scope.currentUser = UserFact.getUser().userName;
   $scope.currentView = false;
   $scope.data = {};
 
 
   $scope.join = function() {
     $state.go('challenge', {
-      gameId: $scope.data.gameId,
-      userId: $scope.currentUser
+      gameId: $scope.data.gameId
     });
-  }
+  };
 
   $scope.create = function() {
     LobbyFact.createGame($scope.data.difficulty)
@@ -21,7 +20,7 @@ angular.module('duel.lobbyCtrl', ['duel.lobbyFact'])
           gameId: response.data.gameId,
           userId: $scope.currentUser
         });
-      })
-  }
+      });
+  };
 
 }]);

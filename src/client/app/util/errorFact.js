@@ -1,6 +1,6 @@
 angular.module('duel.errorFact', [])
 
-.factory('ErrorFact', ['$state', '$window', 'SocketFact', function($state, $window, SocketFact) {
+.factory('ErrorFact', ['$state', '$window', 'SocketFact', 'UserFact', function($state, $window, SocketFact, UserFact) {
   //object to return from provider
   var errorFact = {};
   //private var for error handler mapping
@@ -33,7 +33,7 @@ angular.module('duel.errorFact', [])
   //generic error handler that sends user to showError
   var genericErrorHandler = function(errorType, errorData) {
     //unregister user in case error is auth related TODO: replace with logout function
-    $window.localStorage.removeItem('duel.userId');
+    UserFact.removeUser();
     $state.go('showError', {
       errorType: errorType,
       errorData: errorData
