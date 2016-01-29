@@ -48,7 +48,7 @@ angular.module('duel', [
     })
 
     .state('challenge', {
-      url: '/challenge',
+      url: '/game/:gameId',
       params: {
         gameId: null,
         userId: 'Anonymous'
@@ -59,5 +59,6 @@ angular.module('duel', [
           controller: 'ChallengeCtrl'
         }
       }
-    })
+    });
+
 }]);
