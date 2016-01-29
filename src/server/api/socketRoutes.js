@@ -51,9 +51,9 @@ errorData - is optional error data that gets sent to error handling functions on
 if there is no error handling function, a generic function is used that displays an error message and clear the application data
 errorData.userErrorMessage gets displayed to user by generic error handler
 Example:
-  errorType: 'missingGameId'
+  errorType: 'playerJoin'
   errorData: {
-    userErrorMessage: 'Unfortunately we couldn't connect you to that game id'
+    userErrorMessage: 'Unfortunately we couldn\'t start your game!'
   }
 */
 module.exports.socketError = function(to, errorType, errorData) {

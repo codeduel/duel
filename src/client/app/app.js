@@ -4,14 +4,15 @@ angular.module('duel', [
   'duel.lobbyCtrl',
   'duel.challengeCtrl',
   'duel.authCtrl',
-  'duel.errorFact'
+  'duel.showErrorCtrl',
+  'duel.errorProv'
 ])
 
 .run(function() {
 
 })
 
-.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+.config(['$stateProvider', '$urlRouterProvider', 'ErrorProvProvider', function($stateProvider, $urlRouterProvider, ErrorProvProvider) {
   $urlRouterProvider.otherwise('/login');
 
   $stateProvider
@@ -58,6 +59,19 @@ angular.module('duel', [
         'duelContent@': {
           templateUrl: 'app/challenge/challenge.html',
           controller: 'ChallengeCtrl'
+        }
+      }
+    })
+
+    .state('showError', {
+      params: {
+        errorType: undefined,
+        errorData: undefined
+      },
+      views: {
+        'duelContent@': {
+          templateUrl: 'app/showError/showError.html',
+          controller: 'ShowErrorCtrl'
         }
       }
     });
