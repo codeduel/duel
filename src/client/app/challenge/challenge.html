@@ -8,11 +8,10 @@
   {{client.question}}
   </div>
   <form id="PlayerAnswer">
-    <textarea id="AnswerText" ng-model="data.solution"></textarea>
+    <div ui-ace="{useWrapMode : true, theme:'cobalt', document: 'javascript', mode: 'javascript'}" ng-model="data.solution">
+    </div>
     <button type="button" ng-click="submitSolution()">Submit Solution</button>
   </form>
   <!-- <h5>Your Answer Must Pass The Following Tests:</h5> -->
-  <div id="ChallengeTests">
-  </div>
 </div>
 

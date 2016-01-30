@@ -28,4 +28,15 @@ angular.module('duel.challengeCtrl', ['duel.challengeFact'])
     });
   };
 
+
+
+  $scope.aceLoaded = function (_editor) {
+    _editor.blockScrolling = Infinity;
+    console.log("ace editor loaded");
+};
+
+
+
+
+
 }]);
