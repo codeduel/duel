@@ -23,9 +23,10 @@ FastQueue.prototype.enqueue = function(obj) {
   this._storage.push(obj);
 }
 
-//Removes the first object in the queue, does NOT return
+//Removes the first object in the queue and returns it
 FastQueue.prototype.dequeue = function() {
   if (this._storage[this._first] !== undefined) {
+    popped = this._storage[this._first];
     this._storage[this._first] = undefined;
     this._first++;
     //If the first pointer reaches over the buffer threshold, resize the array to hold only the elements after the pointer
@@ -33,6 +34,7 @@ FastQueue.prototype.dequeue = function() {
       this._storage = this._storage.slice(this._first);
       this._first = 0;
     }
+    return popped;
   }
 }
 

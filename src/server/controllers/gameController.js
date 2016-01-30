@@ -22,6 +22,12 @@ var solutionsQueue = new fastQueue();
  */
 var apiPollInterval = 750;
 
+/*
+ *  Maximum number of attempts a solution can query against Code Wars before it's deemed a failure
+ */
+var maxAttempts = 10;
+
+
 //***************
 //INNER FUNCTIONS
 //***************
@@ -33,6 +39,10 @@ var resolveSolutionAttempt = function() {
   //peek first, in case the queued solution is not done processing on the Code Wars server
   var solutionAttempt = solutionsQueue.peek();
   if (solutionAttempt) {
+    if (solutionAttempt.attempts >= maxAttempts) {
+      console.log(solutionAttempt.dmid + ' has exceeded maximum number of attempts.');
+      solutionsQueue.dequeue();
+    }
     codewarsController.getSolutionResults(solutionAttempt.dmid)
       .then(function(data) {
         //If the solution is done processing
@@ -52,13 +62,23 @@ var resolveSolutionAttempt = function() {
         } else {
           //solution is still processing
           console.log(solutionAttempt.dmid + ' is still processing.');
+          solutionAttempt.attempts++;
+          //move the solution to the end of the queue
+          solutionsQueue.enqueue(solutionsQueue.dequeue());
         }
       }, function(error) {
         throw error;
       });
   }
+
+  //Recursively call itself after X amount of time
+  setTimeout(function() {
+    resolveSolutionAttempt()
+  }, apiPollInterval);
 };
-setInterval(resolveSolutionAttempt, apiPollInterval);
+
+//Start the resolution process
+resolveSolutionAttempt();
 
 //****************
 //HTTP CONTROLLERS
@@ -109,7 +129,9 @@ exports.playerJoin = function(msg, socket) {
   }, function(error, foundGame) {
     if (error) {
       console.log('Database error in function playerJoin in gameController.js');
-      socketError(socket.id, 'playerJoin', {userErrorMessage: 'Unfortunately we couldn\'t start your game!'});
+      socketError(socket.id, 'playerJoin', {
+        userErrorMessage: 'Unfortunately we couldn\'t start your game!'
+      });
     }
     if (foundGame) {
       foundGame.players.push(msg.data.userId);
@@ -122,7 +144,9 @@ exports.playerJoin = function(msg, socket) {
       }
     } else {
       console.log('Game not found in function playerJoin in gameController.js');
-      socketError(socket.id, 'playerJoin', {userErrorMessage: 'Unfortunately we couldn\'t start your game!'});
+      socketError(socket.id, 'playerJoin', {
+        userErrorMessage: 'Unfortunately we couldn\'t start your game!'
+      });
     }
   });
 };
@@ -135,7 +159,9 @@ exports.submitSolution = function(msg, socket) {
   }, function(error, foundGame) {
     if (error) {
       console.log('Database error in function submitSolution in gameController.js');
-      socketError(socket.id, 'submitSolution', {userErrorMessage: 'Unfortunately something went wrong when submitting your solution!'});
+      socketError(socket.id, 'submitSolution', {
+        userErrorMessage: 'Unfortunately something went wrong when submitting your solution!'
+      });
     }
     if (foundGame) {
       codewarsController.submitSolution(foundGame.solutionId, foundGame.projectId, msg.data.solution)
@@ -145,11 +171,14 @@ exports.submitSolution = function(msg, socket) {
               dmid: data.dmid,
               gameId: msg.data.gameId,
               submittedBy: msg.data.userId,
-              socketid: socket.id
+              socketid: socket.id,
+              attempts: 0
             });
           } else {
             console.log('Codewars API error in function submitSolution in gameController.js');
-            socketError(socket.id, 'submitSolution', {userErrorMessage: 'Unfortunately something went wrong when submitting your solution!'});
+            socketError(socket.id, 'submitSolution', {
+              userErrorMessage: 'Unfortunately something went wrong when submitting your solution!'
+            });
           }
         }, function(err) {
           //If error submitting solution... TODO: implement better error handling
@@ -157,7 +186,9 @@ exports.submitSolution = function(msg, socket) {
         });
     } else {
       console.log('Game not found in function submitSolution in gameController.js');
-      socketError(socket.id, 'submitSolution', {userErrorMessage: 'Unfortunately something went wrong when submitting your solution!'});
+      socketError(socket.id, 'submitSolution', {
+        userErrorMessage: 'Unfortunately something went wrong when submitting your solution!'
+      });
     }
   });
 };
