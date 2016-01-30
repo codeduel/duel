@@ -1,5 +1,6 @@
 angular.module('duel', [
   'ui.router',
+  'ui.ace',
   'duel.loginCtrl',
   'duel.lobbyCtrl',
   'duel.challengeCtrl',

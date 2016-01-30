@@ -26,3 +26,9 @@
   height: 150px;
   width: 500px;	
 }*/
+
+.ace_editor { 
+  height: 150px;
+  width: 600px;
+  margin-top: 20px;
+}
