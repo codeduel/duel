@@ -21,7 +21,7 @@ var listeners = function() {
   console.log('Socket listeners created.');
 
   io.on('connection', function(socket) {
-    socket.on('register', function(data) {});
+    console.log('connected');
 
     /*
      *  Challenge events
