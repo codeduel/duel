@@ -11,9 +11,9 @@ angular.module('duel', [
   'duel.userFact'
 ])
 
-.run(function() {
+.run(['$rootScope', function($rootScope) {
 
-})
+}])
 //temporary controller until I can refactor ErrorFact as a provider
 .controller('appController',['ErrorFact', function(ErrorFact){
 

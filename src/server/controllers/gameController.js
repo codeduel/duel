@@ -42,6 +42,7 @@ var resolveSolutionAttempt = function() {
     if (solutionAttempt.attempts >= maxAttempts) {
       console.log(solutionAttempt.dmid + ' has exceeded maximum number of attempts.');
       solutionsQueue.dequeue();
+      repeat();
     }
     codewarsController.getSolutionResults(solutionAttempt.dmid)
       .then(function(data) {
@@ -59,25 +60,33 @@ var resolveSolutionAttempt = function() {
           //remove the solution
           console.log(solutionAttempt.dmid + ' has been processed.');
           solutionsQueue.dequeue();
+          repeat();
         } else {
           //solution is still processing
           console.log(solutionAttempt.dmid + ' is still processing.');
           solutionAttempt.attempts++;
           //move the solution to the end of the queue
           solutionsQueue.enqueue(solutionsQueue.dequeue());
+          repeat();
         }
       }, function(error) {
-        throw error;
+        //API timed out
+        console.log(solutionAttempt.dmid + ' timed out.');
+        solutionsQueue.dequeue();
+        repeat();
       });
+  } else {
+    repeat();
   }
 
-  //Recursively call itself after X amount of time
+};
+
+var repeat = function() {
   setTimeout(function() {
     resolveSolutionAttempt()
   }, apiPollInterval);
-};
+}
 
-//Start the resolution process
 resolveSolutionAttempt();
 
 //****************
