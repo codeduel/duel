@@ -3,13 +3,17 @@
 <head>
   <meta name="viewport" content="width=device-width" />
   <link rel="stylesheet" href="assets/css/style.css" />
+ <link href="bower_components/bootstrap-css-only/css/bootstrap.min.css" rel="stylesheet">
 <title>Code Duel</title>
 </head>
 
 <body ng-app="duel" ng-controller="appController">
 
 <div class="container">
-  <div ui-view="duelContent"></div>
+  <nav id= "navBar" class="navbar navbar-fixed-top row">
+     <h2>CodeDuel</h2>
+  </nav>
+  <div id ="content" ui-view="duelContent"></div>
 </div>
 
 <!-- Libraries -->

@@ -1,26 +1,64 @@
-#ChallengeContainer{
-  height: 800px;
-  width: 700px;
+#navBar{
+  display: block;
+  height: 60px;
+  width: 1000px;
+  text-align: center;
+  margin-left: 128px;
+  background: #002240;
+  color: #FFFFFF;
 }
-.Head{
-  display: inline-block;
-  width: 300px;
+
+#content{
+  margin: 60px 0px 0px 0px;
+  display:block;
+}
+
+
+#challengeContainer{
+  margin-left: 0px;
+  height: 800px;
+  width: 1000px;
+  padding: 35px;
+  background-color:  #ecf7f9;
+  display: block;
+  position: absolute
+}
+
+#challengeHeader{
+  margin: 0px 0px 20px 0px;
+  padding:0px 20px 0px 20px;
+  border-bottom: 4px solid #011e3a;
+}
+
+#game{
+  text-align: center;
+  padding-left: 40px;
+}
+#counter{
+  text-align: right;
+}
+
+#message{
+  text-align: center;
+  margin-bottom: 30px;
 }
 #ChallengePrompt{
-  border: 1px solid black;
-  height: 150px;
-  width: 600px;
+  background: #011e3a;
+  color: #FFFFFF;
+  border-radius: 5px;
+  height: 500px;
+  width: 380px;
   overflow: scroll;
 }
 #PlayerAnswer{
-  margin: 40px 0px 40px 0px;
-  height: 200px;
-  width: 600px;
+  height: 500px;
+  width: 540px;
+  text-align: center;
 }
-#AnswerText{
+/*#AnswerText{
   height: 150px;
   width: 600px;
-}
+}*/
 /*#ChallengeTests{
   border: 1px solid black;
   height: 150px;
@@ -28,7 +66,18 @@
 }*/
 
 .ace_editor { 
-  height: 150px;
-  width: 600px;
-  margin-top: 20px;
+  height: 460px;
+  width: 540px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  text-align: left;
+}
+
+#submit{
+  background-color: #002240;color: #FFFFFF;
+  font-size: 20px;
+  width: 420px;
+  height: 30px;
+  padding: 0px;
+  border-radius: 5px;
 }
