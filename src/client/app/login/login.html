@@ -1,11 +1,14 @@
-<div class="container-fluid">
-  <h4></h4>
-  <a href='/auth/github'><button type="button">Sign in with GitHub</button>
-   </a>
+<div class="container">
+  <div id="login">
+	  <a href='/auth/github'><button type="button">Sign in with GitHub</button></a>
+	  <h4>Or enter username:</h4>
+	  <form name="login" ng-submit="submitForm()">
+	    <input type="text" name="userName" ng-model="userName"/><br>
+	    <button type="submit" id="loginSubmit">Submit</button>
+	  </form>
+  </div>
+  <div id="about">
+  </div>
 </div>
 
-<p>Or enter username</p>
-<form name="login" ng-submit="submitForm()">
-  <input type="text" name="userName" ng-model="userName"/>
-  <button type="submit">Submit</button>
-</form>
+

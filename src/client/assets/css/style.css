@@ -1,24 +1,52 @@
 #navBar{
   display: block;
-  height: 60px;
+  height: 70px;
   width: 1000px;
   text-align: center;
-  margin-left: 128px;
   background: #002240;
   color: #FFFFFF;
+  margin: 0px;
 }
-
 #content{
-  margin: 60px 0px 0px 0px;
+  margin: 0px;
   display:block;
 }
 
+.container{
+  padding: 0px;
+}
+#login{
+  text-align: center;
+  margin: 20px 0px 0px -14px;
+  width: 1000px;
+}
+#login button{
+  height:40px;
+  width: 200px;
+  margin-top: 20px;
+  background-color: #002240;
+  color: #FFFFFF;
+  border-radius: 5px;
+  font-size: 20px;
+}
+#login h4{
+  margin-top: 20px;
+  font-size: 20px;
+
+}
+
+#login input{
+  border: 1px solid black;
+  border-radius: 5px;
+  height:40px;
+  width: 200px;
+}
 
 #challengeContainer{
   margin-left: 0px;
   height: 800px;
   width: 1000px;
-  padding: 35px;
+  padding: 20px 35px;
   background-color:  #ecf7f9;
   display: block;
   position: absolute
