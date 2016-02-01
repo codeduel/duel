@@ -1,12 +1,13 @@
 angular.module('duel.challengeFact', ['duel.socketFact'])
 
-.factory('ChallengeFact', ['SocketFact', '$rootScope', '$timeout', '$state', function(SocketFact, $rootScope, $timeout, $state) {
+.factory('ChallengeFact', ['SocketFact', '$rootScope', '$timeout','$interval','$state', function(SocketFact, $rootScope, $timeout, $interval, $state) {
   var challengeFact = {};
   challengeFact.client = {
     question: "question will be displayed when challenge commences",
     message: "Waiting for opponent...",
     initial: "Your Code Here",
-    winner: null
+    winner: null,
+    minutes: 0
   };
 
   //****************
@@ -19,6 +20,9 @@ angular.module('duel.challengeFact', ['duel.socketFact'])
     challengeFact.client.message = "The challenge has begun";
     challengeFact.client.question = data.question;
     challengeFact.client.initial = data.initialCode;
+    $interval(function(){
+      challengeFact.client.minutes++;
+    }, 60000)
     //should refactor to not use rootScope?
     $rootScope.$apply();
   });
