@@ -34,6 +34,7 @@ exports.createUser = function(req, res) {
   query.exec(function(err, user) {
     if (!user) {
       var newUser = new User({
+        userName: login, 
         gitHubAuth: {
           name: name,
           avatar_url: avatar_url,
@@ -50,14 +51,13 @@ exports.createUser = function(req, res) {
           console.log('error saving user');
           res.status(500).send(err);
         }
-        res.redirect('/#/lobby');
+        res.redirect('/#/auth/' + newUser.userName);
       });
     } else {
-      res.redirect('/#/lobby');
+      res.redirect('/#/auth/' + user.userName);
     }
   });
 };
-
 
 exports.findOne = function(req, res) {
   User.find({'gitHubAuth.login':  req.params.login
