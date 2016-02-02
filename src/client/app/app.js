@@ -43,7 +43,7 @@ angular.module('duel', [
     })
 
     .state('lobby', {
-      url: '/lobby',
+      url: '/lobby/:userName',
       views: {
         'duelContent@': {
           templateUrl: 'app/lobby/lobby.html',
