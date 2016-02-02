@@ -7,6 +7,22 @@
   color: #FFFFFF;
   margin: 0px;
 }
+
+#navBar h2{
+  font-size: 36px;
+}
+
+#left{
+  float: left;
+  margin-left: 35px;
+  margin-top: -20px;
+}
+#right{
+  float: right;
+  margin-right: 35px;
+  margin-top: -20px;
+}
+
 #content{
   margin: 0px;
   display:block;
