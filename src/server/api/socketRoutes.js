@@ -1,17 +1,20 @@
-/*
- *  Controllers
- *
- *  var featureController = require('./featureController.js');
- */
-
-var gameController = require('../controllers/gameController.js');
-
 var io = null;
+var gameController = null;
+var chatController = null;
 
 module.exports.init = function(newIo) {
   console.log('Socket Server initialized.');
   io = newIo;
+  /*
+   *  Controllers
+   *
+   *  var featureController = require('./featureController.js');
+   */
+  gameController = require('../controllers/gameController.js');
+  chatController = require('../controllers/chatController.js');
+
   listeners();
+
 };
 
 var listeners = function() {
@@ -21,7 +24,7 @@ var listeners = function() {
   console.log('Socket listeners created.');
 
   io.on('connection', function(socket) {
-    console.log('connected');
+    socket.ROOMS = [];
 
     /*
      *  Challenge events
@@ -34,7 +37,20 @@ var listeners = function() {
       gameController.submitSolution(data, socket);
     });
 
-    socket.on('disconnect', function() {});
+    /*
+     *  Chat events
+     */
+    socket.on('chat/join', function(data) {
+      chatController.join(data, socket);
+    });
+
+    socket.on('chat/message', function(data) {
+      chatController.message(data, socket);
+    });
+
+    socket.on('disconnect', function() {
+      chatController.leaveAll(socket);
+    });
   });
 };
 

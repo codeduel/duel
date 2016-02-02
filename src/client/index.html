@@ -1,46 +1,47 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta name="viewport" content="width=device-width" />
+  <!-- CSS Stylings -->
   <link rel="stylesheet" href="assets/css/style.css" />
- <link href="bower_components/bootstrap-css-only/css/bootstrap.min.css" rel="stylesheet">
-<title>Code Duel</title>
+  <link href="bower_components/bootstrap-css-only/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/lobby.css" />
+  <title>Code Duel</title>
 </head>
 
 <body ng-app="duel" ng-controller="appController">
-
-<div class="container">
-  <nav id= "navBar" class="navbar">
-     <h2>CodeDuel</h2>
-  </nav>
-  <div id ="content" ui-view="duelContent"></div>
-</div>
-
-<!-- Libraries -->
-<script src="bower_components/ace-builds/src-min-noconflict/ace.js"></script>
-<script src="bower_components/angular/angular.js"></script>
-<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-<script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
-<script src="bower_components/angular-ui-ace/ui-ace.js"></script>
-<script src="bower_components/jquery/dist/jquery.js"></script>
-<script src="https://cdn.socket.io/socket.io-1.4.3.js"></script>
-
-<!-- Factories/Providers/Services -->
-<script src="app/util/socketFact.js"></script>
-<script src="app/lobby/lobbyFact.js"></script>
-<script src="app/challenge/challengeFact.js"></script>
-<script src="app/util/userFact.js"></script>
-<script src="app/util/errorFact.js"></script>
-
-<!-- Controllers -->
-<script src="app/app.js"></script>
-<script src="app/login/loginCtrl.js"></script>
-<script src="app/lobby/lobbyCtrl.js"></script>
-<script src="app/challenge/challengeCtrl.js"></script>
-<script src="app/auth/authCtrl.js"></script>
-<script src="app/showError/showErrorCtrl.js"></script>
-
+  <div class="container">
+    <nav id="navBar" class="navbar">
+      <h2>CodeDuel</h2>
+    </nav>
+    <div id="content" ui-view="duelContent"></div>
+  </div>
+  <!-- Libraries -->
+  <script src="bower_components/ace-builds/src-min-noconflict/ace.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+  <script src="bower_components/angular-ui-ace/ui-ace.js"></script>
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="https://cdn.socket.io/socket.io-1.4.3.js"></script>
+  <script src="bower_components/angular-scroll-glue/src/scrollglue.js"></script>
+  <!-- Factories/Providers/Services -->
+  <script src="app/util/socketFact.js"></script>
+  <script src="app/lobby/games/lobbyGamesFact.js"></script>
+  <script src="app/challenge/challengeFact.js"></script>
+  <script src="app/util/userFact.js"></script>
+  <script src="app/util/errorFact.js"></script>
+  <script src="app/util/chatFact.js"></script>
+  <!-- Controllers -->
+  <script src="app/app.js"></script>
+  <script src="app/login/loginCtrl.js"></script>
+  <script src="app/lobby/chat/lobbyChatCtrl.js"></script>
+  <script src="app/lobby/users/lobbyUsersCtrl.js"></script>
+  <script src="app/lobby/games/lobbyGamesCtrl.js"></script>
+  <script src="app/challenge/challengeCtrl.js"></script>
+  <script src="app/auth/authCtrl.js"></script>
+  <script src="app/showError/showErrorCtrl.js"></script>
 </body>
-
 
 </html>

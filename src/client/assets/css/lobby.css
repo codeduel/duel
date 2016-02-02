@@ -1,0 +1,35 @@
+#lobbyChatContainer {
+  padding: 0;
+  height: 250px;
+  width: 70%;
+  margin: 0px auto;
+}
+
+#lobbyChatDisplay {
+  width: 100%;
+  height: 220px;
+  border: 1px solid black;
+  overflow: auto;
+}
+
+#lobbyChatContainer input {
+  font-size: 20px;
+  width: 85%;
+}
+
+#lobbyChatContainer button {
+  font-size: 20px;
+  float: right;
+}
+
+#lobbyUsersContainer {
+  float:right;
+  border: 1px solid black;
+  top: 0px
+  left: 0px;
+  width: 25%;
+  height: 400px;
+  display: inline-block;
+  text-align: center;
+  overflow: auto;
+}
