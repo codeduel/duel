@@ -5,7 +5,7 @@ angular.module('duel.challengeCtrl', ['duel.challengeFact', 'ui.ace',])
   angular.extend($scope, ChallengeFact);
 
   $scope.gameId = $stateParams.gameId;
-  $scope.currentUser = UserFact.getUser().userName;
+  $scope.currentUser = UserFact.getUser().userName || $stateParams.userName;
   $scope.data = {};
   $scope.data.solution = $scope.client.initial;
 
