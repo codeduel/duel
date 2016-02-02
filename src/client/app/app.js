@@ -2,7 +2,9 @@ angular.module('duel', [
   'ui.router',
   'ui.bootstrap',
   'duel.loginCtrl',
-  'duel.lobbyCtrl',
+  'duel.lobbyUsersCtrl',
+  'duel.lobbyGamesCtrl',
+  'duel.lobbyChatCtrl',
   'duel.challengeCtrl',
   'duel.authCtrl',
   'duel.showErrorCtrl',
@@ -12,11 +14,11 @@ angular.module('duel', [
 
 .run(['$rootScope', function($rootScope) {
 
-}])
-//temporary controller until I can refactor ErrorFact as a provider
-.controller('appController',['ErrorFact', function(ErrorFact){
+  }])
+  //temporary controller until I can refactor ErrorFact as a provider
+  .controller('appController', ['ErrorFact', function(ErrorFact) {
 
-}])
+  }])
 
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/login');
@@ -32,50 +34,61 @@ angular.module('duel', [
       }
     })
 
-    .state('auth', {
-      url: '/auth/:userID',  // Server routes back here after authenticating with GitHub
-      views: {
-        'duelContent@': {
-          templateUrl: 'app/login/login.html',
-          controller: 'AuthCtrl'
-        }
+  .state('auth', {
+    url: '/auth/:userID', // Server routes back here after authenticating with GitHub
+    views: {
+      'duelContent@': {
+        templateUrl: 'app/login/login.html',
+        controller: 'AuthCtrl'
       }
-    })
+    }
+  })
 
-    .state('lobby', {
-      url: '/lobby',
-      views: {
-        'duelContent@': {
-          templateUrl: 'app/lobby/lobby.html',
-          controller: 'LobbyCtrl'
-        }
-      }
-    })
-
-    .state('challenge', {
-      url: '/game/:gameId',
-      params: {
-        gameId: null
+  .state('lobby', {
+    url: '/lobby',
+    views: {
+      'duelContent@': {
+        templateUrl: 'app/lobby/lobby.html'
       },
-      views: {
-        'duelContent@': {
-          templateUrl: 'app/challenge/challenge.html',
-          controller: 'ChallengeCtrl'
-        }
-      }
-    })
-
-    .state('showError', {
-      params: {
-        errorType: undefined,
-        errorData: undefined
+      'chat@lobby': {
+        templateUrl: 'app/lobby/chat/lobbyChat.html',
+        controller: 'LobbyChatCtrl'
       },
-      views: {
-        'duelContent@': {
-          templateUrl: 'app/showError/showError.html',
-          controller: 'ShowErrorCtrl'
-        }
+      'users@lobby': {
+        templateUrl: 'app/lobby/users/lobbyUsers.html',
+        controller: 'LobbyUsersCtrl'
+      },
+      'games@lobby': {
+        templateUrl: 'app/lobby/games/lobbyGames.html',
+        controller: 'LobbyGamesCtrl'
       }
-    });
+    }
+  })
+
+  .state('challenge', {
+    url: '/game/:gameId',
+    params: {
+      gameId: null
+    },
+    views: {
+      'duelContent@': {
+        templateUrl: 'app/challenge/challenge.html',
+        controller: 'ChallengeCtrl'
+      }
+    }
+  })
+
+  .state('showError', {
+    params: {
+      errorType: undefined,
+      errorData: undefined
+    },
+    views: {
+      'duelContent@': {
+        templateUrl: 'app/showError/showError.html',
+        controller: 'ShowErrorCtrl'
+      }
+    }
+  });
 
 }]);

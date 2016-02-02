@@ -1,0 +1,23 @@
+<div id="buttons" ng-show="!currentView">
+  <h3>Start your coding challenge!</h3>
+  <button class="lobby" ng-click="currentView = 'join'">Join</button>
+  <button class="lobby" ng-click="currentView = 'create'">Create</button>
+</div>
+<div id="forms">
+  <form id="join" ng-if="currentView === 'join'" ng-submit="join()">
+    <h5>Enter contest id below</h5>
+    <input type="text" ng-model="data.gameId">
+    <button type="submit">Join</button>
+  </form>
+  <form id="create" ng-if="currentView === 'create'" ng-submit="create()">
+    <h5>Choose your difficulty level</h5>
+    <select ng-model="data.difficulty">
+      <option hidden></option>
+      <option selected value="easy">Easy</option>
+      <option value="medium">Medium</option>
+      <option value="hard">Hard</option>
+      <option value="demo">Demo</option>
+    </select>
+    <button type="submit">Create Challenge</button>
+  </form>
+</div>

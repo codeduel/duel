@@ -1,11 +1,9 @@
-angular.module('duel.lobbyCtrl', ['duel.lobbyFact'])
+angular.module('duel.lobbyGamesCtrl', ['duel.lobbyGamesFact'])
 
-.controller('LobbyCtrl', ['$scope', '$state', 'LobbyFact', 'UserFact', function($scope, $state, LobbyFact, UserFact) {
+.controller('LobbyGamesCtrl', ['$scope', '$state', 'LobbyGamesFact', 'UserFact', function($scope, $state, LobbyGamesFact, UserFact, ChatFact) {
 
-  $scope.currentUser = UserFact.getUser().userName;
   $scope.currentView = false;
   $scope.data = {};
-
 
   $scope.join = function() {
     $state.go('challenge', {
@@ -14,7 +12,7 @@ angular.module('duel.lobbyCtrl', ['duel.lobbyFact'])
   };
 
   $scope.create = function() {
-    LobbyFact.createGame($scope.data.difficulty)
+    LobbyGamesFact.createGame($scope.data.difficulty)
       .then(function(response) {
         $state.go('challenge', {
           gameId: response.data.gameId,
