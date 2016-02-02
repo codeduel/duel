@@ -51,10 +51,10 @@ exports.createUser = function(req, res) {
           console.log('error saving user');
           res.status(500).send(err);
         }
-        res.redirect('/#/auth/' + newUser.userName);
+        res.redirect('/#/auth/' + newUser._id +'/'+ newUser.userName);
       });
     } else {
-      res.redirect('/#/auth/' + user.userName);
+      res.redirect('/#/auth/' + user._id +'/' + user.userName);
     }
   });
 };
