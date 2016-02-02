@@ -18,10 +18,19 @@
 
 <body ng-app="duel" ng-controller="appController">
   <div class="container">
-    <nav id="navBar" class="navbar">
-      <h2>CodeDuel</h2>
+    <nav id= "navBar" class="navbar">
+      <h2>
+        <div id ="left">
+          <img src="assets/left.png">
+          </div>
+          CodeDuel
+          <div id ="right">
+          <img src="assets/right.png">
+        </div>
+      </h2>
     </nav>
-    <div id="content" ui-view="duelContent"></div>
+    <div id ="content" ui-view="duelContent">
+    </div>
   </div>
   <!-- Libraries -->
   <script src="bower_components/ace-builds/src-min-noconflict/ace.js"></script>
