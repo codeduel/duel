@@ -9,18 +9,21 @@
 }
 
 #navBar h2{
-  font-size: 36px;
+  font-size: 64px;
+  font-family: 'VT323';
+  padding: 0px;
+  margin: 0px;
 }
 
 #left{
   float: left;
   margin-left: 35px;
-  margin-top: -20px;
+  margin-top: -10px;
 }
 #right{
   float: right;
   margin-right: 35px;
-  margin-top: -20px;
+  margin-top: -10px;
 }
 
 #content{
