@@ -1,4 +1,4 @@
-angular.module('duel.lobbyGamesCtrl', ['duel.lobbyGamesFact'])
+angular.module('duel.lobby.gamesCtrl', ['duel.lobby.gamesFact'])
 
 .controller('LobbyGamesCtrl', ['$scope', '$state', 'LobbyGamesFact', 'UserFact', function($scope, $state, LobbyGamesFact, UserFact, ChatFact) {
 
@@ -6,7 +6,7 @@ angular.module('duel.lobbyGamesCtrl', ['duel.lobbyGamesFact'])
   $scope.data = {};
 
   $scope.join = function() {
-    $state.go('challenge', {
+    $state.go('game', {
       gameId: $scope.data.gameId
     });
   };
@@ -14,9 +14,8 @@ angular.module('duel.lobbyGamesCtrl', ['duel.lobbyGamesFact'])
   $scope.create = function() {
     LobbyGamesFact.createGame($scope.data.difficulty)
       .then(function(response) {
-        $state.go('challenge', {
-          gameId: response.data.gameId,
-          userId: $scope.currentUser
+        $state.go('game', {
+          gameId: response.data.gameId
         });
       });
   };

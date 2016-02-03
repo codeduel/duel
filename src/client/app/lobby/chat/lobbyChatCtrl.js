@@ -1,4 +1,4 @@
-angular.module('duel.lobbyChatCtrl', ['duel.chatFact', 'luegg.directives'])
+angular.module('duel.lobby.chatCtrl', ['duel.chatFact', 'luegg.directives'])
 
 .controller('LobbyChatCtrl', ['$scope', 'ChatFact', 'UserFact', function($scope, ChatFact, UserFact) {
   $scope.data = {};

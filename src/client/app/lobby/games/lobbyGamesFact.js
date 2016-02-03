@@ -1,4 +1,4 @@
-angular.module('duel.lobbyGamesFact', [])
+angular.module('duel.lobby.gamesFact', [])
 
 .factory('LobbyGamesFact', ['$http', function($http) {
    var lobbyFact = {};
