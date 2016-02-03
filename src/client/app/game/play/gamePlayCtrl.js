@@ -1,8 +1,8 @@
 angular.module('duel.game.playCtrl', ['duel.game.playFact', 'ui.ace',])
 
-.controller('GamePlayCtrl', ['$scope', '$state', '$stateParams', 'GamePlayFact', 'UserFact', function($scope, $state, $stateParams, ChallengeFact, UserFact) {
+.controller('GamePlayCtrl', ['$scope', '$state', '$stateParams', 'GamePlayFact', 'UserFact', function($scope, $state, $stateParams, GamePlayFact, UserFact) {
 
-  angular.extend($scope, ChallengeFact);
+  angular.extend($scope, GamePlayFact);
 
   $scope.gameId = $stateParams.gameId;
   $scope.currentUser = UserFact.getUser().userName;
@@ -25,14 +25,14 @@ angular.module('duel.game.playCtrl', ['duel.game.playFact', 'ui.ace',])
     }
   }, true);
 
-  //Calls ChallengeFact's connectToGame() once the user enters the 'challenge' state
-  ChallengeFact.connectToGame({
+  //Calls GamePlayFact's connectToGame() once the user enters the 'game' state
+  GamePlayFact.connectToGame({
     userId: window.localStorage.getItem('duel.userId'),
     gameId: $scope.gameId
   });
 
   $scope.submitSolution = function() {
-    ChallengeFact.submitSolution({
+    GamePlayFact.submitSolution({
       userId: window.localStorage.getItem('duel.userId'),
       gameId: $scope.gameId,
       solution: $scope.data.solution
