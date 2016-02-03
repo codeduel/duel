@@ -32,11 +32,11 @@ var listeners = function() {
     /*
      *  Challenge events
      */
-    socket.on('challenge/ready', function(data) {
+    socket.on('game/ready', function(data) {
       controllers.gameController.playerJoin(data, socket);
     });
 
-    socket.on('challenge/submit', function(data) {
+    socket.on('game/submit', function(data) {
       controllers.gameController.submitSolution(data, socket);
     });
 

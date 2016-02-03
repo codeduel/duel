@@ -14,7 +14,7 @@ angular.module('duel.game.playFact', ['duel.socketFact'])
   //Socket Listeners
   //****************
 
-  SocketFact.socket.on('challenge/gameStart', function(data) {
+  SocketFact.socket.on('game/start', function(data) {
     console.log("Game has begun", data);
     //updates message, question, and initial code once game starts
     gamePlayFact.client.message = "The challenge has begun";
@@ -27,13 +27,13 @@ angular.module('duel.game.playFact', ['duel.socketFact'])
     $rootScope.$apply();
   });
 
-  SocketFact.socket.on('challenge/invalidSolution', function(data) {
+  SocketFact.socket.on('game/invalidSolution', function(data) {
     console.log('Invalid solution!', data);
     gamePlayFact.client.message = "Your solution was invalid.  Please try again.";
     $rootScope.$apply();
   })
 
-  SocketFact.socket.on('challenge/winner', function(data) {
+  SocketFact.socket.on('game/winner', function(data) {
     //console.log(data.winner + ' won the challenge!');
     gamePlayFact.client.winner = data.winner;
     gamePlayFact.client.message = data.winner + ' won the challenge!  Taking you back to the lobby...';
@@ -56,12 +56,12 @@ angular.module('duel.game.playFact', ['duel.socketFact'])
 
   gamePlayFact.connectToGame = function(connectionData) {
     var msg = SocketFact.buildMessage(connectionData);
-    SocketFact.socket.emit('challenge/ready', msg);
+    SocketFact.socket.emit('game/ready', msg);
   }
 
   gamePlayFact.submitSolution = function(solutionData) {
     var msg = SocketFact.buildMessage(solutionData);
-    SocketFact.socket.emit('challenge/submit', msg);
+    SocketFact.socket.emit('game/submit', msg);
   }
 
   return gamePlayFact;
