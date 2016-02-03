@@ -8,6 +8,11 @@ angular.module('duel.authCtrl', ['ui.router'])
   $window.localStorage.setItem('duel.userName', userName);
   $window.localStorage.setItem('duel.userId', userId);
 
+  analytics.identify(userId, {
+    name: userName,
+    method: 'oAuth'
+  });
 
   $state.go('lobby')
+
 }]);
