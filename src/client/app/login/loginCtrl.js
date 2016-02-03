@@ -5,8 +5,8 @@ angular.module('duel.loginCtrl', [])
     //TODO: change this for auth
     UserFact.setUserName($scope.userName);
 
-    //TODO update userName from first line with userId when available
-    analytics.identify( $scope.userName {
+    //TODO update with database userId when available
+    analytics.identify({
       name: $scope.userName,
       method: 'submitForm'
     });
