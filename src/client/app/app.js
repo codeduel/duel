@@ -2,10 +2,8 @@ angular.module('duel', [
   'ui.router',
   'ui.bootstrap',
   'duel.loginCtrl',
-  'duel.lobbyUsersCtrl',
-  'duel.lobbyGamesCtrl',
-  'duel.lobbyChatCtrl',
-  'duel.challengeCtrl',
+  'duel.lobbyCtrl',
+  'duel.gameCtrl',
   'duel.authCtrl',
   'duel.showErrorCtrl',
   'duel.errorFact',
@@ -48,7 +46,8 @@ angular.module('duel', [
     url: '/lobby/:userName',
     views: {
       'duelContent@': {
-        templateUrl: 'app/lobby/lobby.html'
+        templateUrl: 'app/lobby/lobby.html',
+        controller: 'LobbyCtrl'
       },
       'chat@lobby': {
         templateUrl: 'app/lobby/chat/lobbyChat.html',
@@ -65,15 +64,39 @@ angular.module('duel', [
     }
   })
 
-  .state('challenge', {
+  .state('game', {
     url: '/game/:gameId',
     params: {
       gameId: null
     },
     views: {
       'duelContent@': {
-        templateUrl: 'app/challenge/challenge.html',
-        controller: 'ChallengeCtrl'
+        templateUrl: 'app/game/game.html',
+        controller: 'GameCtrl'
+      }
+    }
+  })
+
+  .state('game.play', {
+    params: {
+      gameId: null
+    },
+    views: {
+      'duelContent@': {
+        templateUrl: 'app/game/play/gamePlay.html',
+        controller: 'GamePlayCtrl'
+      }
+    }
+  })
+
+  .state('game.watch', {
+    params: {
+      gameId: null
+    },
+    views: {
+      'duelContent@': {
+        templateUrl: 'app/game/watch/gameWatch.html',
+        controller: 'GameWatchCtrl'
       }
     }
   })

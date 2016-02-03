@@ -71,6 +71,7 @@ exports.message = function(msg, socket) {
   for(var i = 0; i < socket.ROOMS.length; i++) {
     socket.leave(socket.ROOMS[i]);
     delete ROOMS[socket.ROOMS[i]][socket.id];
+    sendTo(socket.ROOMS[i], 'chat/update', getClients(socket.ROOMS[i]));
   }
 
   rejoin = rejoin || [];

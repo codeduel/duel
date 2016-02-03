@@ -1,11 +1,11 @@
-angular.module('duel.challengeCtrl', ['duel.challengeFact', 'ui.ace',])
+angular.module('duel.game.playCtrl', ['duel.game.playFact', 'ui.ace',])
 
-.controller('ChallengeCtrl', ['$scope', '$state', '$stateParams', 'ChallengeFact', 'UserFact', function($scope, $state, $stateParams, ChallengeFact, UserFact) {
+.controller('GamePlayCtrl', ['$scope', '$state', '$stateParams', 'GamePlayFact', 'UserFact', function($scope, $state, $stateParams, ChallengeFact, UserFact) {
 
   angular.extend($scope, ChallengeFact);
 
   $scope.gameId = $stateParams.gameId;
-  $scope.currentUser = UserFact.getUser().userName || $stateParams.userName;
+  $scope.currentUser = UserFact.getUser().userName;
   $scope.data = {};
   $scope.data.solution = $scope.client.initial;
 
