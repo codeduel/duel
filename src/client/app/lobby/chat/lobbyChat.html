@@ -1,10 +1,12 @@
 <div id="lobbyChatContainer">
   <div id="lobbyChatDisplay" scroll-glue>
     <div class="message" ng-repeat="message in data.messages">
-    <span class="username">{{message.userId}}:</span>
-    <span class="text">{{message.text}}</span>
+      <span class="username">{{message.userId}}:</span>
+      <span class="text">{{message.text}}</span>
     </div>
   </div>
-  <input type="text" on-enter="sendMessage()" ng-model="data.chatInput">
-  <button ng-click="sendMessage()">Send</button>
+  <div id="chatForm">
+    <input type="text" on-enter="sendMessage()" ng-model="data.chatInput">
+	<button ng-click="sendMessage()">Chat</button>
+  </div>
 </div>
