@@ -1,25 +1,21 @@
-var ClientConnectionsModel = function() {
-  this._connections = {};
-}
+var clientConnections = {};
 
 //Adds a clientKey-clientValue pair inside a clientGroup
-ClientConnectionsModel.prototype.add = function(clientGroup, clientKey, clientValue) {
-  this._connections[clientGroup] = this._connections[clientGroup] || {};
-  this._connections[clientGroup][clientKey] = clientValue;
+exports.add = function(clientGroup, clientKey, clientValue) {
+  clientConnections[clientGroup] = clientConnections[clientGroup] || {};
+  clientConnections[clientGroup][clientKey] = clientValue;
 }
 
 //Removes a group or specific clientKey-clientValue pair inside a group
-ClientConnectionsModel.prototype.remove = function(clientGroup, clientKey) {
+exports.remove = function(clientGroup, clientKey) {
   if(clientKey === undefined) {
-    delete this._connections[clientGroup];
+    delete clientConnections[clientGroup];
   } else {
-    delete this._connections[clientGroup][clientKey];
+    delete clientConnections[clientGroup][clientKey];
   }
 }
 
-//Returns all the clients of a room
-ClientConnectionsModel.prototype.getClients = function(clientGroup) {
-  return this._connections[clientGroup];
+//Returns all the clientConnections of a room
+exports.getClients = function(clientGroup) {
+  return clientConnections[clientGroup];
 }
-
-module.exports = ClientConnectionsModel;
