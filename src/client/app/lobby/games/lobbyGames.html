@@ -1,7 +1,6 @@
-<div id="buttons" ng-show="!currentView">
-  <h3>Start your coding challenge!</h3>
-  <button class="lobby" ng-click="currentView = 'join'">Join</button>
-  <button class="lobby" ng-click="currentView = 'create'">Create</button>
+<div id="lobbyForms" ng-show="!currentView">
+  <h4><button class="lobby" ng-click="currentView = 'create'">Create</button> A New Challenge</h4>
+  <h4><button class="lobby" ng-click="currentView = 'join'">Join</button> An Existing Challenge</h4>
 </div>
 <div id="forms">
   <form id="join" ng-if="currentView === 'join'" ng-submit="join()">
@@ -18,6 +17,6 @@
       <option value="hard">Hard</option>
       <option value="demo">Demo</option>
     </select>
-    <button type="submit">Create Challenge</button>
+    <button type="submit">Create</button>
   </form>
 </div>

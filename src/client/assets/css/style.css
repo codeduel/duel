@@ -7,6 +7,22 @@
   color: #FFFFFF;
   margin: 0px;
 }
+
+#navBar h2{
+  font-size: 36px;
+}
+
+#left{
+  float: left;
+  margin-left: 35px;
+  margin-top: -20px;
+}
+#right{
+  float: right;
+  margin-right: 35px;
+  margin-top: -20px;
+}
+
 #content{
   margin: 0px;
   display:block;
@@ -32,7 +48,6 @@
 #login h4{
   margin-top: 20px;
   font-size: 20px;
-
 }
 
 #login input{
@@ -83,15 +98,6 @@
   width: 540px;
   text-align: center;
 }
-/*#AnswerText{
-  height: 150px;
-  width: 600px;
-}*/
-/*#ChallengeTests{
-  border: 1px solid black;
-  height: 150px;
-  width: 500px;	
-}*/
 
 .ace_editor { 
   height: 460px;
@@ -102,7 +108,8 @@
 }
 
 #submit{
-  background-color: #002240;color: #FFFFFF;
+  background-color: #002240;
+  color: #FFFFFF;
   font-size: 20px;
   width: 420px;
   height: 30px;
