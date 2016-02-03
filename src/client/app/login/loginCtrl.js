@@ -4,6 +4,13 @@ angular.module('duel.loginCtrl', [])
   $scope.submitForm = function() {
     //TODO: change this for auth
     UserFact.setUserName($scope.userName);
+
+    //TODO update userName from first line with userId when available
+    analytics.identify( $scope.userName {
+      name: $scope.userName,
+      method: 'submitForm'
+    });
+
     $state.go('lobby');
   };
 }]);

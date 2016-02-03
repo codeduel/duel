@@ -23,7 +23,8 @@ router.get('/github/callback',
         console.log(req.user.displayName, ' logged in');
         //if user exists, send to client (auth controller)
         if (user) {
-          res.redirect('/#/auth/' + req.user.username);          
+          //console.log(user);
+          res.redirect('/#/auth/' + user._id + '/'+ user.userName);          
         }
         //user doesnt exist, create one
         else userController.createUser({body:req.user, fromGitHub:true}, res);
