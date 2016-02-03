@@ -1,6 +1,6 @@
 var io = null;
-var gameController = null;
-var chatController = null;
+
+var controllers = {};
 
 module.exports.init = function(newIo) {
   console.log('Socket Server initialized.');
@@ -10,8 +10,11 @@ module.exports.init = function(newIo) {
    *
    *  var featureController = require('./featureController.js');
    */
-  gameController = require('../controllers/gameController.js');
-  chatController = require('../controllers/chatController.js');
+  controllers = {
+    gameController: require('../controllers/gameController.js'),
+    chatController: require('../controllers/chatController.js'),
+    clientsController: require('../controllers/clientsController.js')
+  };
 
   listeners();
 
@@ -24,32 +27,32 @@ var listeners = function() {
   console.log('Socket listeners created.');
 
   io.on('connection', function(socket) {
-    socket.ROOMS = [];
+    socket.subscribedRooms = [];
 
     /*
      *  Challenge events
      */
-    socket.on('challenge/ready', function(data) {
-      gameController.playerJoin(data, socket);
+    socket.on('game/ready', function(data) {
+      controllers.gameController.playerJoin(data, socket);
     });
 
-    socket.on('challenge/submit', function(data) {
-      gameController.submitSolution(data, socket);
+    socket.on('game/submit', function(data) {
+      controllers.gameController.submitSolution(data, socket);
     });
 
     /*
      *  Chat events
      */
     socket.on('chat/join', function(data) {
-      chatController.join(data, socket);
+      controllers.clientsController.join(data, socket);
     });
 
     socket.on('chat/message', function(data) {
-      chatController.message(data, socket);
+      controllers.chatController.message(data, socket);
     });
 
     socket.on('disconnect', function() {
-      chatController.leaveAll(socket);
+      controllers.clientsController.leaveAll(socket);
     });
   });
 };

@@ -49,13 +49,13 @@ var resolveSolutionAttempt = function() {
         //If the solution is done processing
         if (data.valid === true || data.valid === false) {
           if (data.valid) {
-            //emit 'challenge/winner' event to everyone in the game
-            sendTo(solutionAttempt.gameId, 'challenge/winner', {
+            //emit 'game/winner' event to everyone in the game
+            sendTo(solutionAttempt.gameId, 'game/winner', {
               winner: solutionAttempt.submittedBy
             });
           } else {
-            //emit 'challenge/invalidSolution' event to origin of the solution
-            sendTo(solutionAttempt.socketid, 'challenge/invalidSolution', data);
+            //emit 'game/invalidSolution' event to origin of the solution
+            sendTo(solutionAttempt.socketid, 'game/invalidSolution', data);
           }
           //remove the solution
           console.log(solutionAttempt.dmid + ' has been processed.');
@@ -127,7 +127,7 @@ exports.createGame = function(req, res) {
 //********************
 
 /*
- *  Adds the specified user to the specified game, and sends a "challenge/start" event to all clients connected to the game
+ *  Adds the specified user to the specified game, and sends a "game/start" event to all clients connected to the game
  */
 exports.playerJoin = function(msg, socket) {
   //Connects the player to the gameId's socket room
@@ -149,7 +149,7 @@ exports.playerJoin = function(msg, socket) {
       if (foundGame.players.length === 2) {
         foundGame.active = true;
         foundGame.save();
-        sendTo(msg.data.gameId, 'challenge/gameStart', modelHelpers.buildGameObj(foundGame));
+        sendTo(msg.data.gameId, 'game/start', modelHelpers.buildGameObj(foundGame));
       }
     } else {
       console.log('Game not found in function playerJoin in gameController.js');
@@ -160,7 +160,7 @@ exports.playerJoin = function(msg, socket) {
   });
 };
 /*
- *  Adds the specified user to the specified game, and sends a "challenge/start" event to all clients connected to the game
+ *  Adds the specified user to the specified game, and sends a "game/start" event to all clients connected to the game
  */
 exports.submitSolution = function(msg, socket) {
   Game.findOne({
