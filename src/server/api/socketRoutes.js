@@ -12,6 +12,7 @@ module.exports.init = function(newIo) {
    */
   gameController = require('../controllers/gameController.js');
   chatController = require('../controllers/chatController.js');
+  clientsController = require('../controllers/clientsController.js');
 
   listeners();
 
@@ -24,7 +25,7 @@ var listeners = function() {
   console.log('Socket listeners created.');
 
   io.on('connection', function(socket) {
-    socket.ROOMS = [];
+    socket.subscribedRooms = [];
 
     /*
      *  Challenge events
@@ -41,7 +42,7 @@ var listeners = function() {
      *  Chat events
      */
     socket.on('chat/join', function(data) {
-      chatController.join(data, socket);
+      clientsController.join(data, socket);
     });
 
     socket.on('chat/message', function(data) {
@@ -49,7 +50,7 @@ var listeners = function() {
     });
 
     socket.on('disconnect', function() {
-      chatController.leaveAll(socket);
+      clientsController.leaveAll(socket);
     });
   });
 };
