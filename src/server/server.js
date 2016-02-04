@@ -40,7 +40,7 @@ var server = app.listen(port, function() {
 var checkHerokuHTTPS = function(req, res, next) {
   var ip = req.ip;
   //if we aren't on local host force ssl
-  if (ip !== '::ffff:127.0.0.1' && ip != '::1') {
+  if (ip !== '::ffff:127.0.0.1' && ip !== '::1') {
     if (req.header('x-forwarded-proto') !== 'https') {
       return res.redirect('https://' + req.headers.host + req.url);
     }
