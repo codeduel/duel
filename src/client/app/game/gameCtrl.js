@@ -1,4 +1,4 @@
-angular.module('duel.gameCtrl', ['duel.game.playCtrl'])
+angular.module('duel.gameCtrl', ['duel.game.playCtrl', 'duel.game.watchCtrl'])
 
 .controller('GameCtrl', ['$scope', '$state', '$stateParams', 'UserFact', function($scope, $state, $stateParams, UserFact) {
   $scope.gameId = $stateParams.gameId;
@@ -13,6 +13,8 @@ angular.module('duel.gameCtrl', ['duel.game.playCtrl'])
   }
 
   $scope.watch = function() {
-
+    $state.go('game.watch', {
+      gameId: $scope.gameId
+    })
   }
 }]);
