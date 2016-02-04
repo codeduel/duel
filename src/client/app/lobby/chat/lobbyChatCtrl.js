@@ -12,5 +12,9 @@ angular.module('duel.lobby.chatCtrl', ['duel.chatFact', 'luegg.directives'])
       ChatFact.sendMessage(UserFact.getUser().userName, $scope.data.chatInput, 'lobby');
     $scope.data.chatInput = '';
     }
+    analytics.track('Sent Chat', {
+      userName: UserFact.getUser().userName,
+      channel: 'lobby'
+    });
   }
 }]);

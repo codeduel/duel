@@ -42,6 +42,10 @@ angular.module('duel.game.playCtrl', ['duel.game.playFact', 'ui.ace', 'duel.chat
       gameId: $scope.gameId,
       solution: $scope.data.solution
     });
+    analytics.track('Submitted Solution', {
+      userId: UserFact.getUser().userId,
+      gameId: $scope.gameId
+    });
   };
 
   $scope.aceLoaded = function(_editor) {

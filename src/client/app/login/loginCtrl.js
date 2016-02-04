@@ -8,7 +8,7 @@ angular.module('duel.loginCtrl', [])
     //TODO update with database userId when available
     analytics.identify({
       name: $scope.userName,
-      method: 'submitForm'
+      method: 'Typed Username'
     });
 
     $state.go('lobby');
