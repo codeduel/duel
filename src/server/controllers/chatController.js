@@ -31,7 +31,7 @@ exports.join = function(msg, socket) {
 
   clientConnections.add(room, socket.id, userId);
 
-  socket.subscribedRooms.push(room);
+  socket.duelData.subscribedRooms.push(room);
   socket.join(room);
   console.log(userId + ' joined ' + room);
   sendTo(room, 'chat/update', clientConnections.getClients(room));
@@ -41,13 +41,13 @@ exports.join = function(msg, socket) {
  *  Removes the client socket from all rooms
  */
  exports.leaveAll = function(socket) {
-  for(var i = 0; i < socket.subscribedRooms.length; i++) {
-    var room = socket.subscribedRooms[i];
-    
+  for(var i = 0; i < socket.duelData.subscribedRooms.length; i++) {
+    var room = socket.duelData.subscribedRooms[i];
+
     socket.leave(room);
     clientConnections.remove(room, socket.id);
     sendTo(room, 'chat/update', clientConnections.getClients(room));
   }
 
-  socket.subscribedRooms = [];
+  socket.duelData.subscribedRooms = [];
  }

@@ -26,7 +26,8 @@ var listeners = function() {
   console.log('Socket listeners created.');
 
   io.on('connection', function(socket) {
-    socket.subscribedRooms = [];
+    socket.duelData = {};
+    socket.duelData.subscribedRooms = [];
 
     /*
      *  Challenge events

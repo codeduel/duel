@@ -1,5 +1,8 @@
 angular.module('duel.userFact', [])
 
+
+//TODO refactor to use id's rather than fake them
+
 .factory('UserFact', ['$window', function($window) {
   var userFact = {};
   //data object is private to reduce errors through get/set and session restoration
@@ -22,10 +25,10 @@ angular.module('duel.userFact', [])
   //will need to return a promise in the future since it's dependent on ajax
   userFact.getUser = function(){
     if(_data.userName !== undefined){
-      return {userName: _data.userName};
+      return {userName: _data.userName, userId: _data.userName};
     } else {
       _data.userName = $window.localStorage.getItem('duel.userName');
-      return {userName: _data.userName};
+      return {userName: _data.userName, userId: _data.userName};
     }
   };
 

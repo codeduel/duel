@@ -4,9 +4,9 @@ var Schema = mongoose.Schema;
 //defines new game schema
 var gameSchema = new Schema({
   gameId: {type: String, unique: true},
-  players: [String], //TODO: refactor to ObjectId when player schema is created
-  active: Boolean,
-  spectators: [String], //TODO: implement spectators via ObjectId
+  active: { type: Boolean, default: false },
+  isEmpty: { type: Boolean, default: true },
+  lastEmpty: { type: Date },
   question: String,
   initialCode: String,
   projectId: String,
