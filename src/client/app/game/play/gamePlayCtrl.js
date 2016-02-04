@@ -9,7 +9,7 @@ angular.module('duel.game.playCtrl', ['duel.game.playFact', 'ui.ace', 'duel.chat
   $scope.data.solution = $scope.client.initial;
 
   //buffer time (in ms) between typing before streaming the data to spectators
-  $scope.DEBOUNCE_INTERVAL = 500;
+  $scope.DEBOUNCE_INTERVAL = 100;
 
   $scope.counter = "0 minutes";
 

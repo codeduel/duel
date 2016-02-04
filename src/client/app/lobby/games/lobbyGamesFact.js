@@ -6,9 +6,10 @@ angular.module('duel.lobby.gamesFact', [])
   /*
    *  Creates a game on the server, and returns an object with the created game's ID
    */
-  lobbyFact.createGame = function(difficulty) {
+  lobbyFact.createGame = function(difficulty, password) {
     return $http.post('/api/game/create', {
-        difficulty: difficulty
+        difficulty: difficulty,
+        password: password
       })
       .then(function(response) {
         return response;

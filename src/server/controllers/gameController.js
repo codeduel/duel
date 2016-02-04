@@ -45,8 +45,12 @@ var resolveSolutionAttempt = function() {
         //If the solution is done processing
         if (data.valid === true || data.valid === false) {
           if (data.valid) {
-            //emit 'game/winner' event to everyone in the game
+            //emit 'game/winner' event to players
             sendTo(solutionAttempt.gameId, 'game/winner', {
+              winner: solutionAttempt.submittedBy
+            });
+            //emit 'watch/winner' event to spectators
+            sendTo(solutionAttempt.gameId + '/watch', 'watch/winner', {
               winner: solutionAttempt.submittedBy
             });
           } else {
@@ -91,6 +95,7 @@ resolveSolutionAttempt();
 
 //Generates a Game in database
 exports.createGame = function(req, res) {
+  console.log(req.body);
   codewarsController.generateQuestion(req.body.difficulty)
     .then(function(data) {
       new Game({
@@ -98,8 +103,10 @@ exports.createGame = function(req, res) {
         initialCode: data.session.setup,
         projectId: data.session.projectId,
         solutionId: data.session.solutionId,
-        rank: data.rank
+        rank: data.rank,
+        password: req.body.password
       }).save(function(error, createdGame) {
+        console.log(createdGame);
         if (error) {
           console.log('error saving new game in gameController.js');
           res.status(500).send(error);
@@ -116,6 +123,21 @@ exports.createGame = function(req, res) {
       res.status(500).send(error);
     });
 };
+
+//Authenticates an unlock attempt on a locked game
+exports.unlock = function(req, res) {
+  console.log(req.body);
+  Game.findOne({
+    gameId: req.body.gameId,
+    password: req.body.password
+  }, function(error, foundGame) {
+    if(foundGame) {
+      res.status(200).send();
+    } else {
+      res.status(401).send();
+    }
+  })
+}
 
 //********************
 //SOngCKET CONTROLLERS

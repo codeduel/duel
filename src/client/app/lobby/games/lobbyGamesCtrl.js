@@ -2,7 +2,7 @@ angular.module('duel.lobby.gamesCtrl', ['duel.lobby.gamesFact'])
 
 .controller('LobbyGamesCtrl', ['$scope', '$state', 'LobbyGamesFact', 'UserFact', function($scope, $state, LobbyGamesFact, UserFact, ChatFact) {
 
-  $scope.currentView = false;
+  $scope.currentView = null;
   $scope.data = {};
 
   $scope.join = function() {
@@ -16,9 +16,9 @@ angular.module('duel.lobby.gamesCtrl', ['duel.lobby.gamesFact'])
   };
 
   $scope.create = function() {
-    LobbyGamesFact.createGame($scope.data.difficulty)
+    LobbyGamesFact.createGame($scope.data.difficulty, $scope.data.password)
       .then(function(response) {
-        $state.go('game', {
+        $state.go('game.play', {
           gameId: response.data.gameId
         });
       });
@@ -28,4 +28,7 @@ angular.module('duel.lobby.gamesCtrl', ['duel.lobby.gamesFact'])
       });
   };
 
+  $scope.back = function() {
+    $scope.currentView = null;
+  };
 }]);
