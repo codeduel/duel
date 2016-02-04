@@ -13,4 +13,7 @@ angular.module('duel.game.watchCtrl', ['duel.game.watchFact', 'duel.chatFact', '
     $scope.watchedClients = GameWatchFact.watchedClients;
   }, true);
 
+  $scope.aceLoaded = function(_editor) {
+    _editor.blockScrolling = Infinity;
+  };
 }]);

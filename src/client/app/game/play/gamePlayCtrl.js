@@ -46,7 +46,6 @@ angular.module('duel.game.playCtrl', ['duel.game.playFact', 'ui.ace', 'duel.chat
 
   $scope.aceLoaded = function(_editor) {
     _editor.blockScrolling = Infinity;
-    console.log("ace editor loaded");
   };
 
   $scope.stream = function() {

@@ -2,6 +2,6 @@
 
 <div class='col-xs-4' ng-repeat="(player, code) in watchedClients">
   <h2>{{player}}'s code</h2>
-  <div ui-ace="{readOnly: true, useWrapMode : true, theme:'cobalt', document: 'javascript', mode: 'javascript'}" ng-model="code">
+  <div ui-ace="{useWrapMode : true, theme:'cobalt', document: 'javascript', mode: 'javascript'}" ng-model="code" readonly>
   </div>
 </div>
