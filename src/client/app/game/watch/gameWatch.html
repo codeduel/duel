@@ -1,7 +1,8 @@
-<h1>You are watching game # {{gameId}}</h1>
-
-<div class='col-xs-4' ng-repeat="(player, code) in watchedClients">
-  <h2>{{player}}'s code</h2>
-  <div ui-ace="{useWrapMode : true, theme:'cobalt', document: 'javascript', mode: 'javascript'}" ng-model="code" readonly>
+<div id="watchContainer">
+  <h3>You're watching game # {{gameId}}</h3>
+  <div class='col-xs-4, watchDiv' ng-repeat="(player, code) in watchedClients">
+    <h2>Player: {{player}}</h2>
+    <div class='watchScreen' ui-ace="{useWrapMode : true, theme:'cobalt', document: 'javascript', mode: 'javascript'}" ng-model="code" readonly>
+    </div>
   </div>
 </div>
