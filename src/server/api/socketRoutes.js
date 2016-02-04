@@ -59,7 +59,9 @@ var listeners = function() {
       controllers.chatController.message(data, socket);
     });
 
+    //disconnect event for games and chat
     socket.on('disconnect', function() {
+      controllers.gameController.playerLeave(socket);
       controllers.chatController.leaveAll(socket);
     });
   });
