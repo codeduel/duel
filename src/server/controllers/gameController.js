@@ -8,6 +8,8 @@ var socketError = require('../api/socketRoutes.js').socketError;
 var fastQueue = require('../models/fastQueue.js');
 //Imports the game model
 var Game = require('../models/gameModel.js').Game;
+//Imports the client connections model
+var clientConnections = require('../models/clientConnectionsModel.js');
 //Imports model helper functions
 var modelHelpers = require('../models/modelHelpers.js');
 
@@ -100,7 +102,6 @@ exports.createGame = function(req, res) {
   codewarsController.generateQuestion(req.body.difficulty)
     .then(function(data) {
       new Game({
-        active: false,
         question: data.description,
         initialCode: data.session.setup,
         projectId: data.session.projectId,
@@ -110,7 +111,9 @@ exports.createGame = function(req, res) {
         if (error) {
           console.log('error saving new game in gameController.js');
           res.status(500).send(error);
+          return;
         }
+        clientConnections.addGroup(createdGame.gameId);
         res.send({
           gameId: createdGame.gameId
         });
@@ -130,8 +133,17 @@ exports.createGame = function(req, res) {
  *  Adds the specified user to the specified game, and sends a "game/start" event to all clients connected to the game
  */
 exports.playerJoin = function(msg, socket) {
+  //check for all the right data, otherwise throw an error
+  if (!msg || !socket || !msg.data || !msg.data.gameId || !msg.data.userId || !socket.id) {
+    console.log('Function call error in function playerJoin in gameController.js');
+    socketError(socket.id, 'playerJoin', {
+      userErrorMessage: 'Unfortunately we couldn\'t start your game!'
+    });
+    return;
+  }
   //Connects the player to the gameId's socket room
   socket.join(msg.data.gameId); //TODO: implement separate socket rooms for chat,etc
+  var gameArray;
 
   Game.findOne({
     gameId: msg.data.gameId
@@ -142,11 +154,18 @@ exports.playerJoin = function(msg, socket) {
         userErrorMessage: 'Unfortunately we couldn\'t start your game!'
       });
     }
-    if (foundGame) {
-      foundGame.players.push(msg.data.userId);
+    //if we find the game and it exists in clientConnections
+    if (foundGame && clientConnections.getClients(msg.data.gameId)) {
+      //add the gameId to the socket
+      socket.duelData.inGameId = msg.data.gameId;
+      //add the user to the game in clientConnections then get array of players
+      clientConnections.add(msg.data.gameId, socket.id, msg.data.userId);
+      gameArray = clientConnections.getClientsArray(msg.data.gameId);
+      //set isEmpty flag to false on game model and save
+      foundGame.isEmpty = false;
       foundGame.save();
       //make game active if there are 2 or more players
-      if (foundGame.players.length === 2) {
+      if (gameArray.length > 1) {
         foundGame.active = true;
         foundGame.save();
         sendTo(msg.data.gameId, 'game/start', modelHelpers.buildGameObj(foundGame));
