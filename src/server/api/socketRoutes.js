@@ -12,7 +12,8 @@ module.exports.init = function(newIo) {
    */
   controllers = {
     gameController: require('../controllers/gameController.js'),
-    chatController: require('../controllers/chatController.js')
+    chatController: require('../controllers/chatController.js'),
+    spectatorController: require('../controllers/spectatorController.js')
   };
 
   listeners();
@@ -30,7 +31,7 @@ var listeners = function() {
     socket.duelData.subscribedRooms = [];
 
     /*
-     *  Challenge events
+     *  Game events
      */
     socket.on('game/ready', function(data) {
       controllers.gameController.playerJoin(data, socket);
@@ -38,6 +39,13 @@ var listeners = function() {
 
     socket.on('game/submit', function(data) {
       controllers.gameController.submitSolution(data, socket);
+    });
+
+    /*
+     *  Streaming/spectator events
+     */
+    socket.on('watch/stream', function(data) {
+      controllers.spectatorController.stream(data, socket);
     });
 
     /*

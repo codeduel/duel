@@ -1,0 +1,7 @@
+<h1>You are watching game # {{gameId}}</h1>
+
+<div class='col-xs-4' ng-repeat="(player, code) in watchedClients">
+  <h2>{{player}}'s code</h2>
+  <div ui-ace="{useWrapMode : true, theme:'cobalt', document: 'javascript', mode: 'javascript'}" ng-model="code" readonly>
+  </div>
+</div>

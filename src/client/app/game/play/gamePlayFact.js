@@ -31,7 +31,7 @@ angular.module('duel.game.playFact', ['duel.socketFact'])
     console.log('Invalid solution!', data);
     gamePlayFact.client.message = "Your solution was invalid.  Please try again.";
     $rootScope.$apply();
-  })
+  });
 
   SocketFact.socket.on('game/winner', function(data) {
     //console.log(data.winner + ' won the challenge!');
@@ -47,8 +47,7 @@ angular.module('duel.game.playFact', ['duel.socketFact'])
         //userid: $scope.userid
       });
     }, 3000)
-  })
-
+  });
 
   //***************
   //Socket Triggers
@@ -62,6 +61,11 @@ angular.module('duel.game.playFact', ['duel.socketFact'])
   gamePlayFact.submitSolution = function(solutionData) {
     var msg = SocketFact.buildMessage(solutionData);
     SocketFact.socket.emit('game/submit', msg);
+  }
+
+  gamePlayFact.stream = function(editorData) {
+    var msg = SocketFact.buildMessage(editorData);
+    SocketFact.socket.emit('watch/stream', msg);
   }
 
   return gamePlayFact;

@@ -16,7 +16,7 @@ angular.module('duel.chatFact', ['duel.socketFact'])
   });
 
   SocketFact.socket.on('chat/update', function(data) {
-    chatFact.currRoom = angular.copy(data);
+    chatFact.currRoom = data;
     $rootScope.$apply();
   })
 

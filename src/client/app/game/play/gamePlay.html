@@ -10,10 +10,15 @@
   </div>
   <div class='col-xs-7'>
     <form id="PlayerAnswer">
-      <div ui-ace="{useWrapMode : true, theme:'cobalt', document: 'javascript', mode: 'javascript'}" ng-model="data.solution">
+      <div 
+      ui-ace="{useWrapMode : true, theme:'cobalt', document: 'javascript', mode: 'javascript'}"
+      ng-model="data.solution" 
+      ng-model-options="{debounce: DEBOUNCE_INTERVAL}" 
+      ng-change="stream()">
       </div>
       <button id ="submit" type="button" ng-click="submitSolution()">Submit Answer</button>
     </form>
-  </div>
+  </div> 
+
   <!-- <h5>Your Answer Must Pass The Following Tests:</h5> -->
 </div>
