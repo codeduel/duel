@@ -1,0 +1,27 @@
+#watchContainer{
+  height: 1100px;
+  width: 1000px;
+  background-color: #ecf7f9;
+  display: block;
+  position: absolute;
+  padding-left: 30px
+}
+
+#watchContainer h3{
+  text-align: center;
+}
+
+.watchDiv{
+  width: 485px;
+  height: 500px;
+  display: inline-block;
+}
+
+.watchDiv h2{
+  margin-left: 25px;
+}
+
+.watchScreen{
+  width: 455px;
+  height: 400px;
+}
