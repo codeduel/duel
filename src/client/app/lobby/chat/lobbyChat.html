@@ -1,7 +1,7 @@
 <div id="lobbyChatContainer">
   <div id="lobbyChatDisplay" scroll-glue>
     <div class="message" ng-repeat="message in data.messages">
-      <span class="username">{{message.userId}}:</span>
+      <span ng-style="{'color':'{{nameToColor(message.userId)}}'}" class="username">{{message.userId}}:</span>
       <span class="text">{{message.text}}</span>
     </div>
   </div>

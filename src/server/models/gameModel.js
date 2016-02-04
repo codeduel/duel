@@ -11,6 +11,7 @@ var gameSchema = new Schema({
   initialCode: String,
   projectId: String,
   solutionId: String,
+  password: String,
   rank: Number
 },
 {
