@@ -1,6 +1,6 @@
-# Project Name
+# Code Duel
 
-> Pithy project description
+Code duel is an app where two or more people can join (in real time) to duel and find out who is best at coding. The person who finishes first wins.
 
 ## Team
 
@@ -21,15 +21,11 @@ Becky Jaimes
 
 ## Usage
 
-> Some usage instructions
+Clone the repo. Spin up a Mondo DB by running `mongod` on a separate terminal. Start the back end server by running `nodemon` from the root directory.
 
 ## Requirements
 
-- Node 0.10.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
+- Node 4.2.6
 
 ## Development
 
@@ -40,13 +36,7 @@ From within the root directory:
 ```sh
 sudo npm install -g bower
 npm install
-bower install
 ```
-
-### Roadmap
-
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
-
 
 ## Contributing
 
