@@ -6,7 +6,7 @@ var userController = require('../controllers/userController.js');
 
 router.get('/github',
   passport.authenticate('github', {
-    scope: ['user', 'user:email']
+
   }),
   function(req, res) {
     // The request will be redirected to GitHub for authentication, so this
