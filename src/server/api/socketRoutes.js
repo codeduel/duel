@@ -44,6 +44,10 @@ var listeners = function() {
     /*
      *  Streaming/spectator events
      */
+    socket.on('watch/init', function(data) {
+      controllers.spectatorController.init(data, socket);
+    });
+    
     socket.on('watch/stream', function(data) {
       controllers.spectatorController.stream(data, socket);
     });
