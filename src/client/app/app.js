@@ -16,22 +16,23 @@ angular.module('duel', [
   $rootScope.$on('$stateChangeSuccess',
     function(event, toState, toParams, fromState, fromParams, options) {
 
-      //leaving game.play or game.watch state
+      //leaving a state
       if (fromState.name === 'game.play' || fromState.name === 'game.watch') {
         var room = fromParams.gameId;
         if (fromState === 'game.watch') room += '/watch';
         ChatFact.leaveRoom(room);
       }
+      if (fromState.name === 'lobby') {
+        ChatFact.leaveRoom('lobby');
+      }
 
-      //entering game.play or game.watch state
+      //entering a state
       if (toState.name === 'game.play' || toState.name === 'game.watch') {
         var room = toParams.gameId;
         if (toState.name === 'game.watch') room += '/watch';
         ChatFact.joinRoom(room);
       }
-
-      //user should always be in lobby room unless logged out
-      if(toState.name !== 'login') {
+      if (toState.name === 'lobby') {
         ChatFact.joinRoom('lobby');
       }
     });

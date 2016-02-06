@@ -56,7 +56,6 @@ angular.module('duel.game.playFact', ['duel.socketFact', 'duel.userFact'])
   });
 
   SocketFact.socket.on('game/streamTo', function(data) {
-    console.log('hit');
     var msg = SocketFact.buildMessage({
       code: lastStreamedCode,
       to: data.to,
