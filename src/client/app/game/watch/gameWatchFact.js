@@ -1,4 +1,4 @@
-angular.module('duel.game.watchFact', ['duel.socketFact'])
+angular.module('duel.game.watchFact', [])
 
 .factory('GameWatchFact', ['$rootScope', 'SocketFact', '$state', function($rootScope, SocketFact, $state) {
   var gameWatchFact = {};

@@ -1,6 +1,6 @@
-angular.module('duel.lobby.gamesFact', [])
+angular.module('duel.lobbyFact', [])
 
-.factory('LobbyGamesFact', ['$http', function($http) {
+.factory('LobbyFact', ['$http', function($http) {
    var lobbyFact = {};
 
   /*

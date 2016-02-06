@@ -1,13 +1,27 @@
 angular.module('duel', [
-  'ui.router',
-  'ui.bootstrap',
-  'duel.loginCtrl',
-  'duel.lobbyCtrl',
-  'duel.gameCtrl',
-  'duel.authCtrl',
-  'duel.showErrorCtrl',
-  'duel.errorFact',
-  'duel.userFact'
+  //Third-party
+  'ui.router', //angular router
+  'ui.bootstrap', //bootstrap
+  'ui.ace', //ace editor
+  'luegg.directives', //scroll-glue
+  //Controllers
+  'duel.loginCtrl', //Controller for 'login' state
+  'duel.authCtrl', //Controller for 'auth' state
+  'duel.lobbyCtrl', //Controller for 'lobby' state
+  'duel.gameCtrl', //Controller for 'game' state
+  'duel.game.playCtrl', //Controller for 'game.play' state
+  'duel.game.watchCtrl', //Controller for 'game.watch' state
+  'duel.showErrorCtrl', //Controller for 'showError' state
+  'duel.chat.clientsCtrl', //Universal connected clients controller
+  'duel.chatCtrl', //Universal chat controller
+  //Factories
+  'duel.socketFact', //Factory for creating socket connections
+  'duel.errorFact', //Factory for handling errors
+  'duel.userFact', //Factory for storing user session data
+  'duel.chatFact', //Factory for joining/leaving/messaging chat rooms
+  'duel.lobbyFact', //Factory for creating/joining a game session
+  'duel.game.watchFact', //Factory for spectating
+  'duel.game.playFact' //Factory for gameplay
 ])
 
 .run(['$rootScope', 'ChatFact', function($rootScope, ChatFact) {
@@ -20,10 +34,10 @@ angular.module('duel', [
       if (fromState.name === 'game.play' || fromState.name === 'game.watch') {
         var room = fromParams.gameId;
         if (fromState === 'game.watch') room += '/watch';
-        ChatFact.leaveRoom(room);
+        ChatFact.leaveRoom();
       }
       if (fromState.name === 'lobby') {
-        ChatFact.leaveRoom('lobby');
+        ChatFact.leaveRoom();
       }
 
       //entering a state
@@ -35,6 +49,9 @@ angular.module('duel', [
       if (toState.name === 'lobby') {
         ChatFact.joinRoom('lobby');
       }
+
+      //clear messages
+      ChatFact.reset();
     });
 }])
 
@@ -75,16 +92,12 @@ angular.module('duel', [
         controller: 'LobbyCtrl'
       },
       'chat@lobby': {
-        templateUrl: 'app/lobby/chat/lobbyChat.html',
-        controller: 'LobbyChatCtrl'
+        templateUrl: 'app/lobby/lobbyChat.html',
+        controller: 'ChatCtrl'
       },
       'users@lobby': {
-        templateUrl: 'app/lobby/users/lobbyUsers.html',
-        controller: 'LobbyUsersCtrl'
-      },
-      'games@lobby': {
-        templateUrl: 'app/lobby/games/lobbyGames.html',
-        controller: 'LobbyGamesCtrl'
+        templateUrl: 'app/lobby/lobbyClients.html',
+        controller: 'ChatClientsCtrl'
       }
     }
   })
@@ -124,12 +137,12 @@ angular.module('duel', [
         controller: 'GameWatchCtrl'
       },
       'chat@game.watch': {
-        templateUrl: 'app/game/watch/chat/gameWatchChat.html',
-        controller: 'GameWatchChatCtrl'
+        templateUrl: 'app/game/watch/gameWatchChat.html',
+        controller: 'ChatCtrl'
       },
       'users@game.watch': {
-        templateUrl: 'app/game/watch/users/gameWatchUsers.html',
-        controller: 'GameWatchUsersCtrl'
+        templateUrl: 'app/game/watch/gameWatchClients.html',
+        controller: 'ChatClientsCtrl'
       }
     }
   })

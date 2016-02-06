@@ -58,7 +58,6 @@ exports.leaveAll = function(socket) {
 exports.leave = function(msg, socket) {
   var room = msg.data.room;
   var userId = msg.data.userId;
-
   console.log(userId + ' left ' + room);
 
   socket.leave(room);

@@ -1,13 +1,13 @@
-angular.module('duel.game.watch.chatCtrl', ['duel.chatFact', 'luegg.directives'])
+angular.module('duel.chatCtrl', [])
 
-.controller('GameWatchChatCtrl', ['$scope', 'ChatFact', 'UserFact', function($scope, ChatFact, UserFact) {
+.controller('ChatCtrl', ['$scope', 'ChatFact', 'UserFact', function($scope, ChatFact, UserFact) {
   $scope.data = {};
   $scope.data.messages = ChatFact.messages;
   $scope.data.chatInput = '';
 
   $scope.sendMessage = function() {
     if ($scope.data.chatInput.trim()) {
-      ChatFact.sendMessage($scope.data.chatInput, $scope.$parent.gameId + '/watch');
+      ChatFact.sendMessage($scope.data.chatInput);
       $scope.data.chatInput = '';
     }
   }

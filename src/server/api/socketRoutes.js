@@ -24,7 +24,6 @@ var listeners = function() {
   if (!io) {
     return;
   }
-  console.log('Socket listeners created.');
 
   io.on('connection', function(socket) {
     socket.duelData = {};
@@ -63,6 +62,7 @@ var listeners = function() {
     });
 
     socket.on('chat/leave', function(data) {
+      console.log(data);
       controllers.chatController.leave(data, socket);
     });
 

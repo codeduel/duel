@@ -1,7 +1,33 @@
 <div id="lobbyContainer">
-  <div id = "games" ui-view="games"></div>
-  <div id ="usersChat">
+  <div id="games">
+    <div id="lobbyForms" ng-show="!currentView">
+      <h4><button class="lobby" ng-click="currentView = 'create'">Create</button> A New Challenge</h4>
+      <h4><button class="lobby" ng-click="currentView = 'join'">Join</button> An Existing Challenge</h4>
+    </div>
+    <div id="forms">
+      <form id="join" ng-if="currentView === 'join'" ng-submit="join()">
+        <h5>Enter Contest id below</h5>
+        <input type="text" ng-model="data.gameId">
+        <button type="submit">Join!</button>
+        <span ng-click="back()">Back...</span>
+      </form>
+      <form id="create" ng-if="currentView === 'create'" ng-submit="create()">
+        <h5>Choose your difficulty level</h5>
+        <select ng-model="data.difficulty">
+          <option hidden></option>
+          <option selected value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+          <option value="demo">Demo</option>
+        </select>
+        <input type="password" ng-model="data.password" placeholder="password">
+        <button type="submit">Create!</button>
+        <span ng-click="back()">Back...</span>
+      </form>
+    </div>
+  </div>
+  <div id="usersChat">
     <div ui-view="users"></div>
-	<div ui-view="chat"></div>
+    <div ui-view="chat"></div>
   </div>
 </div>

@@ -1,4 +1,4 @@
-angular.module('duel.game.watchCtrl', ['duel.game.watch.usersCtrl','duel.game.watch.chatCtrl','duel.game.watchFact', 'duel.chatFact', 'duel.userFact'])
+angular.module('duel.game.watchCtrl', [])
 
 .controller('GameWatchCtrl', ['$state', '$stateParams', '$scope', 'GameWatchFact', 'ChatFact', 'UserFact', function($state, $stateParams, $scope, GameWatchFact, ChatFact, UserFact) {
   $scope.gameId = $stateParams.gameId;

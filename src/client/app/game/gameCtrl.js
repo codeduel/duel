@@ -1,4 +1,4 @@
-angular.module('duel.gameCtrl', ['duel.game.playCtrl', 'duel.game.watchCtrl'])
+angular.module('duel.gameCtrl', [])
 
 .controller('GameCtrl', ['$scope', '$state', '$stateParams', 'UserFact', '$http', function($scope, $state, $stateParams, UserFact, $http) {
   $scope.gameId = $stateParams.gameId;

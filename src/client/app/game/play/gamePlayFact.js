@@ -1,4 +1,4 @@
-angular.module('duel.game.playFact', ['duel.socketFact', 'duel.userFact'])
+angular.module('duel.game.playFact', [])
 
 .factory('GamePlayFact', ['UserFact', 'SocketFact', '$rootScope', '$timeout', '$interval', '$state', function(UserFact, SocketFact, $rootScope, $timeout, $interval, $state) {
   var gamePlayFact = {};

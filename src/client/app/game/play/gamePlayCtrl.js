@@ -1,4 +1,4 @@
-angular.module('duel.game.playCtrl', ['duel.game.playFact', 'ui.ace', 'duel.chatFact'])
+angular.module('duel.game.playCtrl', [])
 
 .controller('GamePlayCtrl', ['$scope', '$state', '$stateParams', 'GamePlayFact', 'UserFact', 'ChatFact', function($scope, $state, $stateParams, GamePlayFact, UserFact, ChatFact) {
   GamePlayFact.reset();
