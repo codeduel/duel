@@ -38,9 +38,6 @@ angular.module('duel.game.playCtrl', ['duel.game.playFact', 'ui.ace', 'duel.chat
     }
   }, true);
 
-  //Maps the socket client to the game room
-  ChatFact.joinRoom(UserFact.getUser().userName, $scope.gameId);
-
   //Calls GamePlayFact's connectToGame() once the user enters the 'game' state
   GamePlayFact.connectToGame({
     userId: UserFact.getUser().userId,
@@ -61,4 +58,8 @@ angular.module('duel.game.playCtrl', ['duel.game.playFact', 'ui.ace', 'duel.chat
       gameId: $scope.gameId
     });
   };
+
+  $scope.toLobby = function() {
+    $state.go('lobby');
+  }
 }]);

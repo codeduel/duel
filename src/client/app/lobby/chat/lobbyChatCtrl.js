@@ -5,8 +5,6 @@ angular.module('duel.lobby.chatCtrl', ['duel.chatFact', 'luegg.directives'])
   $scope.data.messages = ChatFact.messages;
   $scope.data.chatInput = '';
 
-  ChatFact.joinRoom(UserFact.getUser().userName, 'lobby');
-
   $scope.sendMessage = function() {
     if ($scope.data.chatInput.trim()) {
       ChatFact.sendMessage(UserFact.getUser().userName, $scope.data.chatInput, 'lobby');

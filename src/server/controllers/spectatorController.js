@@ -5,7 +5,6 @@ var socketError = require('../api/socketRoutes.js').socketError;
 
 //Sends the player's editor code to either all spectators or a single spectator
 exports.stream = function(msg, socket) {
-  console.log(msg);
   var to = msg.data.to || msg.data.gameId + '/watch';
   sendTo(to, 'watch/update', {
     userId: msg.data.userId,

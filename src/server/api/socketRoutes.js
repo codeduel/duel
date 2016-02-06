@@ -47,7 +47,7 @@ var listeners = function() {
     socket.on('watch/init', function(data) {
       controllers.spectatorController.init(data, socket);
     });
-    
+
     socket.on('watch/stream', function(data) {
       controllers.spectatorController.stream(data, socket);
     });
@@ -61,6 +61,10 @@ var listeners = function() {
 
     socket.on('chat/message', function(data) {
       controllers.chatController.message(data, socket);
+    });
+
+    socket.on('chat/leave', function(data) {
+      controllers.chatController.leave(data, socket);
     });
 
     //disconnect event for games and chat

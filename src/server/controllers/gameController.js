@@ -95,7 +95,6 @@ resolveSolutionAttempt();
 
 //Generates a Game in database
 exports.createGame = function(req, res) {
-  console.log(req.body);
   codewarsController.generateQuestion(req.body.difficulty)
     .then(function(data) {
       new Game({
@@ -106,7 +105,6 @@ exports.createGame = function(req, res) {
         rank: data.rank,
         password: req.body.password
       }).save(function(error, createdGame) {
-        console.log(createdGame);
         if (error) {
           console.log('error saving new game in gameController.js');
           res.status(500).send(error);
@@ -126,7 +124,6 @@ exports.createGame = function(req, res) {
 
 //Authenticates an unlock attempt on a locked game
 exports.unlock = function(req, res) {
-  console.log(req.body);
   Game.findOne({
     gameId: req.body.gameId,
     password: req.body.password
@@ -196,7 +193,7 @@ exports.playerLeave = function(socket) {
   var gameArray;
   var playerGameId;
   //check for all the right data, otherwise throw an error
-  if (!socket || !socket.duelData || !socket.duelData.inGameId) {
+  if (!socket || !socket.duelData) {
     console.log('Function call error in function playerLeave in gameController.js');
     return;
   }
@@ -215,6 +212,7 @@ exports.playerLeave = function(socket) {
       socket.duelData.inGameId = null;
       //remove the user from the game in clientConnections then get array of players
       clientConnections.remove(playerGameId, socket.id);
+      console.log(socket.id + ' left ' + playerGameId);
       gameArray = clientConnections.getClientsArray(playerGameId);
       //make game empty and inactive if there are no more players
       if (gameArray.length === 0) {
@@ -224,8 +222,6 @@ exports.playerLeave = function(socket) {
         foundGame.lastEmpty = Date.now();
         foundGame.save();
       }
-    } else {
-      console.log('Game not found in function playerLeave in gameController.js');
     }
   });
 };

@@ -28,20 +28,19 @@ exports.message = function(msg, socket) {
 exports.join = function(msg, socket) {
   var room = msg.data.room;
   var userId = msg.data.userId;
-
+  console.log(userId + ' joined ' + room);
   clientConnections.add(room, socket.id, userId);
 
   socket.duelData.subscribedRooms.push(room);
   socket.join(room);
-  console.log(userId + ' joined ' + room);
   sendTo(room, 'chat/update', clientConnections.getClients(room));
 }
 
 /*
  *  Removes the client socket from all rooms
  */
- exports.leaveAll = function(socket) {
-  for(var i = 0; i < socket.duelData.subscribedRooms.length; i++) {
+exports.leaveAll = function(socket) {
+  for (var i = 0; i < socket.duelData.subscribedRooms.length; i++) {
     var room = socket.duelData.subscribedRooms[i];
 
     socket.leave(room);
@@ -50,4 +49,21 @@ exports.join = function(msg, socket) {
   }
 
   socket.duelData.subscribedRooms = [];
- }
+}
+
+/*
+ *  Removes the client socket from a room
+ */
+exports.leave = function(msg, socket) {
+  var room = msg.data.room;
+  var userId = msg.data.userId;
+
+  console.log(userId + ' left ' + room);
+
+  socket.leave(room);
+  clientConnections.remove(room, socket.id);
+  sendTo(room, 'chat/update', clientConnections.getClients(room));
+
+  var index = socket.duelData.subscribedRooms.indexOf(room);
+  socket.duelData.subscribedRooms.splice(index, 1);
+}

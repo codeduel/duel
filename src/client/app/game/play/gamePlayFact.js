@@ -22,7 +22,6 @@ angular.module('duel.game.playFact', ['duel.socketFact', 'duel.userFact'])
   //****************
 
   SocketFact.socket.on('game/start', function(data) {
-    console.log("Game has begun", data);
     //updates message, question, and initial code once game starts
     gamePlayFact.client.message = "The challenge has begun";
     gamePlayFact.client.question = data.question;
@@ -57,6 +56,7 @@ angular.module('duel.game.playFact', ['duel.socketFact', 'duel.userFact'])
   });
 
   SocketFact.socket.on('game/streamTo', function(data) {
+    console.log('hit');
     var msg = SocketFact.buildMessage({
       code: lastStreamedCode,
       to: data.to,

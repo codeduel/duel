@@ -1,6 +1,6 @@
 angular.module('duel.chatFact', ['duel.socketFact'])
 
-.factory('ChatFact', ['$rootScope', 'SocketFact', function($rootScope, SocketFact) {
+.factory('ChatFact', ['UserFact', '$rootScope', 'SocketFact', function(UserFact, $rootScope, SocketFact) {
   var chatFact = {};
 
   chatFact.messages = [];
@@ -23,9 +23,9 @@ angular.module('duel.chatFact', ['duel.socketFact'])
   //***************
   //Socket Triggers
   //***************
-  chatFact.joinRoom = function(userId, room) {
+  chatFact.joinRoom = function(room) {
     var msg = SocketFact.buildMessage({
-      userId: userId,
+      userId: UserFact.getUser().userId,
       room: room
     });
     SocketFact.socket.emit('chat/join', msg);
@@ -35,9 +35,17 @@ angular.module('duel.chatFact', ['duel.socketFact'])
     var msg = SocketFact.buildMessage({
       text: text,
       room: room,
-      userId, userId
+      userId: userId
     });
     SocketFact.socket.emit('chat/message', msg);
+  }
+
+  chatFact.leaveRoom = function(room) {
+    var msg = SocketFact.buildMessage({
+      userId: UserFact.getUser().userId,
+      room: room
+    });
+    SocketFact.socket.emit('chat/leave', msg);
   }
 
   return chatFact;

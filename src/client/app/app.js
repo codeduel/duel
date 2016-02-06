@@ -10,13 +10,37 @@ angular.module('duel', [
   'duel.userFact'
 ])
 
-.run(['$rootScope', function($rootScope) {
+.run(['$rootScope', 'ChatFact', function($rootScope, ChatFact) {
 
-  }])
-  //temporary controller until I can refactor ErrorFact as a provider
-  .controller('appController', ['ErrorFact', function(ErrorFact) {
+  //Socket room router
+  $rootScope.$on('$stateChangeSuccess',
+    function(event, toState, toParams, fromState, fromParams, options) {
 
-  }])
+      //leaving game.play or game.watch state
+      if (fromState.name === 'game.play' || fromState.name === 'game.watch') {
+        var room = fromParams.gameId;
+        if (fromState === 'game.watch') room += '/watch';
+        ChatFact.leaveRoom(room);
+      }
+
+      //entering game.play or game.watch state
+      if (toState.name === 'game.play' || toState.name === 'game.watch') {
+        var room = toParams.gameId;
+        if (toState.name === 'game.watch') room += '/watch';
+        ChatFact.joinRoom(room);
+      }
+
+      //user should always be in lobby room unless logged out
+      if(toState.name !== 'login') {
+        ChatFact.joinRoom('lobby');
+      }
+    })
+}])
+
+//temporary controller until I can refactor ErrorFact as a provider
+.controller('appController', ['ErrorFact', function(ErrorFact) {
+
+}])
 
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/login');
