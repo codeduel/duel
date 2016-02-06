@@ -6,6 +6,21 @@ angular.module('duel.chatFact', ['duel.socketFact'])
   chatFact.messages = [];
   chatFact.currRoom = {};
 
+  //converts a string to a unique color hex code
+  chatFact.nameToColor = function(str) {
+    if (str) {
+      var hash = 0;
+      for (var i = 0; i < str.length; i++) {
+        hash = (hash << 5) + hash + str.charCodeAt(i);
+        hash = hash & hash;
+        hash = Math.abs(hash);
+      }
+      var hex = '#' + (hash % 16777215).toString(16);
+      return hex;
+    }
+    return 'black';
+  };
+
   //****************
   //Socket Listeners
   //****************
