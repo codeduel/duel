@@ -1,3 +1,7 @@
+#dashboardPadding {
+  display: block;
+  height: 230px;
+}
 #gameDashboard {
   width: 100%;
   bottom: 0;
@@ -63,7 +67,7 @@
   background: #011e3a;
   color: #FFFFFF;
   height: 230px;
-    border-right: 2px solid black;
+  border-right: 2px solid black;
   border-radius: 5px 0px 0px 5px;
   text-align: center;
 }
