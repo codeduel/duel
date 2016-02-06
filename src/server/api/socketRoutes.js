@@ -29,7 +29,6 @@ var listeners = function() {
   io.on('connection', function(socket) {
     socket.duelData = {};
     socket.duelData.subscribedRooms = [];
-
     /*
      *  Game events
      */

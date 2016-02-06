@@ -34,7 +34,7 @@ angular.module('duel', [
       if(toState.name !== 'login') {
         ChatFact.joinRoom('lobby');
       }
-    })
+    });
 }])
 
 //temporary controller until I can refactor ErrorFact as a provider
@@ -121,6 +121,14 @@ angular.module('duel', [
       'duelContent@': {
         templateUrl: 'app/game/watch/gameWatch.html',
         controller: 'GameWatchCtrl'
+      },
+      'chat@game.watch': {
+        templateUrl: 'app/game/watch/chat/gameWatchChat.html',
+        controller: 'GameWatchChatCtrl'
+      },
+      'users@game.watch': {
+        templateUrl: 'app/game/watch/users/gameWatchUsers.html',
+        controller: 'GameWatchUsersCtrl'
       }
     }
   })
