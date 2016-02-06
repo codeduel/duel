@@ -7,7 +7,7 @@ angular.module('duel.game.watch.chatCtrl', ['duel.chatFact', 'luegg.directives']
 
   $scope.sendMessage = function() {
     if ($scope.data.chatInput.trim()) {
-      ChatFact.sendMessage(UserFact.getUser().userName, $scope.data.chatInput, $scope.$parent.gameId + '/watch');
+      ChatFact.sendMessage($scope.data.chatInput, $scope.$parent.gameId + '/watch');
       $scope.data.chatInput = '';
     }
   }

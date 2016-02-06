@@ -31,6 +31,7 @@ exports.join = function(msg, socket) {
   console.log(userId + ' joined ' + room);
   clientConnections.add(room, socket.id, userId);
 
+  socket.duelData.userId = userId;
   socket.duelData.subscribedRooms.push(room);
   socket.join(room);
   sendTo(room, 'chat/update', clientConnections.getClients(room));

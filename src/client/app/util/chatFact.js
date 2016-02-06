@@ -27,6 +27,7 @@ angular.module('duel.chatFact', ['duel.socketFact'])
 
   SocketFact.socket.on('chat/message', function(data) {
     chatFact.messages.push(data);
+    console.log(data);
     $rootScope.$apply();
   });
 
@@ -46,13 +47,22 @@ angular.module('duel.chatFact', ['duel.socketFact'])
     SocketFact.socket.emit('chat/join', msg);
   }
 
-  chatFact.sendMessage = function(userId, text, room) {
-    var msg = SocketFact.buildMessage({
-      text: text,
-      room: room,
-      userId: userId
-    });
-    SocketFact.socket.emit('chat/message', msg);
+  chatFact.sendMessage = function(text, room) {
+    var userId = UserFact.getUser().userId;
+    if (userId) {
+      var msg = SocketFact.buildMessage({
+        text: text,
+        room: room,
+        userId: userId
+      });
+      SocketFact.socket.emit('chat/message', msg);
+    } else {
+      chatFact.messages.push({
+        userId: 'SYSTEM',
+        text: 'Please login to chat!'
+      });
+    }
+
   }
 
   chatFact.leaveRoom = function(room) {

@@ -7,7 +7,7 @@ angular.module('duel.lobby.chatCtrl', ['duel.chatFact', 'luegg.directives'])
 
   $scope.sendMessage = function() {
     if ($scope.data.chatInput.trim()) {
-      ChatFact.sendMessage(UserFact.getUser().userName, $scope.data.chatInput, 'lobby');
+      ChatFact.sendMessage($scope.data.chatInput, 'lobby');
       $scope.data.chatInput = '';
     }
     analytics.track('Sent Chat', {
