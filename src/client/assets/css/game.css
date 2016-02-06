@@ -1,0 +1,75 @@
+#gameDashboard {
+  width: 100%;
+  bottom: 0;
+  position: fixed;
+  z-index: 150;
+  _position: absolute;
+  display: inline-block;
+  background-color: #FFFFFF;
+  _top: expression(eval(document.documentElement.scrollTop+ (document.documentElement.clientHeight-this.offsetHeight)));
+}
+
+#gameChatDisplay {
+  padding: 18px 0px 0px 10px;
+  height: 200px;
+  width: 500px;
+  overflow: auto;
+  margin: 0px;
+  vertical-align: top;
+  font-size: 15px;
+  border: 3px solid #002240;
+  display: inline-block;
+}
+
+#gameChatContainer {
+  width: 500px;
+  display:inline-block;
+  float:left;
+}
+
+#gameDashboard input {
+  font-size: 16px;
+  width: 400px;
+  height: 30px;
+  display: inline-block;
+  border-top: 2px solid black;
+  vertical-align: top;
+  padding-left: 10px;
+  margin-left: 9px;
+}
+
+#gameDashboard button {
+  background-color: #002240;
+  color: #FFFFFF;
+  font-size: 20px;
+  width: 80px;
+  height: 30px;
+  padding: 0px;
+  margin: 0px;
+  border-radius: 0px 0px 5px 0px;
+  border-top: 2px solid black;
+  display: inline-block;
+}
+
+#gameChatDisplay .username{
+  font-weight: bold;
+}
+
+#gameUsersContainer {
+  float:left;
+  display:inline-block;
+  width: 250px;
+  overflow: auto;
+  background: #011e3a;
+  color: #FFFFFF;
+  height: 230px;
+    border-right: 2px solid black;
+  border-radius: 5px 0px 0px 5px;
+  text-align: center;
+}
+
+#gameUsersContainer h5{
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
+}

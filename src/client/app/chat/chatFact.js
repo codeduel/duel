@@ -1,10 +1,11 @@
-angular.module('duel.chatFact', ['duel.socketFact'])
+angular.module('duel.chatFact', [])
 
 .factory('ChatFact', ['UserFact', '$rootScope', 'SocketFact', function(UserFact, $rootScope, SocketFact) {
   var chatFact = {};
 
   chatFact.messages = [];
-  chatFact.currRoom = {};
+  chatFact.clients = {};
+  chatFact.currRoom = '';
 
   //converts a string to a unique color hex code
   chatFact.nameToColor = function(str) {
@@ -21,6 +22,12 @@ angular.module('duel.chatFact', ['duel.socketFact'])
     return 'black';
   };
 
+  //clears factory data
+  chatFact.reset = function() {
+    chatFact.messages = [];
+    chatFact.clients = {};
+  }
+
   //****************
   //Socket Listeners
   //****************
@@ -31,7 +38,7 @@ angular.module('duel.chatFact', ['duel.socketFact'])
   });
 
   SocketFact.socket.on('chat/update', function(data) {
-    chatFact.currRoom = data;
+    chatFact.clients = data;
     $rootScope.$apply();
   })
 
@@ -44,21 +51,35 @@ angular.module('duel.chatFact', ['duel.socketFact'])
       room: room
     });
     SocketFact.socket.emit('chat/join', msg);
+    chatFact.currRoom = room;
   }
 
-  chatFact.sendMessage = function(userId, text, room) {
-    var msg = SocketFact.buildMessage({
-      text: text,
-      room: room,
-      userId: userId
-    });
-    SocketFact.socket.emit('chat/message', msg);
+  chatFact.sendMessage = function(text) {
+    var userId = UserFact.getUser().userId;
+    if (userId) {
+      var msg = SocketFact.buildMessage({
+        text: text,
+        room: chatFact.currRoom,
+        userId: userId
+      });
+      SocketFact.socket.emit('chat/message', msg);
+      analytics.track('Sent Chat', {
+        userName: UserFact.getUser().userName,
+        channel: chatFact.currRoom
+      });
+    } else {
+      chatFact.messages.push({
+        userId: 'SYSTEM',
+        text: 'Please login to chat!'
+      });
+    }
+
   }
 
-  chatFact.leaveRoom = function(room) {
+  chatFact.leaveRoom = function() {
     var msg = SocketFact.buildMessage({
       userId: UserFact.getUser().userId,
-      room: room
+      room: chatFact.currRoom
     });
     SocketFact.socket.emit('chat/leave', msg);
   }

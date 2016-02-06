@@ -1,5 +1,5 @@
 // Server routes back here after authenticating with GitHub
-angular.module('duel.authCtrl', ['ui.router'])
+angular.module('duel.authCtrl', [])
 
 .controller('AuthCtrl', ['$scope', '$stateParams', '$state', 'UserFact', '$window', function($scope, $stateParams, $state, UserFact, $window) {
   var userName = $stateParams.userName;

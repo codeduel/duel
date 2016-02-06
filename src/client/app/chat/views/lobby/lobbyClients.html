@@ -1,0 +1,5 @@
+<div id="lobbyUsersContainer">
+<h5>Users in Lobby: {{data.numClients - data.numGuests}}</h5>
+<h5>Guests in Lobby: {{data.numGuests}}</h5>
+<div ng-repeat="clients in data.connectedClients">{{clients}}</div>
+</div>

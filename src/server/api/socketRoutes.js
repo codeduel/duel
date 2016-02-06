@@ -24,12 +24,10 @@ var listeners = function() {
   if (!io) {
     return;
   }
-  console.log('Socket listeners created.');
 
   io.on('connection', function(socket) {
     socket.duelData = {};
     socket.duelData.subscribedRooms = [];
-
     /*
      *  Game events
      */

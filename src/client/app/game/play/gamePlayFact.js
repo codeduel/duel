@@ -1,4 +1,4 @@
-angular.module('duel.game.playFact', ['duel.socketFact', 'duel.userFact'])
+angular.module('duel.game.playFact', [])
 
 .factory('GamePlayFact', ['UserFact', 'SocketFact', '$rootScope', '$timeout', '$interval', '$state', function(UserFact, SocketFact, $rootScope, $timeout, $interval, $state) {
   var gamePlayFact = {};
@@ -9,10 +9,11 @@ angular.module('duel.game.playFact', ['duel.socketFact', 'duel.userFact'])
       message: "Waiting for opponent...",
       initial: "Your Code Here",
       winner: null,
-      minutes: 0
+      minutes: 0,
     };
-
     var lastStreamedCode = '';
+    
+    gamePlayFact.spectators = {};
   };
 
   gamePlayFact.reset();
@@ -56,13 +57,17 @@ angular.module('duel.game.playFact', ['duel.socketFact', 'duel.userFact'])
   });
 
   SocketFact.socket.on('game/streamTo', function(data) {
-    console.log('hit');
     var msg = SocketFact.buildMessage({
       code: lastStreamedCode,
       to: data.to,
       userId: UserFact.getUser().userId
     });
     SocketFact.socket.emit('watch/stream', msg);
+  });
+
+  SocketFact.socket.on('game/updateSpectators', function(data) {
+    gamePlayFact.spectators = data;
+    $rootScope.$apply();
   });
 
   //***************

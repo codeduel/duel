@@ -1,5 +1,5 @@
-#watchContainer{
-  height: 1100px;
+#watchContainer {
+  height: 100%;
   width: 1000px;
   background-color: #ecf7f9;
   display: block;
@@ -7,21 +7,21 @@
   padding-left: 30px
 }
 
-#watchContainer h3{
+#watchContainer h3 {
   text-align: center;
 }
 
-.watchDiv{
+.watchDiv {
   width: 485px;
   height: 500px;
   display: inline-block;
 }
 
-.watchDiv h2{
+.watchDiv h2 {
   margin-left: 25px;
 }
 
-.watchScreen{
+.watchScreen {
   width: 455px;
   height: 400px;
 }
