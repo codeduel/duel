@@ -1,29 +1,35 @@
-angular.module('duel.game.playFact', ['duel.socketFact'])
+angular.module('duel.game.playFact', ['duel.socketFact', 'duel.userFact'])
 
-.factory('GamePlayFact', ['SocketFact', '$rootScope', '$timeout','$interval','$state', function(SocketFact, $rootScope, $timeout, $interval, $state) {
+.factory('GamePlayFact', ['UserFact', 'SocketFact', '$rootScope', '$timeout', '$interval', '$state', function(UserFact, SocketFact, $rootScope, $timeout, $interval, $state) {
   var gamePlayFact = {};
-  gamePlayFact.client = {
-    question: "question will be displayed when challenge commences",
-    message: "Waiting for opponent...",
-    initial: "Your Code Here",
-    winner: null,
-    minutes: 0
+
+  gamePlayFact.reset = function(){
+    gamePlayFact.client = {
+      question: "question will be displayed when challenge commences",
+      message: "Waiting for opponent...",
+      initial: "Your Code Here",
+      winner: null,
+      minutes: 0
+    };
+
+    var lastStreamedCode = '';
   };
+
+  gamePlayFact.reset();
 
   //****************
   //Socket Listeners
   //****************
 
   SocketFact.socket.on('game/start', function(data) {
-    console.log("Game has begun", data);
     //updates message, question, and initial code once game starts
     gamePlayFact.client.message = "The challenge has begun";
     gamePlayFact.client.question = data.question;
     gamePlayFact.client.initial = data.initialCode;
-    $interval(function(){
-      gamePlayFact.client.minutes++;
-    }, 60000)
-    //should refactor to not use rootScope?
+    $interval(function() {
+        gamePlayFact.client.minutes++;
+      }, 60000)
+      //should refactor to not use rootScope?
     $rootScope.$apply();
   });
 
@@ -41,12 +47,22 @@ angular.module('duel.game.playFact', ['duel.socketFact'])
     $rootScope.$apply();
 
     //reroutes to Lobby 3 seconds after a someone wins
-    $timeout(function(){
+    $timeout(function() {
       $state.go('lobby', {
         //must be refactored with sessions
         //userid: $scope.userid
       });
     }, 3000)
+  });
+
+  SocketFact.socket.on('game/streamTo', function(data) {
+    console.log('hit');
+    var msg = SocketFact.buildMessage({
+      code: lastStreamedCode,
+      to: data.to,
+      userId: UserFact.getUser().userId
+    });
+    SocketFact.socket.emit('watch/stream', msg);
   });
 
   //***************
@@ -64,6 +80,7 @@ angular.module('duel.game.playFact', ['duel.socketFact'])
   }
 
   gamePlayFact.stream = function(editorData) {
+    lastStreamedCode = editorData.code;
     var msg = SocketFact.buildMessage(editorData);
     SocketFact.socket.emit('watch/stream', msg);
   }

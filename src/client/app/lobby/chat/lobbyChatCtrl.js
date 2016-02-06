@@ -5,8 +5,6 @@ angular.module('duel.lobby.chatCtrl', ['duel.chatFact', 'luegg.directives'])
   $scope.data.messages = ChatFact.messages;
   $scope.data.chatInput = '';
 
-  ChatFact.joinRoom(UserFact.getUser().userName, 'lobby');
-
   $scope.sendMessage = function() {
     if ($scope.data.chatInput.trim()) {
       ChatFact.sendMessage(UserFact.getUser().userName, $scope.data.chatInput, 'lobby');
@@ -20,13 +18,6 @@ angular.module('duel.lobby.chatCtrl', ['duel.chatFact', 'luegg.directives'])
 
   //converts a string to a unique color hex code
   $scope.nameToColor = function(str) {
-    var hash = 0;
-    for (var i = 0; i < str.length; i++) {
-      hash = (hash << 5) + hash + str.charCodeAt(i);
-      hash = hash & hash;
-      hash = Math.abs(hash);
-    }
-    var hex = '#' + (hash % 16777215).toString(16);
-    return hex;
+    return ChatFact.nameToColor(str);
   };
 }]);

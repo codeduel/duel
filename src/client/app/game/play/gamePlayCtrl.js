@@ -1,7 +1,8 @@
 angular.module('duel.game.playCtrl', ['duel.game.playFact', 'ui.ace', 'duel.chatFact'])
 
 .controller('GamePlayCtrl', ['$scope', '$state', '$stateParams', 'GamePlayFact', 'UserFact', 'ChatFact', function($scope, $state, $stateParams, GamePlayFact, UserFact, ChatFact) {
-
+  GamePlayFact.reset();
+  
   $scope.client = GamePlayFact.client;
   $scope.gameId = $stateParams.gameId;
   $scope.userName = UserFact.getUser().userName;
@@ -11,11 +12,22 @@ angular.module('duel.game.playCtrl', ['duel.game.playFact', 'ui.ace', 'duel.chat
   //buffer time (in ms) between typing before streaming the data to spectators
   $scope.DEBOUNCE_INTERVAL = 100;
 
+  $scope.stream = function() {
+    GamePlayFact.stream({
+      code: $scope.data.solution,
+      gameId: $scope.gameId,
+      userId: UserFact.getUser().userName
+    })
+  }
+
   $scope.counter = "0 minutes";
 
   //updates solution textarea when initial code is loaded
   $scope.$watch('client.initial', function(newVal, oldVal) {
-    $scope.data.solution = $scope.client.initial;
+    if(newVal !== oldVal) {
+      $scope.data.solution = $scope.client.initial;
+      $scope.stream();
+    }
   }, true);
 
   $scope.$watch('client.minutes', function(newVal, oldVal) {
@@ -26,15 +38,14 @@ angular.module('duel.game.playCtrl', ['duel.game.playFact', 'ui.ace', 'duel.chat
     }
   }, true);
 
-  //Maps the socket client to the game room
-  ChatFact.joinRoom(UserFact.getUser().userName, $scope.gameId);
-
   //Calls GamePlayFact's connectToGame() once the user enters the 'game' state
   GamePlayFact.connectToGame({
     userId: UserFact.getUser().userId,
     gameId: $scope.gameId
   });
 
+  //Starts an initial stream to spectators
+  $scope.stream();
 
   $scope.submitSolution = function() {
     GamePlayFact.submitSolution({
@@ -48,15 +59,7 @@ angular.module('duel.game.playCtrl', ['duel.game.playFact', 'ui.ace', 'duel.chat
     });
   };
 
-  $scope.aceLoaded = function(_editor) {
-    _editor.blockScrolling = Infinity;
-  };
-
-  $scope.stream = function() {
-    GamePlayFact.stream({
-      code: $scope.data.solution,
-      gameId: $scope.gameId,
-      userId: UserFact.getUser().userName
-    })
+  $scope.toLobby = function() {
+    $state.go('lobby');
   }
 }]);

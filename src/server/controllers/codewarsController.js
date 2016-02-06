@@ -80,7 +80,6 @@ var query = function(method, uri, data) {
 exports.generateQuestion = function(difficulty) {
   if (difficulty in config.difficultyMappings) {
     var challenge = getRandomChallenge(difficulty);
-    console.log(challenge);
     return query('POST', config.routes.generateQuestion(challenge, 'javascript'), {});
   }
 }

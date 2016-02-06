@@ -1,4 +1,5 @@
 <div id="watchContainer">
+  <button ng-click="toLobby()">Back to lobby</button>
   <h3>You're watching game # {{gameId}}</h3>
   <div class='col-xs-4, watchDiv' ng-repeat="(player, code) in watchedClients">
     <h2>Player: {{player}}</h2>
