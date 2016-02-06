@@ -1,25 +1,24 @@
-<div id = "challengeContainer" class="container">
+<div id="challengeContainer" class="container">
   <div id="challengeHeader" class="row">
-    <h3 class='col-xs-4'>Hello {{userName}}</h3>
+    <h3 class='col-xs-4'>{{numSpectators}} Spectators</h3>
     <h3 class='col-xs-4' id="game">Game ID: {{gameId}}</h3>
     <h3 class='col-xs-4' id="counter">{{counter}}</h3>
     <button ng-click="toLobby()">Exit Game</button>
   </div>
-  <h2 id = "message">{{client.message}}</h2>
+  <h2 id="message">{{client.message}}</h2>
   <div id="ChallengePrompt" class='col-xs-5'>
-  {{client.question}}
+    {{client.question}}
   </div>
   <div class='col-xs-7'>
     <form id="PlayerAnswer">
-      <div 
-      ui-ace="{useWrapMode : true, theme:'cobalt', document: 'javascript', mode: 'javascript'}"
-      ng-model="data.solution" 
-      ng-model-options="{debounce: DEBOUNCE_INTERVAL}" 
-      ng-change="stream()">
+      <div ui-ace="{useWrapMode : true, theme:'cobalt', document: 'javascript', mode: 'javascript'}" ng-model="data.solution" ng-model-options="{debounce: DEBOUNCE_INTERVAL}" ng-change="stream()">
       </div>
-      <button id ="submit" type="button" ng-click="submitSolution()">Submit Answer</button>
+      <button id="submit" type="button" ng-click="submitSolution()">Submit Answer</button>
     </form>
-  </div> 
-
+  </div>
   <!-- <h5>Your Answer Must Pass The Following Tests:</h5> -->
+</div>
+<div id="gameDashboard">
+  <div ui-view="users"></div>
+  <div ui-view="chat"></div>
 </div>

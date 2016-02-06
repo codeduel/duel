@@ -92,11 +92,11 @@ angular.module('duel', [
         controller: 'LobbyCtrl'
       },
       'chat@lobby': {
-        templateUrl: 'app/lobby/lobbyChat.html',
+        templateUrl: 'app/chat/views/lobby/lobbyChat.html',
         controller: 'ChatCtrl'
       },
       'users@lobby': {
-        templateUrl: 'app/lobby/lobbyClients.html',
+        templateUrl: 'app/chat/views/lobby/lobbyClients.html',
         controller: 'ChatClientsCtrl'
       }
     }
@@ -123,6 +123,14 @@ angular.module('duel', [
       'duelContent@': {
         templateUrl: 'app/game/play/gamePlay.html',
         controller: 'GamePlayCtrl'
+      },
+      'chat@game.play': {
+        templateUrl: 'app/chat/views/dashboard/gameDashboardChat.html',
+        controller: 'ChatCtrl'
+      },
+      'users@game.play': {
+        templateUrl: 'app/chat/views/dashboard/gamePlayDashboardClients.html',
+        controller: 'ChatClientsCtrl'
       }
     }
   })
@@ -137,11 +145,11 @@ angular.module('duel', [
         controller: 'GameWatchCtrl'
       },
       'chat@game.watch': {
-        templateUrl: 'app/game/watch/gameWatchChat.html',
+        templateUrl: 'app/chat/views/dashboard/gameDashboardChat.html',
         controller: 'ChatCtrl'
       },
       'users@game.watch': {
-        templateUrl: 'app/game/watch/gameWatchClients.html',
+        templateUrl: 'app/chat/views/dashboard/gameWatchDashboardClients.html',
         controller: 'ChatClientsCtrl'
       }
     }

@@ -1,6 +1,6 @@
 angular.module('duel.chat.clientsCtrl', [])
 
-.controller('ChatClientsCtrl', ['$scope', 'ChatFact', function($scope, ChatFact) {
+.controller('ChatClientsCtrl', ['SocketFact', '$scope', 'ChatFact', function(SocketFact, $scope, ChatFact) {
   $scope.data = {};
   $scope.data.connectedClients = ChatFact.clients;
   $scope.data.numClients = 0;
@@ -13,8 +13,8 @@ angular.module('duel.chat.clientsCtrl', [])
     var clients = Object.keys(ChatFact.clients);
     $scope.data.numClients = clients.length;
     var count = 0;
-    for(var client in ChatFact.clients) {
-      if(!ChatFact.clients[client]) {
+    for (var client in ChatFact.clients) {
+      if (!ChatFact.clients[client]) {
         count++;
       }
     }

@@ -62,7 +62,6 @@ var listeners = function() {
     });
 
     socket.on('chat/leave', function(data) {
-      console.log(data);
       controllers.chatController.leave(data, socket);
     });
 

@@ -1,12 +1,13 @@
-<div id="watchChatContainer">
-  <div id="watchChatDisplay" scroll-glue>
+<div id="lobbyChatContainer">
+  <div id="lobbyChatDisplay" scroll-glue>
     <div class="message" ng-repeat="message in data.messages">
       <span ng-style="{'color':'{{nameToColor(message.userId)}}'}" class="username">{{message.userId}}:</span>
-      <span class="text">{{message.text}}</span>
+      <span class="text" 
+      ng-class="bold: message.bold">{{message.text}}</span>
     </div>
   </div>
   <div id="chatForm">
     <input type="text" on-enter="sendMessage()" ng-model="data.chatInput">
-    <button ng-click="sendMessage()">Chat</button>
+	<button ng-click="sendMessage()">Chat</button>
   </div>
 </div>

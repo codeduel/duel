@@ -4,22 +4,28 @@ angular.module('duel.game.watchFact', [])
   var gameWatchFact = {};
 
   gameWatchFact.reset = function() {
-    gameWatchFact.watchedClients = {};
+    gameWatchFact.playerCode = {};
+    gameWatchFact.players = {};
   }
-  
+
   gameWatchFact.reset();
-  
+
   //****************
   //Socket Listeners
   //****************
   SocketFact.socket.on('watch/update', function(data) {
-    gameWatchFact.watchedClients[data.userId] = data.code;
+    gameWatchFact.playerCode[data.userId] = data.code;
     $rootScope.$apply();
   });
 
   SocketFact.socket.on('watch/winner', function(data) {
     alert(data.winner + ' won the game!');
     $state.go('lobby');
+  });
+
+  SocketFact.socket.on('game/updatePlayers', function(data) {
+    gameWatchFact.players = data;
+    $rootScope.$apply();
   });
 
   //***************

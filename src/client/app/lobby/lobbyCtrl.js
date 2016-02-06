@@ -16,7 +16,7 @@ angular.module('duel.lobbyCtrl', [])
   };
 
   $scope.create = function() {
-    LobbyGamesFact.createGame($scope.data.difficulty, $scope.data.password)
+    LobbyFact.createGame($scope.data.difficulty, $scope.data.password)
       .then(function(response) {
         $state.go('game.play', {
           gameId: response.data.gameId

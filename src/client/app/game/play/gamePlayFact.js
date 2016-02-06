@@ -9,10 +9,11 @@ angular.module('duel.game.playFact', [])
       message: "Waiting for opponent...",
       initial: "Your Code Here",
       winner: null,
-      minutes: 0
+      minutes: 0,
     };
-
     var lastStreamedCode = '';
+    
+    gamePlayFact.spectators = {};
   };
 
   gamePlayFact.reset();
@@ -62,6 +63,11 @@ angular.module('duel.game.playFact', [])
       userId: UserFact.getUser().userId
     });
     SocketFact.socket.emit('watch/stream', msg);
+  });
+
+  SocketFact.socket.on('game/updateSpectators', function(data) {
+    gamePlayFact.spectators = data;
+    $rootScope.$apply();
   });
 
   //***************
