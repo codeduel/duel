@@ -61,7 +61,7 @@ angular.module('duel.game.playCtrl', [])
     return GamePlayFact.spectators;
   }, function(newVal, oldVal) {
     if (newVal !== oldVal) {
-      $scope.numSpectators = Object.keys(newVal).length;
+      $scope.data.numSpectators = Object.keys(newVal).length;
     }
   }, true);
 
