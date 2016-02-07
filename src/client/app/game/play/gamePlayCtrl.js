@@ -12,7 +12,7 @@ angular.module('duel.game.playCtrl', [])
   $scope.data.output = GamePlayFact.output;
   $scope.data.won = GamePlayFact.won;
   $scope.data.currView = 'question';
-
+  
   //Generates a shareable link
   var link = '<a>' + $location.absUrl() + '</a>';
   ChatFact.add({
