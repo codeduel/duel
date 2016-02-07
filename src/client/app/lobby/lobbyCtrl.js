@@ -2,6 +2,7 @@ angular.module('duel.lobbyCtrl', [])
 
 .controller('LobbyCtrl', ['$scope', '$state', 'LobbyFact', 'UserFact', function($scope, $state, LobbyFact, UserFact, ChatFact) {
 
+  $scope.userName = UserFact.getUser().userName;
   $scope.currentView = null;
   $scope.data = {};
 
@@ -10,6 +11,7 @@ angular.module('duel.lobbyCtrl', [])
       gameId: $scope.data.gameId
     });
     analytics.track('Joined Game', {
+      userName: $scope.userName,
       currentView: $scope.currentView,
       gameId: $scope.data.gameId
     });
@@ -23,10 +25,17 @@ angular.module('duel.lobbyCtrl', [])
         });
       });
       analytics.track('Created Game', {
+        userName: $scope.userName,
         currentView: $scope.currentView,
         difficulty: $scope.data.difficulty
       });
   };
+
+   analytics.page('Lobby', {
+    title: 'Lobby',
+    url: 'http://www.codeduel.io/#/lobby',
+    path: '/lobby'
+  });
 
   $scope.back = function() {
     $scope.currentView = null;

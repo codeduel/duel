@@ -66,12 +66,19 @@ angular.module('duel.game.playCtrl', [])
       solution: $scope.data.solution
     });
     analytics.track('Submitted Solution', {
-      userId: UserFact.getUser().userId,
-      gameId: $scope.gameId
+      userName: $scope.userName,
+      gameId: $scope.gameId,
+      counter: $scope.counter
     });
   };
 
   $scope.toLobby = function() {
     $state.go('lobby');
   }
+
+  analytics.track('Started Game', {
+    userName: $scope.userName,
+    gameId: $scope.gameId
+  });
+
 }]);
