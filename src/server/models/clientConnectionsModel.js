@@ -16,7 +16,7 @@ exports.add = function(clientGroup, clientKey, clientValue) {
 
 //Removes a group or specific clientKey-clientValue pair inside a group
 exports.remove = function(clientGroup, clientKey) {
-  if(clientKey === undefined) {
+  if(!clientKey) {
     delete clientConnections[clientGroup];
   } else {
     delete clientConnections[clientGroup][clientKey];
@@ -35,4 +35,9 @@ exports.getClientsArray = function(clientGroup) {
   } else {
     return [];
   }
+};
+
+//Returns a single client's information
+exports.getClient = function(clientGroup, clientKey) {
+  return clientConnections[clientGroup][clientKey];
 };

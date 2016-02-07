@@ -56,17 +56,34 @@ var resolveSolutionAttempt = function() {
           //If the solution is done processing
           if (data.valid === true || data.valid === false) {
             if (data.valid) {
-              //emit 'game/winner' event to players
-              sendTo(solutionAttempt.gameId, 'game/winner', {
-                winner: solutionAttempt.submittedBy
+              //Valid solution
+
+              //emit 'game/iWon' event to the player that submitted the solution
+              sendTo(solutionAttempt.socketId, 'game/winner', data);
+
+              sendTo(solutionAttempt.socketId, 'chat/message', {
+                userId: 'SYSTEM',
+                text: 'Congratulations, you won! You can either go back to the lobby or spectate!',
+                bold: true
               });
-              //emit 'watch/winner' event to spectators
-              sendTo(solutionAttempt.gameId + '/watch', 'watch/winner', {
-                winner: solutionAttempt.submittedBy
+
+              sendTo(solutionAttempt.gameId, 'chat/message', {
+                userId: 'SYSTEM',
+                text: solutionAttempt.submittedBy + ' has won! You can keep coding or go back to the lobby.',
+                bold: true
               });
+
+              sendTo(solutionAttempt.gameId + '/watch', 'chat/message', {
+                userId: 'SYSTEM',
+                text: solutionAttempt.submittedBy + ' has won!',
+                bold: true
+              });
+
             } else {
+              //Invalid Solution
+
               //emit 'game/invalidSolution' event to origin of the solution
-              sendTo(solutionAttempt.socketid, 'game/invalidSolution', data);
+              sendTo(solutionAttempt.socketId, 'game/invalidSolution', data);
 
               sendTo(solutionAttempt.gameId, 'chat/message', {
                 userId: 'SYSTEM',
@@ -296,7 +313,7 @@ exports.submitSolution = function(msg, socket) {
               dmid: data.dmid,
               gameId: msg.data.gameId,
               submittedBy: msg.data.userId,
-              socketid: socket.id,
+              socketId: socket.id,
               attempts: 0
             });
           } else {

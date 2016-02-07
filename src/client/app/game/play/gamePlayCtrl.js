@@ -10,6 +10,7 @@ angular.module('duel.game.playCtrl', [])
   $scope.data.solution = $scope.client.initial;
   $scope.data.numSpectators = 0;
   $scope.data.output = GamePlayFact.output;
+  $scope.data.won = GamePlayFact.won;
 
   //buffer time (in ms) between typing before streaming the data to spectators
   $scope.DEBOUNCE_INTERVAL = 100;
@@ -59,6 +60,14 @@ angular.module('duel.game.playCtrl', [])
     }
   }, true);
 
+  $scope.$watch(function() {
+    return GamePlayFact.won;
+  }, function(newVal, oldVal) {
+    if (newVal !== oldVal) {
+      $scope.data.won = newVal;
+    }
+  }, true);
+
   //Calls GamePlayFact's connectToGame() once the user enters the 'game' state
   GamePlayFact.connectToGame({
     userId: UserFact.getUser().userId,
@@ -84,10 +93,15 @@ angular.module('duel.game.playCtrl', [])
   $scope.toLobby = function() {
     $state.go('lobby');
   }
-
+  
   analytics.track('Started Game', {
     userName: $scope.userName,
     gameId: $scope.gameId
   });
 
+  $scope.spectate = function() {
+    $state.go('game.watch', {
+      gameId: $scope.gameId
+    });
+  }
 }]);

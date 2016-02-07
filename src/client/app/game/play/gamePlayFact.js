@@ -16,6 +16,7 @@ angular.module('duel.game.playFact', [])
 
     gamePlayFact.spectators = {};
     gamePlayFact.output = '';
+    gamePlayFact.won = false;
   };
 
   gamePlayFact.reset();
@@ -29,6 +30,7 @@ angular.module('duel.game.playFact', [])
     gamePlayFact.client.message = "The challenge has begun";
     gamePlayFact.client.question = data.question;
     gamePlayFact.client.initial = data.initialCode;
+
     $interval(function() {
         gamePlayFact.client.minutes++;
       }, 60000)
@@ -53,27 +55,18 @@ angular.module('duel.game.playFact', [])
   });
 
   SocketFact.socket.on('game/winner', function(data) {
-    //console.log(data.winner + ' won the challenge!');
-
     //TODO: Change this to server-side tracking
     analytics.track('Game Over', {
       userName: userName,
       winner: data.winner
     });
-
-    gamePlayFact.client.winner = data.winner;
-    gamePlayFact.client.message = data.winner + ' won the challenge!  Taking you back to the lobby...';
-    //should refactor to not use rootScope?
+    gamePlayFact.output = '<h3>You won!</h3>';
+    for (var i = 0; i < data.output.length; i++) {
+      gamePlayFact.output += data.output[i];
+    }
+    gamePlayFact.won = true;
     $rootScope.$apply();
-
-    //reroutes to Lobby 3 seconds after a someone wins
-    $timeout(function() {
-      $state.go('lobby', {
-        //must be refactored with sessions
-        //userid: $scope.userid
-      });
-    }, 3000)
-  });
+  })
 
   SocketFact.socket.on('game/streamTo', function(data) {
     var msg = SocketFact.buildMessage({
