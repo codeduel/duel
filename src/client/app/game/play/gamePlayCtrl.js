@@ -11,6 +11,7 @@ angular.module('duel.game.playCtrl', [])
   $scope.data.numSpectators = 0;
   $scope.data.output = GamePlayFact.output;
   $scope.data.won = GamePlayFact.won;
+  $scope.data.currView = 'question';
 
   //Generates a shareable link
   var link = '<a>' + $location.absUrl() + '</a>';
@@ -29,6 +30,10 @@ angular.module('duel.game.playCtrl', [])
       gameId: $scope.gameId,
       userId: UserFact.getUser().userName
     })
+  }
+
+  $scope.toggleView = function(view) {
+    $scope.data.currView = view;
   }
 
   $scope.counter = "0 minutes";

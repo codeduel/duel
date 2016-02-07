@@ -36,6 +36,11 @@ var MAX_ATTEMPTS = 10;
 //INNER FUNCTIONS
 //***************
 
+//Prettifies a question string by formatting it to HTML
+var format = function(str) {
+  return str.replace(/\n/g, '<br>').replace(/```/g, '');
+}
+
 //Resolves a solution attempt by dequeueing it and querying its dmid against the Code Wars API
 var resolveSolutionAttempt = function() {
   //peek first, in case the queued solution is not done processing on the Code Wars server
@@ -81,13 +86,14 @@ var resolveSolutionAttempt = function() {
 
             } else {
               //Invalid Solution
+              var progress = Math.floor((data.summary.passed) / (data.summary.passed + data.summary.failed) * 100);
 
               //emit 'game/invalidSolution' event to origin of the solution
               sendTo(solutionAttempt.socketId, 'game/invalidSolution', data);
 
               sendTo(solutionAttempt.gameId, 'chat/message', {
                 userId: 'SYSTEM',
-                text: solutionAttempt.submittedBy + ' submitted an invalid solution!',
+                text: solutionAttempt.submittedBy + ' submitted an invalid solution! (Progress: ' + progress + '%)',
                 bold: true
               });
 
@@ -143,7 +149,7 @@ exports.createGame = function(req, res) {
   codewarsController.generateQuestion(req.body.difficulty)
     .then(function(data) {
       new Game({
-        question: data.description,
+        question: format(data.description),
         initialCode: data.session.setup,
         projectId: data.session.projectId,
         solutionId: data.session.solutionId,
