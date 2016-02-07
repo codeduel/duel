@@ -3,7 +3,6 @@
     <h3 class='col-xs-4'>{{data.numSpectators}} Spectators</h3>
     <h3 class='col-xs-4' id="game">Game ID: {{gameId}}</h3>
     <h3 class='col-xs-4' id="counter">{{counter}}</h3>
-    <button ng-click="toLobby()">Exit Game</button>
   </div>
   <div id="gameDescription" class='col-xs-5'>
     <div id="challengePrompt">
@@ -14,10 +13,11 @@
     </div>
   </div>
   <div class='col-xs-7'>
+    <button id="submit" type="button" ng-click="submitSolution()">Submit Answer</button>
+    <button id="back" ng-click="toLobby()">Exit Game</button>
     <form id="PlayerAnswer">
       <div ui-ace="{useWrapMode : true, theme:'cobalt', document: 'javascript', mode: 'javascript'}" ng-model="data.solution" ng-model-options="{debounce: DEBOUNCE_INTERVAL}" ng-change="stream()">
       </div>
-      <button id="submit" type="button" ng-click="submitSolution()">Submit Answer</button>
     </form>
     <!-- <h5>Your Answer Must Pass The Following Tests:</h5> -->
   </div>
