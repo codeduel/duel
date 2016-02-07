@@ -1,6 +1,6 @@
 angular.module('duel.game.playCtrl', [])
 
-.controller('GamePlayCtrl', ['$scope', '$state', '$stateParams', 'GamePlayFact', 'UserFact', 'ChatFact', function($scope, $state, $stateParams, GamePlayFact, UserFact, ChatFact) {
+.controller('GamePlayCtrl', ['$location', '$scope', '$state', '$stateParams', 'GamePlayFact', 'UserFact', 'ChatFact', function($location, $scope, $state, $stateParams, GamePlayFact, UserFact, ChatFact) {
   GamePlayFact.reset();
 
   $scope.client = GamePlayFact.client;
@@ -11,6 +11,14 @@ angular.module('duel.game.playCtrl', [])
   $scope.data.numSpectators = 0;
   $scope.data.output = GamePlayFact.output;
   $scope.data.won = GamePlayFact.won;
+
+  //Generates a shareable link
+  var link = '<a>' + $location.absUrl() + '</a>';
+  ChatFact.add({
+    userId: 'SYSTEM',
+    text: 'Welcome to Code Duel! You can invite your friends to spectate with you with this link: ' + link + '!',
+    bold: true
+  });
 
   //buffer time (in ms) between typing before streaming the data to spectators
   $scope.DEBOUNCE_INTERVAL = 100;
@@ -93,7 +101,7 @@ angular.module('duel.game.playCtrl', [])
   $scope.toLobby = function() {
     $state.go('lobby');
   }
-  
+
   analytics.track('Started Game', {
     userName: $scope.userName,
     gameId: $scope.gameId
