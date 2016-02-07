@@ -4,6 +4,7 @@
       <span ng-style="{'color':'{{nameToColor(message.userId)}}'}" class="username">{{message.userId}}:</span>
       <span 
       ng-class="{bold: message.bold}" 
+      ng-bind-html="message.text | unsafe" 
       class="text">{{message.text}}</span>
     </div>
   </div>

@@ -37,6 +37,11 @@ var resolveSolutionAttempt = function() {
   if (solutionAttempt) {
     if (solutionAttempt.attempts >= maxAttempts) {
       console.log(solutionAttempt.dmid + ' has exceeded maximum number of attempts.');
+      sendTo(solutionAttempt.socketId, 'chat/message', {
+        userId: 'SYSTEM',
+        text: 'Sorry, your solution attempt timed out. Please try again.',
+        bold: true
+      });
       solutionsQueue.dequeue();
       repeat();
     }
@@ -56,6 +61,18 @@ var resolveSolutionAttempt = function() {
           } else {
             //emit 'game/invalidSolution' event to origin of the solution
             sendTo(solutionAttempt.socketid, 'game/invalidSolution', data);
+
+            sendTo(solutionAttempt.gameId, 'chat/message', {
+              userId: 'SYSTEM',
+              text: solutionAttempt.submittedBy + ' submitted an invalid solution!',
+              bold: true
+            });
+
+            sendTo(solutionAttempt.gameId + '/watch', 'chat/message', {
+              userId: 'SYSTEM',
+              text: solutionAttempt.submittedBy + ' submitted an invalid solution!',
+              bold: true
+            });
           }
           //remove the solution
           console.log(solutionAttempt.dmid + ' has been processed.');
@@ -72,6 +89,11 @@ var resolveSolutionAttempt = function() {
       }, function(error) {
         //API timed out
         console.log(solutionAttempt.dmid + ' timed out.');
+        sendTo(solutionAttempt.socketId, 'chat/message', {
+          userId: 'SYSTEM',
+          text: 'Sorry, your solution attempt timed out. Please try again.',
+          bold: true
+        });
         solutionsQueue.dequeue();
         repeat();
       });
@@ -128,7 +150,7 @@ exports.unlock = function(req, res) {
     gameId: req.body.gameId,
     password: req.body.password
   }, function(error, foundGame) {
-    if(foundGame) {
+    if (foundGame) {
       res.status(200).send();
     } else {
       res.status(401).send();
@@ -173,6 +195,16 @@ exports.playerJoin = function(msg, socket) {
       //set isEmpty flag to false on game model and save
       foundGame.isEmpty = false;
       foundGame.save();
+      sendTo(msg.data.gameId, 'chat/message', {
+        userId: 'SYSTEM',
+        text: msg.data.userId + ' has joined the game!',
+        bold: true
+      });
+      sendTo(msg.data.gameId + '/watch', 'chat/message', {
+        userId: 'SYSTEM',
+        text: msg.data.userId + ' has joined the game!',
+        bold: true
+      });
       //make game active if there are 2 or more players
       if (gameArray.length > 1) {
         foundGame.active = true;
@@ -197,7 +229,7 @@ exports.playerLeave = function(socket) {
     console.log('Function call error in function playerLeave in gameController.js');
     return;
   }
-  
+
   playerGameId = socket.duelData.inGameId;
 
   Game.findOne({
@@ -269,36 +301,42 @@ exports.submitSolution = function(msg, socket) {
 };
 
 //removes games over a day old or emptied in the last hour
-var cleanStaleGames = function(cleanInterval){
+var cleanStaleGames = function(cleanInterval) {
   oneMinuteAgo = new Date(Date.now() - 60000);
   oneHourAgo = new Date(Date.now() - 3600000);
   oneDayAgo = new Date(Date.now() - 86400000);
   //remove all day old games
   Game.find({
-    "createdAt": {"$lt": oneDayAgo}
+    "createdAt": {
+      "$lt": oneDayAgo
+    }
   }, function(error, foundGamesArray) {
     if (error) {
       console.log('Database error in function cleanStaleGames in gameController.js');
     }
     if (foundGamesArray) {
-      foundGamesArray.forEach(function(foundGame){
+      foundGamesArray.forEach(function(foundGame) {
         foundGame.remove();
       });
     }
   });
   //remove recently emptied games
   Game.find({
-    $and:[
-    {"lastEmpty": {"$lt": oneHourAgo}},
-    {"isEmpty": true},
-    {"active": false}
-  ]
+    $and: [{
+      "lastEmpty": {
+        "$lt": oneHourAgo
+      }
+    }, {
+      "isEmpty": true
+    }, {
+      "active": false
+    }]
   }, function(error, foundGamesArray) {
     if (error) {
       console.log('Database error in function cleanStaleGames in gameController.js');
     }
     if (foundGamesArray) {
-      foundGamesArray.forEach(function(foundGame){
+      foundGamesArray.forEach(function(foundGame) {
         foundGame.remove();
       });
     }

@@ -23,6 +23,23 @@ var updateClients = function(room, socketId) {
 
   sendTo(room, 'chat/update', clientConnections.getClients(room));
 }
+//all html tags to be filtered
+var invalid = ['script', 'img', 'body', 'iframe', 'input', 'link', 'table', 'div', 'object'];
+
+//XSS filtering function
+var isValid = function(text) {
+  if (text === undefined) {
+    return false;
+  }
+
+  for (var i = 0; i < invalid.length; i++) {
+    var regexp = new RegExp('<.*?' + invalid[i] + '.*?>');
+    if (regexp.test(text)) {
+      return false;
+    }
+  }
+  return true;
+}
 
 //********************
 //SOngCKET CONTROLLERS
@@ -35,11 +52,18 @@ exports.message = function(msg, socket) {
   var room = msg.data.room;
   var text = msg.data.text;
   var userId = msg.data.userId;
+
+  //XSS filtering
+  if(!isValid(text)) {
+    text = 'I tried to send an XSS attack and failed...';
+  }
+
   sendTo(room, 'chat/message', {
     userId: userId,
     socketId: socket.id,
     text: text
   });
+
   //send a copy to spectators if in a game
   sendTo(room + '/watch', 'chat/message', {
     userId: userId,

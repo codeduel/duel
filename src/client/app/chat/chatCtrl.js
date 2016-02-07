@@ -16,4 +16,9 @@ angular.module('duel.chatCtrl', [])
   $scope.nameToColor = function(str) {
     return ChatFact.nameToColor(str);
   };
+
+  //go to login state
+  $scope.toLogin = function() {
+    $state.go('login');
+  }
 }]);

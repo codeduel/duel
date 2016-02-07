@@ -8,7 +8,8 @@ angular.module('duel.game.playCtrl', [])
   $scope.userName = UserFact.getUser().userName;
   $scope.data = {};
   $scope.data.solution = $scope.client.initial;
-  $scope.numSpectators = 0;
+  $scope.data.numSpectators = 0;
+  $scope.data.output = GamePlayFact.output;
 
   //buffer time (in ms) between typing before streaming the data to spectators
   $scope.DEBOUNCE_INTERVAL = 100;
@@ -43,10 +44,18 @@ angular.module('duel.game.playCtrl', [])
 
 
   $scope.$watch(function() {
-    return GamePlayFact.spectators
+    return GamePlayFact.spectators;
   }, function(newVal, oldVal) {
     if (newVal !== oldVal) {
       $scope.numSpectators = Object.keys(newVal).length;
+    }
+  }, true);
+
+  $scope.$watch(function() {
+    return GamePlayFact.output;
+  }, function(newVal, oldVal) {
+    if (newVal !== oldVal) {
+      $scope.data.output = newVal;
     }
   }, true);
 
