@@ -41,13 +41,18 @@ var format = function(str) {
   return str.replace(/\n/g, '<br>').replace(/```/g, '');
 }
 
+//Calculates a solution's progress to being completed
+var calculateProgress = function(passed, failed) {
+  return Math.floor(passed / (passed + failed) * 10000) / 100;
+}
+
 //Resolves a solution attempt by dequeueing it and querying its dmid against the Code Wars API
 var resolveSolutionAttempt = function() {
   //peek first, in case the queued solution is not done processing on the Code Wars server
   var solutionAttempt = solutionsQueue.peek();
   if (solutionAttempt) {
     if (solutionAttempt.attempts >= MAX_ATTEMPTS) {
-      console.log(solutionAttempt.dmid + ' has exceeded maximum number of attempts.');
+      console.log(solutionAttempt.dmid + ': Exceeded Maximum Attempts');
       sendTo(solutionAttempt.socketId, 'chat/message', {
         userId: 'SYSTEM',
         text: 'Sorry, your solution attempt timed out. Please try again.',
@@ -58,67 +63,38 @@ var resolveSolutionAttempt = function() {
     } else {
       codewarsController.getSolutionResults(solutionAttempt.dmid)
         .then(function(data) {
-          //If the solution is done processing
           if (data.valid === true || data.valid === false) {
-            if (data.valid) {
-              //Valid solution
-
-              //emit 'game/iWon' event to the player that submitted the solution
-              sendTo(solutionAttempt.socketId, 'game/winner', data);
-
-              sendTo(solutionAttempt.socketId, 'chat/message', {
-                userId: 'SYSTEM',
-                text: 'Congratulations, you won! You can either go back to the lobby or spectate!',
-                bold: true
-              });
-
-              sendTo(solutionAttempt.gameId, 'chat/message', {
-                userId: 'SYSTEM',
-                text: solutionAttempt.submittedBy + ' has won! You can keep coding or go back to the lobby.',
-                bold: true
-              });
-
-              sendTo(solutionAttempt.gameId + '/watch', 'chat/message', {
-                userId: 'SYSTEM',
-                text: solutionAttempt.submittedBy + ' has won!',
-                bold: true
-              });
-
-            } else {
-              //Invalid Solution
-              console.log(data.summary);
-              var progress = Math.floor((data.summary.passed) / (data.summary.passed + data.summary.failed) * 100);
-
-              //emit 'game/invalidSolution' event to origin of the solution
-              sendTo(solutionAttempt.socketId, 'game/invalidSolution', data);
-
-              sendTo(solutionAttempt.gameId, 'chat/message', {
-                userId: 'SYSTEM',
-                text: solutionAttempt.submittedBy + ' submitted an invalid solution! (Progress: ' + progress + '%)',
-                bold: true
-              });
-
-              sendTo(solutionAttempt.gameId + '/watch', 'chat/message', {
-                userId: 'SYSTEM',
-                text: solutionAttempt.submittedBy + ' submitted an invalid solution! (Progress: ' + progress + '%)',
-                bold: true
-              });
+            //solution is done processing
+            var msg = {
+              userId: 'SYSTEM',
+              bold: true
             }
-            //remove the solution
-            console.log(solutionAttempt.dmid + ' has been processed.');
+            if (data.valid) {
+              msg.text = solutionAttempt.submittedBy + ' has won! Remaining players may keep coding or go back to the lobby.';
+            } else {
+              var progress = calculateProgress(data.summary.passed, data.summary.failed);
+              msg.text = solutionAttempt.submittedBy + ' submitted an invalid solution! (Progress: ' + progress + '%)';
+            }
+
+            //send results message to players
+            sendTo(solutionAttempt.gameId, 'chat/message', msg);
+            //send results message to spectators
+            sendTo(solutionAttempt.gameId + '/watch', 'chat/message', msg);
+            //send the solution results to the player
+            sendTo(solutionAttempt.socketId, 'game/results', data);
+
+            console.log(solutionAttempt.dmid + ': Done');
             solutionsQueue.dequeue();
-            repeat();
           } else {
-            //solution is still processing
-            console.log(solutionAttempt.dmid + ' is still processing.');
+            //solution is still processing, move it to the end of the queue to be checked later
+            console.log(solutionAttempt.dmid + ': Delayed');
             solutionAttempt.attempts++;
-            //move the solution to the end of the queue
             solutionsQueue.enqueue(solutionsQueue.dequeue());
-            repeat();
           }
+          repeat();
         }, function(error) {
           //API timed out
-          console.log(solutionAttempt.dmid + ' timed out.');
+          console.log(solutionAttempt.dmid + ': Timed out');
           sendTo(solutionAttempt.socketId, 'chat/message', {
             userId: 'SYSTEM',
             text: 'Sorry, your solution attempt timed out. Please try again.',
