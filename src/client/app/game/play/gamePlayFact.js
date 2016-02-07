@@ -2,6 +2,7 @@ angular.module('duel.game.playFact', [])
 
 .factory('GamePlayFact', ['UserFact', 'SocketFact', '$rootScope', '$timeout', '$interval', '$state', function(UserFact, SocketFact, $rootScope, $timeout, $interval, $state) {
   var gamePlayFact = {};
+  var userName = UserFact.getUser().userName;
 
   gamePlayFact.reset = function(){
     gamePlayFact.client = {
@@ -38,10 +39,24 @@ angular.module('duel.game.playFact', [])
     console.log('Invalid solution!', data);
     gamePlayFact.client.message = "Your solution was invalid.  Please try again.";
     $rootScope.$apply();
+    
+    //TODO: Change this to server-side tracking
+    analytics.track('Submitted Invalid Solution', {
+      userName: userName,
+      summary: data.summary
+    });
+
   });
 
   SocketFact.socket.on('game/winner', function(data) {
     //console.log(data.winner + ' won the challenge!');
+
+    //TODO: Change this to server-side tracking
+    analytics.track('Game Over', {
+      userName: userName,
+      winner: data.winner
+    });
+
     gamePlayFact.client.winner = data.winner;
     gamePlayFact.client.message = data.winner + ' won the challenge!  Taking you back to the lobby...';
     //should refactor to not use rootScope?
