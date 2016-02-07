@@ -192,3 +192,16 @@
   background-color: #FFFFFF;
   color: #002240;
 }
+
+#button {
+  background-color: #002240;
+  color: #FFFFFF;
+  font-size: 20px;
+  width: 80px;
+  height: 30px;
+  padding: 0px;
+  margin: 0px;
+  border-radius: 0px 0px 5px 0px;
+  border-top: 2px solid black;
+  display: inline-block;
+}
