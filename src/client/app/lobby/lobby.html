@@ -1,12 +1,12 @@
 <div id="lobbyContainer">
   <div id="games">
     <div id="lobbyForms" ng-show="!currentView">
-      <h4><button class="lobby" ng-click="currentView = 'create'">Create</button> A New Challenge</h4>
-      <h4><button class="lobby" ng-click="currentView = 'join'">Join</button> An Existing Challenge</h4>
+      <h4><button class="lobby" ng-click="currentView = 'create'">Create</button> A new duel</h4>
+      <h4><button class="lobby" ng-click="currentView = 'join'">Join</button> An existing duel</h4>
     </div>
     <div id="forms">
       <form id="join" ng-if="currentView === 'join'" ng-submit="join()">
-        <h5>Enter Contest id below</h5>
+        <h5>Enter duel id below</h5>
         <input type="text" ng-model="data.gameId">
         <button type="submit">Join!</button>
         <span ng-click="back()">Back...</span>
@@ -15,13 +15,17 @@
         <h5>Choose your difficulty level</h5>
         <select ng-model="data.difficulty">
           <option hidden></option>
-          <option selected value="easy">Easy</option>
-          <option value="medium">Medium</option>
-          <option value="hard">Hard</option>
+          <option selected value="easy">Beginner</option>
+          <option value="medium">Intermediate</option>
+          <option value="hard">Advanced</option>
           <option value="demo">Demo</option>
         </select>
+        <br><br>
+        <p>Enter a password below if you wish to protect this duel (control who can join). Make sure you only share the password with your opponents. Duels with no passwords will be open to anyone wishing to join.</p>
         <input type="password" ng-model="data.password" placeholder="password">
+        <br><br>
         <button type="submit">Create!</button>
+        <br><br>
         <span ng-click="back()">Back...</span>
       </form>
     </div>
