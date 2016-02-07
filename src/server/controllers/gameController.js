@@ -86,6 +86,7 @@ var resolveSolutionAttempt = function() {
 
             } else {
               //Invalid Solution
+              console.log(data.summary);
               var progress = Math.floor((data.summary.passed) / (data.summary.passed + data.summary.failed) * 100);
 
               //emit 'game/invalidSolution' event to origin of the solution
@@ -99,7 +100,7 @@ var resolveSolutionAttempt = function() {
 
               sendTo(solutionAttempt.gameId + '/watch', 'chat/message', {
                 userId: 'SYSTEM',
-                text: solutionAttempt.submittedBy + ' submitted an invalid solution!',
+                text: solutionAttempt.submittedBy + ' submitted an invalid solution! (Progress: ' + progress + '%)',
                 bold: true
               });
             }
