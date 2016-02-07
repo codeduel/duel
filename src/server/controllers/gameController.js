@@ -284,6 +284,18 @@ exports.playerLeave = function(socket) {
 
 //Adds the specified user to the specified game, and sends a "game/start" event to all clients connected to the game
 exports.submitSolution = function(msg, socket) {
+
+  //Check if submissions are being accepted
+  if (clientConnections.getClientsArray(msg.data.gameId).length < 2) {
+    sendTo(socket.id, 'chat/message', {
+      userId: 'SYSTEM',
+      text: 'Game has not started yet!',
+      bold: true
+    });
+    return;
+  }
+
+  //Check if sufficient time has passed since last submission
   var lastSubmit = lastSubmittedSolution[socket.id] || 0;
   if (Date.now() - lastSubmit < SOLUTION_COOLDOWN) {
     sendTo(socket.id, 'chat/message', {
