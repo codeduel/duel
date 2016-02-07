@@ -18,11 +18,6 @@ angular.module('duel.game.watchFact', [])
     $rootScope.$apply();
   });
 
-  SocketFact.socket.on('watch/winner', function(data) {
-    alert(data.winner + ' won the game!');
-    $state.go('lobby');
-  });
-
   SocketFact.socket.on('game/updatePlayers', function(data) {
     gameWatchFact.players = data;
     $rootScope.$apply();

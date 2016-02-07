@@ -161,7 +161,7 @@
   text-align: left;
 }
 
-#submit {
+.submit {
   width: 350px;
   height: 30px;
   padding: 0px;
@@ -180,7 +180,7 @@
   border-radius: 5px;
 }
 
-#back {
+.back {
   width: 150px;
   height: 30px;
   padding: 0px;
