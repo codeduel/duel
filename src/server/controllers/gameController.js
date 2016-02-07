@@ -43,7 +43,7 @@ var resolveSolutionAttempt = function() {
         bold: true
       });
       solutionsQueue.dequeue();
-      repeat();
+      resolveSolutionAttempt();
     }
     codewarsController.getSolutionResults(solutionAttempt.dmid)
       .then(function(data) {
