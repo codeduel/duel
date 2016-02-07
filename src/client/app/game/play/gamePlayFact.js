@@ -36,7 +36,6 @@ angular.module('duel.game.playFact', [])
   });
 
   SocketFact.socket.on('game/invalidSolution', function(data) {
-    console.log('Invalid solution!', data);
     gamePlayFact.output = '<h3>Output:</h3>';
     gamePlayFact.output += '<div class="reason">' + data.reason + '</div>';
     for (var i = 0; i < data.output.length; i++) {
