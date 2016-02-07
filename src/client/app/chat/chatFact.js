@@ -9,6 +9,10 @@ angular.module('duel.chatFact', [])
 
   //converts a string to a unique color hex code
   chatFact.nameToColor = function(str) {
+    if(str === 'SYSTEM') {
+      return 'red';
+    }
+
     if (str) {
       var hash = 0;
       for (var i = 0; i < str.length; i++) {
@@ -25,6 +29,13 @@ angular.module('duel.chatFact', [])
   //clears factory data
   chatFact.reset = function() {
     chatFact.messages = [];
+    if (!UserFact.getUser().userId) {
+      chatFact.messages.push({
+        userId: 'SYSTEM',
+        text: 'Hello guest. Please <a href="/#/login">login</a> to chat!',
+        bold: true
+      });
+    }
     chatFact.clients = {};
   }
 
@@ -33,6 +44,7 @@ angular.module('duel.chatFact', [])
   //****************
 
   SocketFact.socket.on('chat/message', function(data) {
+    data.bold = data.bold || false;
     chatFact.messages.push(data);
     $rootScope.$apply();
   });
@@ -70,7 +82,8 @@ angular.module('duel.chatFact', [])
     } else {
       chatFact.messages.push({
         userId: 'SYSTEM',
-        text: 'Please login to chat!'
+        text: 'Please <a href="/#/login">login</a> to chat!',
+        bold: true
       });
     }
 
@@ -96,9 +109,14 @@ angular.module('duel.chatFact', [])
             'event': event
           });
         });
-
         event.preventDefault();
       }
     });
   };
-});
+})
+
+.filter('unsafe', function($sce) {
+  return function(val) {
+    return $sce.trustAsHtml(val);
+  }
+});;

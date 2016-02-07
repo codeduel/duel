@@ -4,7 +4,8 @@
   background-color: #ecf7f9;
   display: block;
   position: absolute;
-  padding-left: 30px
+  padding-left: 30px;
+  margin-bottom: 230px;
 }
 
 #watchContainer h3 {

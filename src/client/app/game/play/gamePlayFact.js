@@ -4,7 +4,7 @@ angular.module('duel.game.playFact', [])
   var gamePlayFact = {};
   var userName = UserFact.getUser().userName;
 
-  gamePlayFact.reset = function(){
+  gamePlayFact.reset = function() {
     gamePlayFact.client = {
       question: "question will be displayed when challenge commences",
       message: "Waiting for opponent...",
@@ -13,8 +13,9 @@ angular.module('duel.game.playFact', [])
       minutes: 0,
     };
     var lastStreamedCode = '';
-    
+
     gamePlayFact.spectators = {};
+    gamePlayFact.output = '';
   };
 
   gamePlayFact.reset();
@@ -36,8 +37,11 @@ angular.module('duel.game.playFact', [])
   });
 
   SocketFact.socket.on('game/invalidSolution', function(data) {
-    console.log('Invalid solution!', data);
-    gamePlayFact.client.message = "Your solution was invalid.  Please try again.";
+    gamePlayFact.output = '<h3>Output:</h3>';
+    gamePlayFact.output += '<div class="reason">' + data.reason + '</div>';
+    for (var i = 0; i < data.output.length; i++) {
+      gamePlayFact.output += data.output[i];
+    }
     $rootScope.$apply();
     
     //TODO: Change this to server-side tracking

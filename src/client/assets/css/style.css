@@ -67,12 +67,12 @@
   padding: 20px 35px;
   background-color:  #ecf7f9;
   display: block;
-  position: absolute
+  position: absolute;
 }
 
 #challengeHeader{
-  margin: 0px 0px 20px 0px;
-  padding:0px 20px 0px 20px;
+  margin: 0px 0px 10px 0px;
+  padding:0px 10px 0px 10px;
   border-bottom: 4px solid #011e3a;
 }
 
@@ -86,16 +86,62 @@
 
 #message{
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
-#ChallengePrompt{
+
+#challengePrompt{
+  height: 248px;
+  border-bottom: 2px solid white;
+  overflow: auto;
+}
+
+#gameDescription {
   background: #011e3a;
   color: #FFFFFF;
   border-radius: 5px;
   height: 500px;
-  width: 380px;
-  overflow: scroll;
+  width: 350px;
 }
+
+#output {
+  margin: 0px;
+  overflow: auto;
+  padding: 0px;
+  height: 250px;
+}
+
+#output h3 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-top: 5px;
+  padding-bottom: 0px;
+  text-align: center;
+}
+
+#output .console-failed, .console-passed {
+  font-size: 16px;
+  padding-top: 5px;
+  text-align: center;
+}
+
+#output .reason {
+  font-size: 18px;
+  padding-bottom: 5px;
+  border-bottom: 2px dashed white;
+  text-align: center;
+  width: 90%;
+  margin: 0 auto;
+}
+
+#output .console-failed {
+  color: red;
+}
+
+#output .console-passed {
+  color: green;
+
+}
+
 #PlayerAnswer{
   height: 500px;
   width: 540px;
