@@ -4,25 +4,6 @@ var sendTo = require('../api/socketRoutes.js').sendTo;
 //Imports the client connections model
 var clientConnections = require('../models/clientConnectionsModel.js');
 
-//Sends client data to their respective game rooms
-var updateClients = function(room, socketId) {
-  if (room !== 'lobby') {
-    //check if user joined a game-room
-    if (room.indexOf('/watch') !== -1) {
-      //send spectator data to players
-      sendTo(room.slice(0, -6), 'game/updateSpectators', clientConnections.getClients(room));
-      //send initial player list to the socket
-      sendTo(socketId, 'game/updatePlayers', clientConnections.getClients(room.slice(0, -6)) || {});
-    } else {
-      //send player data to spectators
-      sendTo(room + '/watch', 'game/updatePlayers', clientConnections.getClients(room));
-      //send initial spectator list to the socket
-      sendTo(socketId, 'game/updateSpectators', clientConnections.getClients(room + '/watch') || {});
-    }
-  }
-
-  sendTo(room, 'chat/update', clientConnections.getClients(room));
-}
 //all html tags to be filtered
 var invalid = ['script', 'img', 'body', 'iframe', 'input', 'link', 'table', 'div', 'object'];
 
@@ -41,6 +22,47 @@ var isValid = function(text) {
   return true;
 }
 
+//Sends client data to their respective game rooms
+var updateClients = function(room, socketId) {
+  if (room !== 'lobby') {
+    //check if user joined a game-room
+    if (room.indexOf('/watch') !== -1) {
+      //send spectator data to players
+      sendTo(room.slice(0, -6), 'game/updateSpectators', clientConnections.getClients(room));
+      //send initial player list to the socket
+      sendTo(socketId, 'game/updatePlayers', clientConnections.getClients(room.slice(0, -6)) || {});
+    } else {
+      //send player data to spectators
+      sendTo(room + '/watch', 'game/updatePlayers', clientConnections.getClients(room));
+      //send initial spectator list to the socket
+      sendTo(socketId, 'game/updateSpectators', clientConnections.getClients(room + '/watch') || {});
+    }
+  }
+  getActiveGames();
+  sendTo(room, 'chat/update', clientConnections.getClients(room));
+}
+
+//returns all games that have players/spectators currently in them
+var getActiveGames = function() {
+  var activeGames = clientConnections.getRooms().filter(function(room) {
+    //filters to include games that have at least spectator or player
+    return room !== 'lobby' && room.indexOf('/watch') === -1 && (
+      clientConnections.getClientsArray(room).length > 0 || clientConnections.getClientsArray(room + '/watch').length > 0
+    );
+  });
+
+  var activeGamesObj = {};
+  for (var i = 0; i < activeGames.length; i++) {
+    var gameId = activeGames[i];
+    activeGamesObj[gameId] = {
+      players: clientConnections.getClientsArray(gameId).length || 0,
+      spectators: clientConnections.getClientsArray(gameId + '/watch').length || 0
+    }
+  }
+
+  sendTo('lobby', 'lobby/activeGames', activeGamesObj);
+}
+
 //********************
 //SOngCKET CONTROLLERS
 //********************
@@ -54,7 +76,7 @@ exports.message = function(msg, socket) {
   var userId = msg.data.userId;
 
   //XSS filtering
-  if(!isValid(text)) {
+  if (!isValid(text)) {
     text = 'I tried to send an XSS attack and failed...';
   }
 

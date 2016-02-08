@@ -1,20 +1,25 @@
-#lobbyContainer{
+#lobbyContainer {
   margin-left: 0px;
   height: 800px;
   width: 1000px;
   padding: 20px 35px;
-  background-color:  #ecf7f9;
+  background-color: #ecf7f9;
   display: block;
-  position: absolute
-  z-index: 10000;
+  position: absolute z-index: 10000;
 }
 
-#games{
+#games {
+  height: 502px;
   width: 350px;
   display: inline-block;
+  overflow: auto;
 }
 
-#lobbyForms button{
+#games h2 {
+  text-align: center;
+}
+
+#lobbyForms button {
   background-color: #002240;
   color: #FFFFFF;
   font-size: 20px;
@@ -25,7 +30,7 @@
   border-radius: 5px;
 }
 
-#forms button{
+#forms button {
   background-color: #002240;
   color: #FFFFFF;
   font-size: 20px;
@@ -36,9 +41,10 @@
   border-radius: 5px;
 }
 
-#usersChat{
+#usersChat {
   display: inline-block;
-  float; right;
+  float;
+  right;
   border: 1px solid black;
   border-radius: 5px;
   height: 502px;
@@ -49,7 +55,7 @@
 }
 
 #lobbyUsersContainer {
-  float:left;
+  float: left;
   border-right: 2px solid black;
   border-radius: 5px 0px 0px 5px;
   width: 200px;
@@ -64,7 +70,7 @@
   color: #FFFFFF;
 }
 
-#lobbyUsersContainer h5{
+#lobbyUsersContainer h5 {
   text-align: center;
   font-weight: bold;
   font-size: 14px;
@@ -90,11 +96,11 @@
   font-size: 14px;
 }
 
-#lobbyChatDisplay .username{
+#lobbyChatDisplay .username {
   font-weight: bold;
 }
 
-#chatForm{
+#chatForm {
   vertical-align: bottom;
   margin-left: -8px;
   padding: 0px;
@@ -122,4 +128,29 @@
   border-radius: 0px 0px 5px 0px;
   border-top: 2px solid black;
   display: inline-block;
+}
+
+.gameInfo {
+  height: 100px;
+  width: 100px;
+  background-color: #002240;
+  color: #FFFFFF;
+  padding: 5px;
+  text-align: center;
+  float: left;
+  border: 3px solid white;
+  border-radius: 10px;
+  margin-left: 10px;
+}
+
+.gameInfo:hover {
+  background-color: #FFFFFF;
+  color: #002240;
+  border: 3px solid #002240;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+#lobbyContainer h2 {
+  padding-bottom: 15px;
 }

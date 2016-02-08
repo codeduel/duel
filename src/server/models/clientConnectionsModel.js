@@ -41,3 +41,8 @@ exports.getClientsArray = function(clientGroup) {
 exports.getClient = function(clientGroup, clientKey) {
   return clientConnections[clientGroup][clientKey];
 };
+
+//Returns all rooms
+exports.getRooms = function() {
+  return Object.keys(clientConnections);
+}
