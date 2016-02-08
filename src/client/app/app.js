@@ -1,3 +1,38 @@
+/***********************************/
+/*  BROWSERIFY INCLUDES            */
+/*  src="assets/js/allScripts.js"  */
+/***********************************/
+
+//Libraries
+require('../../../bower_components/ace-builds/src-min-noconflict/ace.js');
+require('../../../bower_components/angular/angular.js');
+require('../../../bower_components/angular-ui-router/release/angular-ui-router.js');
+require('../../../bower_components/angular-bootstrap/ui-bootstrap.min.js');
+require('../../../bower_components/angular-ui-ace/ui-ace.js');
+require('../../../bower_components/jquery/dist/jquery.js');
+require('../../../bower_components/angular-scroll-glue/src/scrollglue.js');
+
+//Factories/Providers/Services
+require('./util/socketFact.js');
+require('./util/userFact.js');
+require('./util/errorFact.js');
+require('./chat/chatFact.js');
+require('./lobby/lobbyFact.js');
+require('./game/play/gamePlayFact.js');
+require('./game/watch/gameWatchFact.js');
+
+//Controllers
+require('./app.js');
+require('./login/loginCtrl.js');
+require('./lobby/lobbyCtrl.js');
+require('./chat/chatCtrl.js');
+require('./chat/chatClientsCtrl.js');
+require('./game/gameCtrl.js');
+require('./game/play/gamePlayCtrl.js');
+require('./game/watch/gameWatchCtrl.js');
+require('./auth/authCtrl.js');
+require('./showError/showErrorCtrl.js');
+
 angular.module('duel', [
 
   //Third-party

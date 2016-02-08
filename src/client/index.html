@@ -2,49 +2,19 @@
 <html>
 
 <head>
-  <script type="text/javascript">
-  ! function() {
-    var analytics = window.analytics = window.analytics || [];
-    if (!analytics.initialize)
-      if (analytics.invoked) window.console && console.error && console.error("Segment snippet included twice.");
-      else {
-        analytics.invoked = !0;
-        analytics.methods = ["trackSubmit", "trackClick", "trackLink", "trackForm", "pageview", "identify", "reset", "group", "track", "ready", "alias", "page", "once", "off", "on"];
-        analytics.factory = function(t) {
-          return function() {
-            var e = Array.prototype.slice.call(arguments);
-            e.unshift(t);
-            analytics.push(e);
-            return analytics
-          }
-        };
-        for (var t = 0; t < analytics.methods.length; t++) {
-          var e = analytics.methods[t];
-          analytics[e] = analytics.factory(e)
-        }
-        analytics.load = function(t) {
-          var e = document.createElement("script");
-          e.type = "text/javascript";
-          e.async = !0;
-          e.src = ("https:" === document.location.protocol ? "https://" : "http://") + "cdn.segment.com/analytics.js/v1/" + t + "/analytics.min.js";
-          var n = document.getElementsByTagName("script")[0];
-          n.parentNode.insertBefore(e, n)
-        };
-        analytics.SNIPPET_VERSION = "3.1.0";
-        analytics.load("59YB1CrcYkdrsCsPWtFbpxPjeEe3SCJX");
-        analytics.page()
-      }
-  }();
-  </script>
+  <!-- Title and tags -->
+  <title>Code Duel</title>
   <meta name="viewport" content="width=device-width" />
   <!-- CSS Stylings -->
-  <link href="bower_components/bootstrap-css-only/css/bootstrap.min.css" rel="stylesheet">
   <link href='https://fonts.googleapis.com/css?family=VT323' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
   <link rel="stylesheet" href="assets/css/style.css" />
   <link rel="stylesheet" href="assets/css/lobby.css" />
   <link rel="stylesheet" href="assets/css/watch.css" />
   <link rel="stylesheet" href="assets/css/game.css" />
-  <title>Code Duel</title>
+  <!-- Head dependent scripts -->
+  <script src="assets/js/headScripts.js"></script>
+
 </head>
 
 <body ng-app="duel" ng-controller="appController">
@@ -63,34 +33,9 @@
     <div id ="content" ui-view="duelContent">
     </div>
   </div>
-  <!-- Libraries -->
-  <script src="bower_components/ace-builds/src-min-noconflict/ace.js"></script>
-  <script src="bower_components/angular/angular.js"></script>
-  <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-  <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
-  <script src="bower_components/angular-ui-ace/ui-ace.js"></script>
-  <script src="bower_components/jquery/dist/jquery.js"></script>
+
   <script src="https://cdn.socket.io/socket.io-1.4.3.js"></script>
-  <script src="bower_components/angular-scroll-glue/src/scrollglue.js"></script>
-  <!-- Factories/Providers/Services -->
-  <script src="app/util/socketFact.js"></script>
-  <script src="app/util/userFact.js"></script>
-  <script src="app/util/errorFact.js"></script>
-  <script src="app/chat/chatFact.js"></script>
-  <script src="app/lobby/lobbyFact.js"></script>
-  <script src="app/game/play/gamePlayFact.js"></script>
-  <script src="app/game/watch/gameWatchFact.js"></script>
-  <!-- Controllers -->
-  <script src="app/app.js"></script>
-  <script src="app/login/loginCtrl.js"></script>
-  <script src="app/lobby/lobbyCtrl.js"></script>
-  <script src="app/chat/chatCtrl.js"></script>
-  <script src="app/chat/chatClientsCtrl.js"></script>
-  <script src="app/game/gameCtrl.js"></script>
-  <script src="app/game/play/gamePlayCtrl.js"></script>
-  <script src="app/game/watch/gameWatchCtrl.js"></script>
-  <script src="app/auth/authCtrl.js"></script>
-  <script src="app/showError/showErrorCtrl.js"></script>
+  <script src="assets/js/allScripts.js"></script>
 
 </body>
 
