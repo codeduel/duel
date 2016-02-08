@@ -5,6 +5,15 @@ angular.module('duel.lobbyCtrl', [])
   $scope.userName = UserFact.getUser().userName;
   $scope.currentView = null;
   $scope.data = {};
+  $scope.data.activeGames = LobbyFact.activeGames;
+
+  $scope.$watch(function() {
+    return LobbyFact.activeGames;
+  }, function(newVal, oldVal) {
+    if (newVal !== oldVal) {
+      $scope.data.activeGames = LobbyFact.activeGames;
+    }
+  });
 
   $scope.join = function() {
     $state.go('game', {
@@ -24,14 +33,14 @@ angular.module('duel.lobbyCtrl', [])
           gameId: response.data.gameId
         });
       });
-      analytics.track('Created Game', {
-        userName: $scope.userName,
-        currentView: $scope.currentView,
-        difficulty: $scope.data.difficulty
-      });
+    analytics.track('Created Game', {
+      userName: $scope.userName,
+      currentView: $scope.currentView,
+      difficulty: $scope.data.difficulty
+    });
   };
 
-   analytics.page('Lobby', {
+  analytics.page('Lobby', {
     title: 'Lobby',
     url: 'http://www.codeduel.io/#/lobby',
     path: '/lobby'
@@ -40,4 +49,10 @@ angular.module('duel.lobbyCtrl', [])
   $scope.back = function() {
     $scope.currentView = null;
   };
+
+  $scope.jumpTo = function(gameId) {
+    $state.go('game', {
+      gameId: gameId
+    });
+  }
 }]);
