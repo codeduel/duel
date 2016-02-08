@@ -94,10 +94,14 @@
   margin-bottom: 10px;
 }
 
-#challengePrompt {
-  height: 248px;
+#challengePrompt, #output {
+  max-width: 110%;
+  height: 450px;
   border-bottom: 2px solid white;
   overflow: auto;
+  overflow-x: hidden;
+  border-bottom: 2px solid white;
+  margin-bottom: 10px;
 }
 
 #gameDescription {
@@ -108,18 +112,11 @@
   width: 350px;
 }
 
-#output {
-  margin: 0px;
-  overflow: auto;
-  padding: 0px;
-  height: 250px;
-}
-
 #output h3 {
   margin-top: 0px;
   margin-bottom: 0px;
   padding-top: 5px;
-  padding-bottom: 0px;
+  padding-bottom: 5px;
   text-align: center;
 }
 
@@ -204,4 +201,15 @@
   border-radius: 0px 0px 5px 0px;
   border-top: 2px solid black;
   display: inline-block;
+}
+
+.toggle {
+  width: 100px;
+  height: 30px;
+}
+
+.center {
+  width: 100px;
+  height: 30px;
+  margin: 0px auto;
 }

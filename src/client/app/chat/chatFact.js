@@ -9,7 +9,7 @@ angular.module('duel.chatFact', [])
 
   //converts a string to a unique color hex code
   chatFact.nameToColor = function(str) {
-    if(str === 'SYSTEM') {
+    if (str === 'SYSTEM') {
       return 'red';
     }
 
@@ -25,6 +25,11 @@ angular.module('duel.chatFact', [])
     }
     return 'black';
   };
+
+  //adds a message
+  chatFact.add = function(msg) {
+    chatFact.messages.push(msg);
+  }
 
   //clears factory data
   chatFact.reset = function() {

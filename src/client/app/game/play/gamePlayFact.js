@@ -1,6 +1,6 @@
 angular.module('duel.game.playFact', [])
 
-.factory('GamePlayFact', ['UserFact', 'SocketFact', '$rootScope', '$timeout', '$interval', '$state', function(UserFact, SocketFact, $rootScope, $timeout, $interval, $state) {
+.factory('GamePlayFact', ['ChatFact', 'UserFact', 'SocketFact', '$rootScope', '$timeout', '$interval', '$state', function(ChatFact, UserFact, SocketFact, $rootScope, $timeout, $interval, $state) {
   var gamePlayFact = {};
   var userName = UserFact.getUser().userName;
 
@@ -38,35 +38,25 @@ angular.module('duel.game.playFact', [])
     $rootScope.$apply();
   });
 
-  SocketFact.socket.on('game/invalidSolution', function(data) {
-    gamePlayFact.output = '<h3>Output:</h3>';
-    gamePlayFact.output += '<div class="reason">' + data.reason + '</div>';
-    for (var i = 0; i < data.output.length; i++) {
-      gamePlayFact.output += data.output[i];
+  SocketFact.socket.on('game/results', function(data) {
+    var output;
+    if (data.valid) {
+      ChatFact.add({
+        userId: 'SYSTEM',
+        text: 'Congrats, you won! You can leave the game or watch the other players code!',
+        bold: true
+      });
+      gamePlayFact.won = true;
+      output = '<h3>You win!</h3>';
+    } else {
+      output = '<h3>Error:</h3>' + '<pre>' + data.reason + '</pre>';
     }
+    for (var i = 0; i < data.output.length; i++) {
+      output += data.output[i];
+    }
+    gamePlayFact.output = output;
     $rootScope.$apply();
-    
-    //TODO: Change this to server-side tracking
-    analytics.track('Submitted Invalid Solution', {
-      userName: userName,
-      summary: data.summary
-    });
-
   });
-
-  SocketFact.socket.on('game/winner', function(data) {
-    //TODO: Change this to server-side tracking
-    analytics.track('Game Over', {
-      userName: userName,
-      winner: data.winner
-    });
-    gamePlayFact.output = '<h3>You won!</h3>';
-    for (var i = 0; i < data.output.length; i++) {
-      gamePlayFact.output += data.output[i];
-    }
-    gamePlayFact.won = true;
-    $rootScope.$apply();
-  })
 
   SocketFact.socket.on('game/streamTo', function(data) {
     var msg = SocketFact.buildMessage({

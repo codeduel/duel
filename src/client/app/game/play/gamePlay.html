@@ -5,16 +5,26 @@
     <h3 class='col-xs-4' id="counter">{{counter}}</h3>
   </div>
   <div id="gameDescription" class='col-xs-5'>
-    <div id="challengePrompt">
-      {{client.question}}
+    <div ng-if="data.currView === 'question'">
+      <div id="challengePrompt" ng-bind-html="client.question | unsafe">
+        {{client.question}}
+      </div>
+      <div class="center">
+        <button ng-click="toggleView('output')" class="toggle">Output</button>
+      </div>
     </div>
-    <div id="output" ng-bind-html="data.output | unsafe">
-      {{data.output}}
+    <div ng-if="data.currView === 'output'">
+      <div id="output" ng-bind-html="data.output | unsafe">
+        {{data.output}}
+      </div>
+      <div class="center">
+        <button ng-click="toggleView('question')" class="toggle">Question</button>
+      </div>
     </div>
   </div>
   <div class='col-xs-7'>
     <button ng-if="!data.won" class="submit" type="button" ng-click="submitSolution()">Submit Answer</button>
-    <button ng-if="data.won" class="submit" type="button" ng-click="spectate()">Spectate</button>
+    <button ng-if="data.won" class="submit winnerButton" type="button" ng-click="spectate()">Spectate</button>
     <button class="back" ng-click="toLobby()">Exit Game</button>
     <form id="PlayerAnswer">
       <div ui-ace="{useWrapMode : true, theme:'cobalt', document: 'javascript', mode: 'javascript'}" ng-model="data.solution" ng-model-options="{debounce: DEBOUNCE_INTERVAL}" ng-change="stream()">

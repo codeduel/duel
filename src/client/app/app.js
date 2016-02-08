@@ -1,9 +1,11 @@
 angular.module('duel', [
+
   //Third-party
   'ui.router', //angular router
   'ui.bootstrap', //bootstrap
   'ui.ace', //ace editor
-  'luegg.directives', //scroll-glue
+  'luegg.directives', //scroll-glue for sticky overflow
+
   //Controllers
   'duel.loginCtrl', //Controller for 'login' state
   'duel.authCtrl', //Controller for 'auth' state
@@ -14,6 +16,7 @@ angular.module('duel', [
   'duel.showErrorCtrl', //Controller for 'showError' state
   'duel.chat.clientsCtrl', //Universal connected clients controller
   'duel.chatCtrl', //Universal chat controller
+
   //Factories
   'duel.socketFact', //Factory for creating socket connections
   'duel.errorFact', //Factory for handling errors
