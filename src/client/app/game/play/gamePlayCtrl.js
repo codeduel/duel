@@ -107,7 +107,7 @@ angular.module('duel.game.playCtrl', [])
     $state.go('lobby');
   };
 
-  analytics.track('Started Game', {
+  analytics.track('Entered Game', {
     userName: $scope.userName,
     gameId: $scope.gameId
   });
