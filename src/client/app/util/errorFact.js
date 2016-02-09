@@ -34,7 +34,7 @@ angular.module('duel.errorFact', [])
   var genericErrorHandler = function(errorType, errorData) {
     //unregister user in case error is auth related TODO: replace with logout function
     UserFact.removeUser();
-    $state.go('showError', {
+    $state.go('wrap.showError', {
       errorType: errorType,
       errorData: errorData
     });

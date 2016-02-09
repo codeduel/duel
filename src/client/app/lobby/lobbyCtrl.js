@@ -16,7 +16,7 @@ angular.module('duel.lobbyCtrl', [])
   });
 
   $scope.join = function() {
-    $state.go('game', {
+    $state.go('wrap.game', {
       gameId: $scope.data.gameId
     });
     analytics.track('Joined Game', {
@@ -28,7 +28,7 @@ angular.module('duel.lobbyCtrl', [])
   $scope.create = function() {
     LobbyFact.createGame($scope.data.difficulty, $scope.data.password, $scope.userName)
       .then(function(response) {
-        $state.go('game.play', {
+        $state.go('wrap.game.play', {
           gameId: response.data.gameId
         });
       });
@@ -44,7 +44,7 @@ angular.module('duel.lobbyCtrl', [])
   };
 
   $scope.jumpTo = function(gameId) {
-    $state.go('game', {
+    $state.go('wrap.game', {
       gameId: gameId
     });
   };

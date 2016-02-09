@@ -104,7 +104,7 @@ angular.module('duel.game.playCtrl', [])
   };
 
   $scope.toLobby = function() {
-    $state.go('lobby');
+    $state.go('wrap.lobby');
   };
 
   analytics.track('Entered Game', {
@@ -113,7 +113,7 @@ angular.module('duel.game.playCtrl', [])
   });
 
   $scope.spectate = function() {
-    $state.go('game.watch', {
+    $state.go('wrap.game.watch', {
       gameId: $scope.gameId
     });
   };

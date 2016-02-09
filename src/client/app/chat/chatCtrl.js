@@ -19,6 +19,6 @@ angular.module('duel.chatCtrl', [])
 
   //go to login state
   $scope.toLogin = function() {
-    $state.go('login');
+    $state.go('wrap.login');
   };
 }]);
