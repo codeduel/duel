@@ -4,13 +4,15 @@
 /***********************************/
 
 //Libraries
-require('../../../bower_components/ace-builds/src-min-noconflict/ace.js');
 require('../../../bower_components/angular/angular.js');
 require('../../../bower_components/angular-ui-router/release/angular-ui-router.js');
 require('../../../bower_components/angular-bootstrap/ui-bootstrap.min.js');
+require('../../../bower_components/ace-builds/src-min-noconflict/ace.js');
+require('../../../bower_components/ace-builds/src-min-noconflict/mode-javascript.js');
+require('../../../bower_components/ace-builds/src-min-noconflict/theme-cobalt.js');
 require('../../../bower_components/angular-ui-ace/ui-ace.js');
-require('../../../bower_components/jquery/dist/jquery.js');
 require('../../../bower_components/angular-scroll-glue/src/scrollglue.js');
+require('../../../bower_components/jquery/dist/jquery.js');
 
 //Factories/Providers/Services
 require('./util/socketFact.js');
