@@ -54,5 +54,5 @@ angular.module('duel.lobbyCtrl', [])
     $state.go('game', {
       gameId: gameId
     });
-  }
+  };
 }]);
