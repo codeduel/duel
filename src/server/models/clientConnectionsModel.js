@@ -45,4 +45,4 @@ exports.getClient = function(clientGroup, clientKey) {
 //Returns all rooms
 exports.getRooms = function() {
   return Object.keys(clientConnections);
-}
+};
