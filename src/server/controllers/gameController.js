@@ -12,6 +12,10 @@ var Game = require('../models/gameModel.js').Game;
 var clientConnections = require('../models/clientConnectionsModel.js');
 //Imports model helper functions
 var modelHelpers = require('../models/modelHelpers.js');
+//Imports the Analytics library to make pipe server side analytics
+var Analytics = require('analytics-node');
+var analytics = new Analytics('59YB1CrcYkdrsCsPWtFbpxPjeEe3SCJX', { flushAt: 1 });
+
 
 
 //Custom queue data structure that will hold all dmid's generated from submitSolutions function
@@ -83,6 +87,17 @@ var resolveSolutionAttempt = function() {
             //send the solution results to the player
             sendTo(solutionAttempt.socketId, 'game/results', data);
 
+            //analytics call
+            analytics.track({
+              userId: solutionAttempt.submittedBy,
+              event: 'Submitted Solution - Server',
+              properties: {
+                valid: data.valid,
+                gameid: solutionAttempt.gameId,
+                summary: data.summary
+              },
+            });
+
             console.log(solutionAttempt.dmid + ': Done');
             solutionsQueue.dequeue();
           } else {
@@ -142,8 +157,17 @@ exports.createGame = function(req, res) {
         res.send({
           gameId: createdGame.gameId
         });
+        analytics.track({
+          userId: req.body.userName,
+          event: 'Created Game - Server',
+          properties: {
+            difficulty: req.body.difficulty,
+            rank: createdGame.rank,
+            gameId: createdGame.gameId,
+            createdAt: createdGame.createdAt
+          }
+        });
       });
-
     }, function(error) {
       console.log('error generating question in gameController.js');
       res.status(500).send(error);
@@ -198,6 +222,18 @@ exports.playerJoin = function(msg, socket) {
       //add the user to the game in clientConnections then get array of players
       clientConnections.add(msg.data.gameId, socket.id, msg.data.userId);
       gameArray = clientConnections.getClientsArray(msg.data.gameId);
+
+      //analytics call
+      analytics.track({
+        userId: msg.data.userId,
+        event: 'Joined to Play - Server',
+        properties: {
+          gameId: msg.data.gameId,
+          numberOfPlayers: gameArray.length,
+          playerArray: gameArray
+        }
+      });
+
       //set isEmpty flag to false on game model and save
       foundGame.isEmpty = false;
       foundGame.save();

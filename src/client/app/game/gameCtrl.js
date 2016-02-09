@@ -14,9 +14,9 @@ angular.module('duel.gameCtrl', [])
         $state.go('game.play', {
           gameId: $scope.gameId
         });
-        analytics.track('Joined to play', {
+        analytics.track('Joined to Play', {
           userName: $scope.currentUser,
-          gameId: $scope.data.gameId
+          gameId: $scope.gameId
         });
       }
     });
@@ -26,9 +26,9 @@ angular.module('duel.gameCtrl', [])
     $state.go('game.watch', {
       gameId: $scope.gameId
     });
-    analytics.track('Joined to watch', {
+    analytics.track('Joined to Watch', {
       userName: $scope.currentUser,
-      gameId: $scope.data.gameId
+      gameId: $scope.gameId
     });
   };
 

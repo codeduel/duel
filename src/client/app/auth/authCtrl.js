@@ -8,7 +8,7 @@ angular.module('duel.authCtrl', [])
   $window.localStorage.setItem('duel.userName', userName);
   $window.localStorage.setItem('duel.userId', userId);
 
-  analytics.identify(userId, {
+  analytics.identify(userName, {
     name: userName,
     method: 'oAuth'
   });
