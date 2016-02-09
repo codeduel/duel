@@ -1,21 +1,21 @@
 {
   "name": "duel",
   "version": "0.0.0",
-  "description": "Cream & Copper's Thesis Project",
+  "description": "Code Duel - a game where coders compete in real time to see who's the best",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cream-and-copper/duel.git"
+    "url": "git+https://github.com/codeduel/duel.git"
   },
   "scripts": {
-    "postinstall": "gulp build",
+    "postinstall": "node ./node_modules/gulp/bin/gulp build",
     "start": "node build/server/server.js",
     "test": "./node_modules/karma/bin/karma start karma.conf.js"
   },
   "author": "",
   "bugs": {
-    "url": "https://github.com/cream-and-copper/duel/issues"
+    "url": "https://github.com/codeduel/duel/issues"
   },
-  "homepage": "https://github.com/cream-and-copper/duel#readme",
+  "homepage": "https://github.com/codeduel/duel#readme",
   "dependencies": {
     "body-parser": "^1.14.2",
     "bower": "^1.7.7",
