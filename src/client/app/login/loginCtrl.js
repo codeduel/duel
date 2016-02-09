@@ -11,6 +11,6 @@ angular.module('duel.loginCtrl', [])
       method: 'Typed Username'
     });
 
-    $state.go('lobby');
+    $state.go('wrap.lobby');
   };
 }]);

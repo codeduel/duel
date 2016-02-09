@@ -3,6 +3,6 @@ angular.module('duel.showErrorCtrl', [])
   $scope.errorType = $stateParams.errorType;
   $scope.errorData = $stateParams.errorData;
   $timeout(function(){
-    $state.go('login');
+    $state.go('wrap.login');
   },3000);
 }]);

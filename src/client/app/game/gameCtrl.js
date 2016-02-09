@@ -11,7 +11,7 @@ angular.module('duel.gameCtrl', [])
       password: $scope.data.password
     }).then(function(response) {
       if (response.status === 200) {
-        $state.go('game.play', {
+        $state.go('wrap.game.play', {
           gameId: $scope.gameId
         });
         analytics.track('Joined to Play', {
@@ -23,7 +23,7 @@ angular.module('duel.gameCtrl', [])
   };
 
   $scope.watch = function() {
-    $state.go('game.watch', {
+    $state.go('wrap.game.watch', {
       gameId: $scope.gameId
     });
     analytics.track('Joined to Watch', {
