@@ -13,6 +13,6 @@ angular.module('duel.authCtrl', [])
     method: 'oAuth'
   });
 
-  $state.go('lobby')
+  $state.go('lobby');
 
 }]);

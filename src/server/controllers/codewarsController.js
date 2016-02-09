@@ -54,13 +54,13 @@ var config = {
       'multiply'
     ]
   }
-}
+};
 
 
 //Returns a random pre-defined question 'slug' of the specified difficulty
 var getRandomChallenge = function(difficulty) {
-  return config.difficultyMappings[difficulty][Math.floor(config.difficultyMappings[difficulty].length * Math.random())]
-}
+  return config.difficultyMappings[difficulty][Math.floor(config.difficultyMappings[difficulty].length * Math.random())];
+};
 
 /*
  *  Generic query builder, returns a promise
@@ -72,7 +72,7 @@ var query = function(method, uri, data) {
     uri: uri,
     json: data
   });
-}
+};
 
 /*
  *  Queries the Code Wars API for a question
@@ -82,7 +82,7 @@ exports.generateQuestion = function(difficulty) {
     var challenge = getRandomChallenge(difficulty);
     return query('POST', config.routes.generateQuestion(challenge, 'javascript'), {});
   }
-}
+};
 
 /*
  *  Submits a solution to the Code Wars API and returns a deferred message ID
@@ -91,13 +91,13 @@ exports.submitSolution = function(solutionID, projectID, code) {
   var data = {
     code: code, //code of the potential solution
     output_format: 'html' //desired output - 'html' or 'raw'
-  }
+  };
   return query('POST', config.routes.submitSolution(solutionID, projectID), data);
-}
+};
 
 /*
  *  Queries the Code Wars API for the results of the specified dmid
  */
 exports.getSolutionResults = function(dmid) {
   return query('GET', config.routes.getSolutionResults(dmid), {});
-}
+};

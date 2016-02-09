@@ -67,10 +67,10 @@ angular.module('duel', [
   //Socket room router
   $rootScope.$on('$stateChangeSuccess',
     function(event, toState, toParams, fromState, fromParams, options) {
-
+      var room;
       //leaving a state
       if (fromState.name === 'game.play' || fromState.name === 'game.watch') {
-        var room = fromParams.gameId;
+        room = fromParams.gameId;
         if (fromState === 'game.watch') room += '/watch';
         ChatFact.leaveRoom();
       }
@@ -80,7 +80,7 @@ angular.module('duel', [
 
       //entering a state
       if (toState.name === 'game.play' || toState.name === 'game.watch') {
-        var room = toParams.gameId;
+        room = toParams.gameId;
         if (toState.name === 'game.watch') room += '/watch';
         ChatFact.joinRoom(room);
       }

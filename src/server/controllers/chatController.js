@@ -20,7 +20,7 @@ var isValid = function(text) {
     }
   }
   return true;
-}
+};
 
 //Sends client data to their respective game rooms
 var updateClients = function(room, socketId) {
@@ -40,7 +40,7 @@ var updateClients = function(room, socketId) {
   }
   getActiveGames();
   sendTo(room, 'chat/update', clientConnections.getClients(room));
-}
+};
 
 //returns all games that have players/spectators currently in them
 var getActiveGames = function() {
@@ -57,11 +57,10 @@ var getActiveGames = function() {
     activeGamesObj[gameId] = {
       players: clientConnections.getClientsArray(gameId).length || 0,
       spectators: clientConnections.getClientsArray(gameId + '/watch').length || 0
-    }
+    };
   }
-
   sendTo('lobby', 'lobby/activeGames', activeGamesObj);
-}
+};
 
 //********************
 //SOngCKET CONTROLLERS
@@ -93,7 +92,7 @@ exports.message = function(msg, socket) {
     text: text,
     bold: true
   });
-}
+};
 
 /*
  *  Adds the client socket to a room
@@ -108,7 +107,7 @@ exports.join = function(msg, socket) {
   socket.duelData.subscribedRooms.push(room);
   socket.join(room);
   updateClients(room, socket.id);
-}
+};
 
 /*
  *  Removes the client socket from all rooms
@@ -123,7 +122,7 @@ exports.leaveAll = function(socket) {
   }
 
   socket.duelData.subscribedRooms = [];
-}
+};
 
 /*
  *  Removes the client socket from a room
@@ -139,4 +138,4 @@ exports.leave = function(msg, socket) {
 
   var index = socket.duelData.subscribedRooms.indexOf(room);
   socket.duelData.subscribedRooms.splice(index, 1);
-}
+};

@@ -19,17 +19,17 @@ angular.module('duel.gameCtrl', [])
           gameId: $scope.data.gameId
         });
       }
-    })
-  }
+    });
+  };
 
   $scope.watch = function() {
     $state.go('game.watch', {
       gameId: $scope.gameId
-    })
+    });
     analytics.track('Joined to watch', {
       userName: $scope.currentUser,
       gameId: $scope.data.gameId
     });
-  }
+  };
 
 }]);

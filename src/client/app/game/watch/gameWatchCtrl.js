@@ -43,5 +43,5 @@ angular.module('duel.game.watchCtrl', [])
 
   $scope.toLobby = function() {
     $state.go('lobby');
-  }
+  };
 }]);

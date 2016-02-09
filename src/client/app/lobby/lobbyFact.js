@@ -26,7 +26,7 @@ angular.module('duel.lobbyFact', [])
   SocketFact.socket.on('lobby/activeGames', function(data) {
     lobbyFact.activeGames = data;
     $rootScope.$apply();
-  })
+  });
 
   return lobbyFact;
 }])
@@ -42,5 +42,5 @@ angular.module('duel.lobbyFact', [])
       return b[prop] - a[prop];
     });
     return arr;
-  }
+  };
 });

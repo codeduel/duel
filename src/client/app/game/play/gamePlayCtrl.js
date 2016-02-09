@@ -12,7 +12,7 @@ angular.module('duel.game.playCtrl', [])
   $scope.data.output = GamePlayFact.output;
   $scope.data.won = GamePlayFact.won;
   $scope.data.currView = 'question';
-  
+
   //Generates a shareable link
   var link = '<a>' + $location.absUrl() + '</a>';
   ChatFact.add({
@@ -29,14 +29,14 @@ angular.module('duel.game.playCtrl', [])
       code: $scope.data.solution,
       gameId: $scope.gameId,
       userId: UserFact.getUser().userName
-    })
-  }
+    });
+  };
 
   $scope.toggleView = function(view) {
     $scope.data.currView = view;
-  }
+  };
 
-  $scope.counter = "0 minutes";
+  $scope.counter = '0 minutes';
 
   //updates solution textarea when initial code is loaded
   $scope.$watch('client.initial', function(newVal, oldVal) {
@@ -49,9 +49,9 @@ angular.module('duel.game.playCtrl', [])
   $scope.$watch('client.minutes', function(newVal, oldVal) {
     if (newVal !== oldVal) {
       if (newVal === 1) {
-        $scope.counter = $scope.client.minutes + " minute"
+        $scope.counter = $scope.client.minutes + ' minute';
       } else {
-        $scope.counter = $scope.client.minutes + " minutes"
+        $scope.counter = $scope.client.minutes + ' minutes';
       }
     }
   }, true);
@@ -105,7 +105,7 @@ angular.module('duel.game.playCtrl', [])
 
   $scope.toLobby = function() {
     $state.go('lobby');
-  }
+  };
 
   analytics.track('Started Game', {
     userName: $scope.userName,
@@ -116,5 +116,5 @@ angular.module('duel.game.playCtrl', [])
     $state.go('game.watch', {
       gameId: $scope.gameId
     });
-  }
+  };
 }]);

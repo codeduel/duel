@@ -15,13 +15,13 @@ var FastQueue = function(bufferRatio) {
   this._storage = [];
   this._first = null;
   this._bufferRatio = bufferRatio || 0.5;
-}
+};
 
 //Adds an object to the back of the queue
 FastQueue.prototype.enqueue = function(obj) {
   if (this._first === null) this._first = 0;
   this._storage.push(obj);
-}
+};
 
 //Removes the first object in the queue and returns it
 FastQueue.prototype.dequeue = function() {
@@ -36,11 +36,11 @@ FastQueue.prototype.dequeue = function() {
     }
     return popped;
   }
-}
+};
 
 //Returns the first object in the queue
 FastQueue.prototype.peek = function() {
   return this._storage[this._first];
-}
+};
 
 module.exports = FastQueue;

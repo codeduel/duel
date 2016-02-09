@@ -6,9 +6,9 @@ angular.module('duel.game.playFact', [])
 
   gamePlayFact.reset = function() {
     gamePlayFact.client = {
-      question: "question will be displayed when challenge commences",
-      message: "Waiting for opponent...",
-      initial: "Your Code Here",
+      question: 'question will be displayed when challenge commences',
+      message: 'Waiting for opponent...',
+      initial: 'Your Code Here',
       winner: null,
       minutes: 0,
     };
@@ -27,13 +27,13 @@ angular.module('duel.game.playFact', [])
 
   SocketFact.socket.on('game/start', function(data) {
     //updates message, question, and initial code once game starts
-    gamePlayFact.client.message = "The challenge has begun";
+    gamePlayFact.client.message = 'The challenge has begun';
     gamePlayFact.client.question = data.question;
     gamePlayFact.client.initial = data.initialCode;
 
     $interval(function() {
         gamePlayFact.client.minutes++;
-      }, 60000)
+      }, 60000);
       //should refactor to not use rootScope?
     $rootScope.$apply();
   });
@@ -79,18 +79,18 @@ angular.module('duel.game.playFact', [])
   gamePlayFact.connectToGame = function(connectionData) {
     var msg = SocketFact.buildMessage(connectionData);
     SocketFact.socket.emit('game/ready', msg);
-  }
+  };
 
   gamePlayFact.submitSolution = function(solutionData) {
     var msg = SocketFact.buildMessage(solutionData);
     SocketFact.socket.emit('game/submit', msg);
-  }
+  };
 
   gamePlayFact.stream = function(editorData) {
     lastStreamedCode = editorData.code;
     var msg = SocketFact.buildMessage(editorData);
     SocketFact.socket.emit('watch/stream', msg);
-  }
+  };
 
   return gamePlayFact;
 }]);

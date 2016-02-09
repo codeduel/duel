@@ -24,11 +24,11 @@ router.get('/github/callback',
         //if user exists, send to client (auth controller)
         if (user) {
           //console.log(user);
-          res.redirect('/#/auth/' + user._id + '/'+ user.userName);          
+          res.redirect('/#/auth/' + user._id + '/'+ user.userName);
         }
         //user doesnt exist, create one
         else userController.createUser({body:req.user, fromGitHub:true}, res);
-      })
+      });
   });
 
 router.get('/logout', function(req, res){

@@ -1,7 +1,7 @@
 // github auth
 var passport = require('passport');
 var GithubStrategy = require('passport-github2').Strategy;
-var credentials = require('./credentials.js')
+var credentials = require('./credentials.js');
 
 module.exports = function (app){
 
@@ -29,4 +29,4 @@ module.exports = function (app){
     app.use(passport.initialize());
     app.use(passport.session()); //persistent login session
 
-}
+};

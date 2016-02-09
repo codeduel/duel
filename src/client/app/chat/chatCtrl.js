@@ -10,7 +10,7 @@ angular.module('duel.chatCtrl', [])
       ChatFact.sendMessage($scope.data.chatInput);
       $scope.data.chatInput = '';
     }
-  }
+  };
 
   //converts a string to a unique color hex code
   $scope.nameToColor = function(str) {
@@ -20,5 +20,5 @@ angular.module('duel.chatCtrl', [])
   //go to login state
   $scope.toLogin = function() {
     $state.go('login');
-  }
+  };
 }]);
