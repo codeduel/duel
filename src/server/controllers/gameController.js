@@ -5,7 +5,7 @@ var sendTo = require('../api/socketRoutes.js').sendTo;
 //Imports the socketError function from socketRoutes
 var socketError = require('../api/socketRoutes.js').socketError;
 //Imports the constructor for a SolutionsQueue data structure
-var fastQueue = require('../models/fastQueue.js');
+var FastQueue = require('../models/fastQueue.js');
 //Imports the game model
 var Game = require('../models/gameModel.js').Game;
 //Imports the client connections model
@@ -15,7 +15,7 @@ var modelHelpers = require('../models/modelHelpers.js');
 
 
 //Custom queue data structure that will hold all dmid's generated from submitSolutions function
-var solutionsQueue = new fastQueue();
+var solutionsQueue = new FastQueue();
 
 //Structure for tracking the last time a player submitted a solution
 var lastSubmittedSolution = {};
@@ -39,12 +39,12 @@ var MAX_ATTEMPTS = 10;
 //Prettifies a question string by formatting it to HTML
 var format = function(str) {
   return str.replace(/\n/g, '<br>').replace(/```/g, '');
-}
+};
 
 //Calculates a solution's progress to being completed
 var calculateProgress = function(passed, failed) {
   return Math.floor(passed / (passed + failed) * 10000) / 100;
-}
+};
 
 //Resolves a solution attempt by dequeueing it and querying its dmid against the Code Wars API
 var resolveSolutionAttempt = function() {
@@ -68,7 +68,7 @@ var resolveSolutionAttempt = function() {
             var msg = {
               userId: 'SYSTEM',
               bold: true
-            }
+            };
             if (data.valid) {
               msg.text = solutionAttempt.submittedBy + ' has won! Remaining players may keep coding or go back to the lobby.';
             } else {
@@ -161,14 +161,14 @@ exports.unlock = function(req, res) {
     } else {
       res.status(401).send();
     }
-  })
-}
+  });
+};
 
 //********************
 //SOngCKET CONTROLLERS
 //********************
 
-//Adds the specified user to the specified game, and sends a "game/start" event to all clients connected to the game
+//Adds the specified user to the specified game, and sends a 'game/start' event to all clients connected to the game
 exports.playerJoin = function(msg, socket) {
   var gameArray;
   //check for all the right data, otherwise throw an error
@@ -337,8 +337,8 @@ var cleanStaleGames = function(cleanInterval) {
   oneDayAgo = new Date(Date.now() - 86400000);
   //remove all day old games
   Game.find({
-    "createdAt": {
-      "$lt": oneDayAgo
+    'createdAt': {
+      '$lt': oneDayAgo
     }
   }, function(error, foundGamesArray) {
     if (error) {
@@ -353,13 +353,13 @@ var cleanStaleGames = function(cleanInterval) {
   //remove recently emptied games
   Game.find({
     $and: [{
-      "lastEmpty": {
-        "$lt": oneHourAgo
+      'lastEmpty': {
+        '$lt': oneHourAgo
       }
     }, {
-      "isEmpty": true
+      'isEmpty': true
     }, {
-      "active": false
+      'active': false
     }]
   }, function(error, foundGamesArray) {
     if (error) {

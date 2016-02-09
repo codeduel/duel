@@ -6,7 +6,7 @@ angular.module('duel.game.watchFact', [])
   gameWatchFact.reset = function() {
     gameWatchFact.playerCode = {};
     gameWatchFact.players = {};
-  }
+  };
 
   gameWatchFact.reset();
 
@@ -31,7 +31,7 @@ angular.module('duel.game.watchFact', [])
       gameId: gameId
     });
     SocketFact.socket.emit('watch/init', msg);
-  }
+  };
 
   return gameWatchFact;
 }]);

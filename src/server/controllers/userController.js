@@ -19,22 +19,28 @@ exports.login = function (req, res) {
 
 
 exports.createUser = function(req, res) {
+  var name;
+  var avatar_url;
+  var login;
+  var email;
+  var location;
+
   if (req.fromGitHub) {
-    var name = req.body._json.name;
-    var avatar_url = req.body._json.avatar_url;
-    var login = req.body._json.login;
-    var email = req.body._json.email;
-    var location = req.body._json.location;
+    name = req.body._json.name;
+    avatar_url = req.body._json.avatar_url;
+    login = req.body._json.login;
+    email = req.body._json.email;
+    location = req.body._json.location;
   }
 
-  var query= User.findOne({
+  var query = User.findOne({
     'gitHubAuth.login': login
   });
 
   query.exec(function(err, user) {
     if (!user) {
       var newUser = new User({
-        userName: login, 
+        userName: login,
         gitHubAuth: {
           name: name,
           avatar_url: avatar_url,

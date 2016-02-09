@@ -10,11 +10,11 @@ exports.stream = function(msg, socket) {
     userId: msg.data.userId,
     code: msg.data.code
   });
-}
+};
 
 //Initalizes a spectator connection and retrieves the inital stream from each player
 exports.init = function(msg, socket) {
   sendTo(msg.data.gameId, 'game/streamTo', {
     to: socket.id
   });
-}
+};

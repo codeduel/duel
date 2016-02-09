@@ -20,4 +20,4 @@ module.exports = function(app, express) {
   app.use('/api', apiRouter); //localhost:3000/api/
   require('../api/httpRoutes.js')(apiRouter);
 
-}
+};

@@ -29,7 +29,7 @@ angular.module('duel.chatFact', [])
   //adds a message
   chatFact.add = function(msg) {
     chatFact.messages.push(msg);
-  }
+  };
 
   //clears factory data
   chatFact.reset = function() {
@@ -42,7 +42,7 @@ angular.module('duel.chatFact', [])
       });
     }
     chatFact.clients = {};
-  }
+  };
 
   //****************
   //Socket Listeners
@@ -57,7 +57,7 @@ angular.module('duel.chatFact', [])
   SocketFact.socket.on('chat/update', function(data) {
     chatFact.clients = data;
     $rootScope.$apply();
-  })
+  });
 
   //***************
   //Socket Triggers
@@ -69,7 +69,7 @@ angular.module('duel.chatFact', [])
     });
     SocketFact.socket.emit('chat/join', msg);
     chatFact.currRoom = room;
-  }
+  };
 
   chatFact.sendMessage = function(text) {
     var userId = UserFact.getUser().userId;
@@ -92,7 +92,7 @@ angular.module('duel.chatFact', [])
       });
     }
 
-  }
+  };
 
   chatFact.leaveRoom = function() {
     var msg = SocketFact.buildMessage({
@@ -100,14 +100,14 @@ angular.module('duel.chatFact', [])
       room: chatFact.currRoom
     });
     SocketFact.socket.emit('chat/leave', msg);
-  }
+  };
 
   return chatFact;
 }])
 
 .directive('onEnter', function() {
   return function(scope, element, attrs) {
-    element.bind("keydown keypress", function(event) {
+    element.bind('keydown keypress', function(event) {
       if (event.which === 13) {
         scope.$apply(function() {
           scope.$eval(attrs.onEnter, {
@@ -123,5 +123,5 @@ angular.module('duel.chatFact', [])
 .filter('unsafe', function($sce) {
   return function(val) {
     return $sce.trustAsHtml(val);
-  }
-});;
+  };
+});

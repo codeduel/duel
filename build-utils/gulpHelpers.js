@@ -6,13 +6,6 @@ module.exports.printBuildComplete = function(){
   console.log(greenText, '************************************************************');
 };
 
-module.exports.printBuildError = function(){
-  var redText = '\[\033[31m\] %s \[\033[m\]';
-  console.log(redText, '************************************************************');
-  console.log(redText, '*****               BUILD BREAKING ERROR!              *****');
-  console.log(redText, '************************************************************');
-};
-
 module.exports.printDevComplete = function(){
   var cyanText = '\[\033[36m\] %s \[\033[m\]';
   console.log(cyanText, '************************************************************');
@@ -20,17 +13,24 @@ module.exports.printDevComplete = function(){
   console.log(cyanText, '************************************************************');
 };
 
-module.exports.printWatchError = function(){
+module.exports.printBreakError = function(){
   var redText = '\[\033[31m\] %s \[\033[m\]';
   console.log(redText, '************************************************************');
-  console.log(redText, '*****     ERROR OCCURED - EXIT THEN RESTART WATCH!     *****');
+  console.log(redText, '*****               BUILD BREAKING ERROR!              *****');
   console.log(redText, '************************************************************');
 };
 
-//used for error handling in tasks that would otherwise cause watch to fail silently
-module.exports.watchErrorContinue = function(err) {
+module.exports.printBreakRestartError = function(){
   var redText = '\[\033[31m\] %s \[\033[m\]';
-  var message = 'YOUR CODE WILL NOT PASS BUILD DUE TO:\n' + err.message;
+  console.log(redText, '************************************************************');
+  console.log(redText, '*****     ERROR OCCURED - EXIT THEN RESTART PROCESS!   *****');
+  console.log(redText, '************************************************************');
+};
+
+//used for error handling in tasks that would otherwise cause task to fail silently
+module.exports.printContinueError = function(err) {
+  var redText = '\[\033[31m\] %s \[\033[m\]';
+  var message = 'YOUR CODE HAS THE FOLLOWING ERROR:\n' + err.message;
   console.log(redText, message);
   //emit end allows the watch task to continue
   this.emit('end');

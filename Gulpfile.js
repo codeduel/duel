@@ -14,6 +14,7 @@ var watchFiles = [
 
 var lintFiles = [
   './src/client/**/*.js',
+  './src/server/**/*.js',
   '!./src/client/assets/js/allScripts.js'
 ];
 
@@ -41,32 +42,32 @@ var copyFiles = [
 gulp.task('lint', function() {
   return gulp.src(lintFiles)
     .pipe(plugin.jshint())
-    .pipe(plugin.jshint.reporter(stylish)).on('error', gulpHelpers.watchErrorContinue);
+    .pipe(plugin.jshint.reporter(stylish)).on('error', gulpHelpers.printContinueError);
 });
 
 //sass
 gulp.task('sass', function () {
   return gulp.src(sassFiles)
     .pipe(plugin.sass().on('error', plugin.sass.logError))
-    .pipe(gulp.dest('./src/client/assets/css')).on('error', gulpHelpers.watchErrorContinue);
+    .pipe(gulp.dest('./src/client/assets/css')).on('error', gulpHelpers.printContinueError);
 });
 
 //browserify using vinyl source streams (gulp-browserify no longer maintained)
 gulp.task('browserify', function() {
   //file to browserify
   return browserify(browserifyFiles)
-    .bundle().on('error', gulpHelpers.watchErrorContinue)
+    .bundle().on('error', gulpHelpers.printContinueError)
     //output name
-    .pipe(vss('allScripts.js')).on('error', gulpHelpers.watchErrorContinue)
+    .pipe(vss('allScripts.js')).on('error', gulpHelpers.printContinueError)
     //output location
-    .pipe(gulp.dest('./src/client/assets/js/')).on('error', gulpHelpers.watchErrorContinue);
+    .pipe(gulp.dest('./src/client/assets/js/')).on('error', gulpHelpers.printContinueError);
 });
 
 //start dev version using nodemon
 gulp.task('nodemon', function(){
   return plugin.nodemon(
     {script: 'src/server/server.js', watch: ['src/server/**/*','src/server/server.js']}
-  ).on('error', gulpHelpers.printWatchError);
+  ).on('error', gulpHelpers.printBreakRestartError);
 });
 
 //starts build server
@@ -78,7 +79,7 @@ gulp.task('start', plugin.shell.task([
 
 //watch
 gulp.task('watch', function(){
-  return gulp.watch(watchFiles, ['devBuild']).on('error', gulpHelpers.printWatchError);
+  return gulp.watch(watchFiles, ['devBuild']).on('error', gulpHelpers.printBreakRestartError);
 });
 
 //dev build
@@ -94,7 +95,7 @@ gulp.task('dev', ['devBuild','watch','nodemon']);
 /******************************/
 //installs bower files
 gulp.task('bowerBuild', function() {
-  return plugin.bower().on('error', gulpHelpers.printBuildError);
+  return plugin.bower().on('error', gulpHelpers.printBreakError);
 });
 
 //lint build - breaks build on error
@@ -102,32 +103,32 @@ gulp.task('lintBuild', ['bowerBuild'], function() {
   return gulp.src(lintFiles)
     .pipe(plugin.jshint())
     .pipe(plugin.jshint.reporter(stylish))
-    .pipe(plugin.jshint.reporter('fail')).on('error', gulpHelpers.printBuildError);
+    .pipe(plugin.jshint.reporter('fail')).on('error', gulpHelpers.printContinueError);
 });
 
 //sass build - breaks build on error
 gulp.task('sassBuild', ['lintBuild'], function () {
   return gulp.src(sassFiles)
-    .pipe(plugin.sass().on('error', gulpHelpers.printBuildError))
-    .pipe(gulp.dest('./src/client/assets/css')).on('error', gulpHelpers.printBuildError);
+    .pipe(plugin.sass().on('error', gulpHelpers.printBreakError))
+    .pipe(gulp.dest('./src/client/assets/css')).on('error', gulpHelpers.printBreakError);
 });
 
 //browserify build - breaks build on error
 gulp.task('browserifyBuild', ['sassBuild'], function() {
   //file to browserify
   return browserify(browserifyFiles)
-    .bundle().on('error', gulpHelpers.printBuildError)
+    .bundle().on('error', gulpHelpers.printBreakError)
     //output name
-    .pipe(vss('allScripts.js')).on('error', gulpHelpers.printBuildError)
+    .pipe(vss('allScripts.js')).on('error', gulpHelpers.printBreakError)
     //output location
-    .pipe(gulp.dest('./src/client/assets/js/')).on('error', gulpHelpers.printBuildError);
+    .pipe(gulp.dest('./src/client/assets/js/')).on('error', gulpHelpers.printBreakError);
 });
 
 //build wont copy if any tasks in array throw errors
 //need a way to ensure copying doesn't have any errors
 gulp.task('build', ['bowerBuild','lintBuild','sassBuild','browserifyBuild'], function(){
   gulp.src(copyFiles).pipe(gulp.dest('./build'))
-  .on('error', gulpHelpers.printBuildError)
+  .on('error', gulpHelpers.printBreakError)
   .on('end', gulpHelpers.printBuildComplete);
 });
 
