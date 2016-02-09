@@ -11,5 +11,8 @@
     "angular-bootstrap": "^1.1.1",
     "bootstrap-css-only": "3.3.6",
     "angular-scroll-glue": "^2.0.6"
+  },
+  "resolutions": {
+    "angular": "1.5.0"
   }
 }
