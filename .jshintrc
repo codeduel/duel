@@ -19,9 +19,6 @@
   // Enforce tab width of 2 spaces.
   "indent": 2,
 
-  // Don't Prohibit use of a variable before it is defined.
-  "latedef": false,
-
   // Enforce use of single quotation marks for strings.
   "quotmark": "single"
 
