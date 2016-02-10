@@ -6,20 +6,327 @@
 /*!<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>*/
 
 /**********************************************************************/
-/*Layout & Miscellaneous Elements                                     */
+/*VARIABLES                                                           */
 /**********************************************************************/
+/*Color Vars*/
+/**************************************************/
+$headlineFontStack: 'Open Sans', sans-serif;
+$fontStack: 'Open Sans', sans-serif;
 
+$headlineColor: #FFF;
+
+$textOnAccent: #FFF;
+$textOnAccentHover: #FFF;
+
+$textOnPrimary: #FFF;
+$textOnPrimaryHover: #FFF;
+
+$textOnSecondary: #002240;
+$textOnSecondaryHover: #002240;
+
+$accentColor: #66D9EF;
+$accentColorLight: desaturate(lighten($accentColor, 15%), 15%);
+$accentColorDark: saturate(darken($accentColor, 15%), 15%);
+$accentColorHover: $accentColorDark;
+
+$primaryColor: #002240;
+$primaryColorLight: desaturate(lighten($primaryColor, 15%), 15%);
+$primaryColorDark: saturate(darken($primaryColor, 15%), 15%);
+$primaryColorHover: $primaryColorDark;
+
+$secondaryColor: #ecf7f9;
+$secondaryColorLight: desaturate(lighten($secondaryColor, 15%), 15%);
+$secondaryColorDark: saturate(darken($secondaryColor, 15%), 15%);
+$secondaryColorHover: $secondaryColorDark;
+
+$altActionColor: #F04848;
+$altActionColorLight: desaturate(lighten($altActionColor, 15%), 15%);
+$altActionColorDark: saturate(darken($altActionColor, 15%), 15%);
+$altActionColorHover: $altActionColorDark;
+
+
+
+
+/*Layout Vars*/
+/**************************************************/
+$spacing: 2rem;
+$halfSpacing: $spacing / 2;
+$quarterSpacing: $spacing / 4;
+
+$doubleSpacing: $spacing * 2;
+
+
+$borderRadius: .5rem;
+$halfBorderRadius: $borderRadius / 2;
+
+/**********************************************************************/
+/*ELEMENTS                                                            */
+/**********************************************************************/
 /*Basic Layout*/
 /**************************************************/
+html,
+body {
+ height: 100%;
+ width: 100%;
+}
+
+body {
+  min-height: 100%;
+  background-color: $secondaryColor;
+  color: $textOnSecondary;
+  font-family: $fontStack;
+}
+
+.floatLeft{
+  float:left;
+}
+
+.floatRight{
+  float:right;
+}
+
+.inlineBlock {
+  display:inline-block;
+}
+
+.autoMarg{
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.centerCol {
+  @extend .autoMarg;
+  float:none;
+}
+
+.container-fluid {
+  padding:$halfSpacing 0;
+}
+
+.row {
+  @extend .autoMarg;
+  padding:0 $halfSpacing;
+  max-width: 75rem + $doubleSpacing; /* 1200px */
+}
+
+.padCol {
+    padding: $halfSpacing;
+}
+
+.innerCol {
+    padding: $spacing;
+    height: 100%;
+    width: 100%;
+    border-radius: $borderRadius;
+}
+
+/*duelWrapper allows easy class overrides*/
+#duelWrapper .noPadding {
+  padding:0;
+}
+
+
+#duelWrapper .noRadius {
+  border-radius:0;
+}
+
+#duelWrapper .noBottomMargin {
+  margin-bottom:0;
+}
+
+/*Basic Typography*/
+/**************************************************/
+h1,h2,h3,h4,h5 {
+  font-weight:700;
+  margin-bottom:1rem;
+}
+
+.inlineText {
+  display:inline;
+}
+
+.centerText {
+  text-align:center;
+}
+
+.bigType {
+  font-size: 4em;
+}
+
 
 /*Primary Navigation*/
 /**************************************************/
+#navBar,
+#navBar .innerCol {
+  background-color: $primaryColor;
+  color: $textOnPrimary;
+}
 
 /*Header Layout*/
 /**************************************************/
 
 /*Content & Columns Layout*/
 /**************************************************/
+.innerCol {
+  background-color: $secondaryColorLight;
+}
+
+/*Chat Specific*/
+#chatWrap {
+  border-radius: $borderRadius;
+  overflow:hidden;
+}
+
+#chatUsersInnerCol {
+  background-color: $primaryColor;
+  color: $textOnPrimary;
+  overflow-y: auto;
+}
+
+#chatWindowInnerCol {
+  padding-right:0;
+  padding-left:0;
+  padding-bottom:5rem;
+  position:relative;
+}
+
+#chatDisplay {
+  height: 100%;
+  padding-top:0;
+  padding-bottom:0;
+  overflow-y: scroll;
+}
+
+#chatSendForm {
+  position:absolute;
+  width:100%;
+  bottom:0;
+}
+
+/*Lobby Specific*/
+#lobbyChat #chatUsersInnerCol,
+#lobbyChat #chatWindowInnerCol {
+  height:37.5rem; /*600px*/
+}
+
+.gameInfoItem {
+  background-color: $accentColor;
+  color:$textOnAccent;
+  margin-bottom: $halfSpacing;
+  padding: $halfSpacing;
+}
+
+.gameInfoItem:hover {
+  background-color: $accentColorHover;
+  cursor:pointer;
+}
+
+/*Game Specific*/
+#gameDashboard #chatUsersInnerCol,
+#gameDashboard #chatWindowInnerCol {
+  height:18.75rem; /*300px*/
+}
+
+#challengePrompt,
+#challengeOutput{
+  background-color: $primaryColor;
+  color: $textOnPrimary;
+  height:25rem; /*400px*/
+  overflow-y: auto;
+}
+
+#playerEditorWrap{
+  background-color: $primaryColor;
+  color: $textOnPrimary;
+  height:25rem; /*400px*/
+  overflow:hidden;
+}
+
+#playerEditor {
+  height:100%;
+  overflow-y: auto;
+}
+
+.lowerButtonWrap .btn {
+  margin-top:$halfSpacing;
+  margin-bottom:0;
+}
+
+.lowerButtonWrap .btn.floatRight {
+  margin-right: 0;
+}
+
+/*Spectator Specific*/
+.watchScreen {
+  height:18.75rem; /*300px*/
+}
+
+
+
+
+/*Buttons and Forms*/
+/**************************************************/
+.btn,
+input[type="submit"] {
+  background-color: $accentColor;
+  color:$textOnAccent;
+  margin-bottom: $halfSpacing;
+  margin-right: $quarterSpacing;
+  border-radius: $halfBorderRadius;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.btn:hover,
+input[type="submit"]:hover {
+  background-color: $accentColorHover;
+}
+
+.btn i {
+  margin-right: $quarterSpacing;
+}
+
+.btn.altAction {
+  background-color: $altActionColor;
+}
+
+.btn.altAction:hover {
+  background-color: $altActionColorHover;
+}
+
+.btnWide {
+  width:100%;
+  max-width:12.5rem; /*200px*/
+}
+
+input,
+select,
+textarea {
+  padding: $quarterSpacing;
+  border-radius: $halfBorderRadius;
+  margin-bottom: $halfSpacing;
+  box-sizing: border-box;
+  width:100%;
+}
+
+input[type="submit"],
+input[type="file"],
+input[type="number"],
+input[type="date"],
+select {
+    width:auto;
+}
+
+input[type="radio"],
+input[type="checkbox"]{
+    height:auto;
+    width:auto;
+    padding:inherit;
+}
 
 /*Footer Layout*/
 /**************************************************/
@@ -28,9 +335,21 @@
 
 /* Small devices (tablets, 768px and up) */                                     ///// ///// ///// /////  MEDIA QUERY*/
 @media (min-width: 768px) {
+
   /**********************************************************************/
-  /*Layout & Miscellaneous Elements                                     */
+  /*VARIABLES                                                           */
   /**********************************************************************/
+  /*Color Vars*/
+  /**************************************************/
+
+  /*Layout Vars*/
+  /**************************************************/
+
+  /**********************************************************************/
+  /*ELEMENTS                                                            */
+  /**********************************************************************/
+  /*Basic Typography*/
+  /**************************************************/
 
   /*Basic Layout*/
   /**************************************************/
@@ -42,6 +361,9 @@
   /**************************************************/
 
   /*Content & Columns Layout*/
+  /**************************************************/
+
+  /*Buttons and Forms*/
   /**************************************************/
 
   /*Footer Layout*/

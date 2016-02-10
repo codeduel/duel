@@ -1,50 +1,69 @@
-<div id="lobbyContainer">
-  <div id="games">
-    <div id="lobbyForms" ng-show="!currentView">
-      <h4><button class="lobby" ng-click="currentView = 'create'">Create</button>A new duel</h4>
-      <h4><button class="lobby" ng-click="currentView = 'join'">Join</button>An existing duel</h4>
-      <h4><button class="lobby" ng-click="currentView = 'games'">View</button>Active games</h4>
+<div id="lobbyRow" class="row">
+  <div id="games" class="col-md-4 padCol">
+    <div id="lobbyChoooseGameForm" ng-show="!currentView">
+
+      <h3>Pick an option below:</h3>
+
+      <label>Create a new duel</label>
+      </br>
+      <button class="btn btn-large btnWide" ng-click="currentView = 'create'">Create</button>
+      </br>
+
+      <label>Join an existing duel</label>
+      </br>
+      <button class="btn btn-large btnWide" ng-click="currentView = 'join'">Join</button>
+      </br>
+
+      <label>View active games</label>
+      </br>
+      <button class="btn btn-large btnWide" ng-click="currentView = 'games'">View</button>
+      </br>
+
     </div>
     <div id="forms">
-      <form id="join" ng-if="currentView === 'join'" ng-submit="join()">
-        <h5>Enter duel id below</h5>
-        <input type="text" ng-model="data.gameId">
-        <button type="submit">Join!</button>
-        <span ng-click="back()">Back...</span>
-      </form>
-      <form id="create" ng-if="currentView === 'create'" ng-submit="create()">
+
+      <form id="createGameForm" ng-if="currentView === 'create'" ng-submit="create()">
         <h5>Choose your difficulty level</h5>
+
         <select ng-model="data.difficulty">
-          <option hidden></option>
-          <option selected value="easy">Beginner</option>
+          <option value="easy">Beginner</option>
           <option value="medium">Intermediate</option>
           <option value="hard">Advanced</option>
           <option value="demo">Demo</option>
         </select>
-        <br>
-        <br>
+
         <p>Enter a password below if you wish to protect this duel (control who can join). Make sure you only share the password with your opponents. Duels with no passwords will be open to anyone wishing to join.</p>
+
         <input type="password" ng-model="data.password" placeholder="password">
-        <br>
-        <br>
-        <button type="submit">Create!</button>
-        <br>
-        <br>
-        <span ng-click="back()">Back...</span>
+        <button type="submit" class="btn btn-large">Create!</button>
+        <button class="btn btn-large altAction" ng-click="back()">Back...</button>
       </form>
-      <div ng-if="currentView === 'games'">
-        <span ng-click="back()">Back...</span>
+
+      <form id="joinGameForm" ng-if="currentView === 'join'" ng-submit="join()">
+        <h5>Enter duel id below</h5>
+        <input type="text" ng-model="data.gameId">
+        <button type="submit" class="btn btn-large">Join!</button>
+        <button class="btn btn-large altAction" ng-click="back()">Back...</button>
+      </form>
+
+      <div id="activeGames" ng-if="currentView === 'games'">
         <h2>Active Games</h2>
         <div class="gameInfo" ng-repeat="(gameId, gameData) in data.activeGames" ng-click="jumpTo(gameId)">
-          <h4>{{gameId}}</h4>
-          <h5>{{gameData.players}} playing</h5>
-          <h5>{{gameData.spectators}} spectating</h5>
+          <div class="gameInfoItem innerCol">
+            <strong>Game ID: {{gameId}}</strong><br>
+            {{gameData.players}} playing<br>
+            {{gameData.spectators}} spectating
+          </div>
         </div>
+        <button class="btn btn-large altAction" ng-click="back()">Back...</button>
       </div>
     </div>
   </div>
-  <div id="usersChat">
-    <div ui-view="users"></div>
-    <div ui-view="chat"></div>
+
+  <div id="lobbyChat" class="col-md-8 padCol">
+    <div id="chatWrap" class="row noPadding">
+      <div class="col-md-4 noPadding" ui-view="users"></div>
+      <div class="col-md-8 noPadding" ui-view="chat"></div>
+    </div>
   </div>
 </div>

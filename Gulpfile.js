@@ -55,7 +55,10 @@ gulp.task('sass', function () {
 //browserify using vinyl source streams (gulp-browserify no longer maintained)
 gulp.task('browserify', function() {
   //file to browserify
-  return browserify(browserifyFiles)
+  return browserify({
+    entries: browserifyFiles,
+    debug: true
+  })
     .bundle().on('error', gulpHelpers.printContinueError)
     //output name
     .pipe(vss('allScripts.js')).on('error', gulpHelpers.printContinueError)

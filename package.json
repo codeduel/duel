@@ -19,7 +19,6 @@
   "dependencies": {
     "analytics-node": "^2.0.1",
     "body-parser": "^1.14.2",
-    "bower": "^1.7.7",
     "express": "^4.13.4",
     "mongoose": "^4.3.6",
     "morgan": "^1.6.1",

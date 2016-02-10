@@ -1,13 +1,21 @@
-<div id="watchContainer">
-  <button ng-click="toLobby()">Back to lobby</button>
-  <h3>You're watching game # {{gameId}} ({{numPlayers}} Player{{(numPlayers!==1)?'s':''}})</h3>
-  <div class='col-xs-4, watchDiv' ng-repeat="player in players">
-    <h2>Player: {{player}}</h2>
-    <div class='watchScreen' ui-ace="{useWrapMode : true, theme:'cobalt', document: 'javascript', mode: 'javascript'}" ng-model="playerCode[player]" readonly>
+<div class="row">
+  <div class="col-md-12 padCol">
+    <h3 class="inlineText">You're watching game # {{gameId}} ({{numPlayers}} Player{{(numPlayers!==1)?'s':''}})</h3>
+    <button class="btn btn-large altAction" ng-click="toLobby()">Back to lobby</button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4 padCol watchDiv" ng-repeat="player in players">
+    <strong>Player:</strong> {{player}}
+    <div class="watchScreen innerCol" ui-ace="{useWrapMode : true, theme:'cobalt', document: 'javascript', mode: 'javascript'}" ng-model="playerCode[player]" readonly>
     </div>
   </div>
 </div>
-<div id="gameDashboard">
-  <div ui-view="users"></div>
-  <div ui-view="chat"></div>
+<div class="row">
+  <div id="gameDashboard" class="col-md-12 padCol">
+    <div id="chatWrap" class="row noPadding">
+      <div class="col-md-4 noPadding" ui-view="users"></div>
+      <div class="col-md-8 noPadding" ui-view="chat"></div>
+    </div>
+  </div>
 </div>

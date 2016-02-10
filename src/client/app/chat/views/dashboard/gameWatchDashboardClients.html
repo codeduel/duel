@@ -1,4 +1,7 @@
-<div id="gameUsersContainer">
-<h5>Spectating: {{data.numClients-data.numGuests}} Users, {{data.numGuests}} Guests</h5>
-<div ng-repeat="clients in data.connectedClients">{{clients}}</div>
+<div id="chatUsersInnerCol" class="innerCol noRadius" scroll-glue>
+  <p>
+    <strong>Spectating: {{data.numClients-data.numGuests}}</strong><br>
+    <strong>Guests: {{data.numGuests}}</strong>
+  </p>
+  <div ng-repeat="clients in data.connectedClients">{{clients}}</div>
 </div>

@@ -13,15 +13,17 @@ module.exports.printDevComplete = function(){
   console.log(cyanText, '************************************************************');
 };
 
-module.exports.printBreakError = function(){
+module.exports.printBreakError = function(err){
   var redText = '\[\033[31m\] %s \[\033[m\]';
+  console.log(redText, err);
   console.log(redText, '************************************************************');
   console.log(redText, '*****               BUILD BREAKING ERROR!              *****');
   console.log(redText, '************************************************************');
 };
 
-module.exports.printBreakRestartError = function(){
+module.exports.printBreakRestartError = function(err){
   var redText = '\[\033[31m\] %s \[\033[m\]';
+  console.log(redText, err);
   console.log(redText, '************************************************************');
   console.log(redText, '*****     ERROR OCCURED - EXIT THEN RESTART PROCESS!   *****');
   console.log(redText, '************************************************************');
