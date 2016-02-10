@@ -1,12 +1,34 @@
 var express = require('express');
 var mongoose = require('mongoose');
-
-var app = express();
+var socketio = require('socket.io');
+var socketRoutes = require('./api/socketRoutes.js');
 
 var port = process.env.PORT || 3000;
 var dbURL = 'mongodb://localhost/duel';
 
+var app = express();
+
 require('./config/passportAuth.js')(app); //must list before middleware
+require('./config/middleware.js')(app, express);
+
+var server = app.listen(port, function() {
+  console.log('Server listening on port ' + port);
+});
+
+// use https when deployed to heroku
+// note headers can be spoofed so this isn't very reliable
+// but req.secure doesn't work in heroku
+var checkHerokuHTTPS = function(req, res, next) {
+  //if we aren't on local host force ssl
+  if (process.env.NODE_ENV === 'production') {
+    if (req.header('x-forwarded-proto') !== 'https') {
+      return res.redirect('https://' + req.headers.host + req.url);
+    }
+  }
+  next();
+};
+//add https middleware
+app.use(checkHerokuHTTPS);
 
 //mongoose connection setup for heroku deployment
 if (process.env.NODE_ENV !== 'production') {
@@ -27,32 +49,12 @@ if (process.env.NODE_ENV !== 'production') {
   });
 }
 
-require('./config/middleware.js')(app, express);
-
-var server = app.listen(port, function() {
-  console.log('Server listening on port ' + port);
-  //Mount the websocket server onto the express server
-});
-
-// use https when deployed to heroku
-// note headers can be spoofed so this isn't very reliable
-// but req.secure doesn't work in heroku
-var checkHerokuHTTPS = function(req, res, next) {
-  var ip = req.ip;
-  //if we aren't on local host force ssl
-  if (ip !== '::ffff:127.0.0.1' && ip !== '::1') {
-    if (req.header('x-forwarded-proto') !== 'https') {
-      return res.redirect('https://' + req.headers.host + req.url);
-    }
-  }
-  next();
-};
-
-app.use(checkHerokuHTTPS);
-
-var io = require('socket.io')(server);
+//mount express https server with socketio
+var io = socketio(server);
 console.log('Socket.io server successfully mounted.');
 
-require('./api/socketRoutes.js').init(io);
+//init socket routes
+socketRoutes.init(io);
 
+//export express server
 module.exports.app = app;
