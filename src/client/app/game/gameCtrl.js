@@ -5,6 +5,21 @@ angular.module('duel.gameCtrl', [])
   $scope.currentUser = UserFact.getUser().userName;
   $scope.data = {};
 
+  $http({
+    url: '/api/game/verify',
+    method: 'GET',
+    params: {
+      gameId: $scope.gameId
+    }
+  }).then(function(response) {
+    if(!response.data.found) {
+      alert('Game does not exist!');
+      $state.go('wrap.lobby');
+    }
+  }, function(err) {
+    throw err;
+  });
+
   $scope.play = function() {
     $http.post('/api/game/unlock', {
       gameId: $scope.gameId,

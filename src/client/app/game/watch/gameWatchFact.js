@@ -6,6 +6,7 @@ angular.module('duel.game.watchFact', [])
   gameWatchFact.reset = function() {
     gameWatchFact.playerCode = {};
     gameWatchFact.players = {};
+    gameWatchFact.question = 'Waiting on more players...';
   };
 
   gameWatchFact.reset();
@@ -20,6 +21,11 @@ angular.module('duel.game.watchFact', [])
 
   SocketFact.socket.on('game/updatePlayers', function(data) {
     gameWatchFact.players = data;
+    $rootScope.$apply();
+  });
+
+  SocketFact.socket.on('watch/prompt', function(data) {
+    gameWatchFact.question = data.question;
     $rootScope.$apply();
   });
 

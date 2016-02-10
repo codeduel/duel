@@ -18,6 +18,7 @@ module.exports = function(apiRouter) {
 
    apiRouter.post('/game/create', gameController.createGame);
    apiRouter.post('/game/unlock', gameController.unlock);
+   apiRouter.get('/game/verify', gameController.verify);
    apiRouter.get( '/user/:githubName', userController.findOne);
    apiRouter.post('/user/login',       userController.login);
 };

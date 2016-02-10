@@ -6,6 +6,12 @@ angular.module('duel.game.watchCtrl', [])
   GameWatchFact.reset();
   GameWatchFact.init($scope.gameId);
 
+  $scope.data = {
+    players: GameWatchFact.players,
+    numPlayers: 0,
+    question: GameWatchFact.question
+  };
+
   //Generates a shareable link
   var link = '<a>' + $location.absUrl() + '</a>';
   ChatFact.add({
@@ -14,9 +20,14 @@ angular.module('duel.game.watchCtrl', [])
     bold: true
   });
 
+
   $scope.playerCode = GameWatchFact.playerCode;
-  $scope.players = GameWatchFact.players;
-  $scope.numPlayers = 0;
+
+  $scope.$watch(function() {
+    return GameWatchFact.question;
+  }, function(newVal, oldVal) {
+    $scope.data.question = GameWatchFact.question;
+  }, true);
 
   $scope.$watch(function() {
     return GameWatchFact.playerCode;
@@ -32,8 +43,8 @@ angular.module('duel.game.watchCtrl', [])
       for (var socketId in newVal) {
         arr.push(newVal[socketId]);
       }
-      $scope.players = arr;
-      $scope.numPlayers = $scope.players.length;
+      $scope.data.players = arr;
+      $scope.data.numPlayers = $scope.data.players.length;
     }
   }, true);
 

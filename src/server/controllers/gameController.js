@@ -14,7 +14,9 @@ var clientConnections = require('../models/clientConnectionsModel.js');
 var modelHelpers = require('../models/modelHelpers.js');
 //Imports the Analytics library to make pipe server side analytics
 var Analytics = require('analytics-node');
-var analytics = new Analytics('59YB1CrcYkdrsCsPWtFbpxPjeEe3SCJX', { flushAt: 1 });
+var analytics = new Analytics('59YB1CrcYkdrsCsPWtFbpxPjeEe3SCJX', {
+  flushAt: 1
+});
 
 
 
@@ -50,6 +52,24 @@ var calculateProgress = function(passed, failed) {
   return Math.floor(passed / (passed + failed) * 10000) / 100;
 };
 
+//Saves the winner of the game in the database
+var setWinner = function(gameId) {
+  Game.findOne({
+    gameId: gameId
+  }, function(error, foundGame) {
+    if (error) {
+      console.log('Could not set winner in game ' + gameId);
+      socketError(socket.id, 'playerJoin', {
+        userErrorMessage: 'There was a problem with your game...'
+      });
+    }
+    if (foundGame) {
+      foundGame.winner = true;
+      foundGame.save();
+    }
+  });
+};
+
 //Resolves a solution attempt by dequeueing it and querying its dmid against the Code Wars API
 var resolveSolutionAttempt = function() {
   //peek first, in case the queued solution is not done processing on the Code Wars server
@@ -74,7 +94,7 @@ var resolveSolutionAttempt = function() {
               bold: true
             };
             if (data.valid) {
-              msg.text = solutionAttempt.submittedBy + ' has won! Remaining players may keep coding or go back to the lobby.';
+              msg.text = solutionAttempt.submittedBy + ' has completed the challenge! Remaining players may keep coding or go back to the lobby.';
             } else {
               var progress = calculateProgress(data.summary.passed, data.summary.failed);
               msg.text = solutionAttempt.submittedBy + ' submitted an invalid solution! (Progress: ' + progress + '%)';
@@ -124,12 +144,14 @@ var resolveSolutionAttempt = function() {
 
 };
 
+//recursive timeout function to continuously dequeue the solutions queue
 var repeat = function() {
   setTimeout(function() {
     resolveSolutionAttempt();
   }, API_POLL_INTERVAL);
 };
 
+//Start the dequeue process
 resolveSolutionAttempt();
 
 //****************
@@ -184,6 +206,23 @@ exports.unlock = function(req, res) {
       res.status(200).send();
     } else {
       res.status(401).send();
+    }
+  });
+};
+
+//Checks if the game exists
+exports.verify = function(req, res) {
+  Game.findOne({
+    gameId: req.query.gameId
+  }, function(error, foundGame) {
+    if (foundGame) {
+      res.send({
+        found: true
+      });
+    } else {
+      res.send({
+        found: false
+      });
     }
   });
 };
@@ -252,6 +291,7 @@ exports.playerJoin = function(msg, socket) {
         foundGame.active = true;
         foundGame.save();
         sendTo(msg.data.gameId, 'game/start', modelHelpers.buildGameObj(foundGame));
+        sendTo(msg.data.gameId + '/watch', 'watch/prompt', {question: foundGame.question});
       }
     } else {
       console.log('Game not found in function playerJoin in gameController.js');
@@ -300,67 +340,68 @@ exports.playerLeave = function(socket) {
   });
 };
 
-
 //Adds the specified user to the specified game, and sends a "game/start" event to all clients connected to the game
 exports.submitSolution = function(msg, socket) {
-
-  //Check if submissions are being accepted
-  if (clientConnections.getClientsArray(msg.data.gameId).length < 2) {
-    sendTo(socket.id, 'chat/message', {
-      userId: 'SYSTEM',
-      text: 'Game has not started yet!',
-      bold: true
-    });
-    return;
-  }
-
-  //Check if sufficient time has passed since last submission
-  var lastSubmit = lastSubmittedSolution[socket.id] || 0;
-  if (Date.now() - lastSubmit < SOLUTION_COOLDOWN) {
-    sendTo(socket.id, 'chat/message', {
-      userId: 'SYSTEM',
-      text: 'You already submitted a solution recently. Please wait ' + (10 - Math.floor((Date.now() - lastSubmit) / 1000)) + ' seconds.',
-      bold: true
-    });
-    return;
-  } else {
-    lastSubmittedSolution[socket.id] = Date.now();
-  }
 
   Game.findOne({
     gameId: msg.data.gameId
   }, function(error, foundGame) {
-    if (error) {
-      console.log('Database error in function submitSolution in gameController.js');
-      socketError(socket.id, 'submitSolution', {
-        userErrorMessage: 'Unfortunately something went wrong when submitting your solution!'
+    if (!foundGame.active) {
+      sendTo(socket.id, 'chat/message', {
+        userId: 'SYSTEM',
+        text: 'Game has not started yet!',
+        bold: true
       });
-    }
-    if (foundGame) {
-      codewarsController.submitSolution(foundGame.solutionId, foundGame.projectId, msg.data.solution)
-        .then(function(data) {
-          if (data.success) {
-            solutionsQueue.enqueue({
-              dmid: data.dmid,
-              gameId: msg.data.gameId,
-              submittedBy: msg.data.userId,
-              socketId: socket.id,
-              attempts: 0
-            });
-          } else {
-            console.log('Codewars API error in function submitSolution in gameController.js');
-            socketError(socket.id, 'submitSolution', {
-              userErrorMessage: 'Unfortunately something went wrong when submitting your solution!'
-            });
-          }
-        }, function(err) {
-          //If error submitting solution... TODO: implement better error handling
-          throw err;
-        });
     } else {
-      console.log('Game not found in function submitSolution in gameController.js');
-      socketError(socket.id, 'submitSolution', {
-        userErrorMessage: 'Unfortunately something went wrong when submitting your solution!'
+      //Check if sufficient time has passed since last submission
+      var lastSubmit = lastSubmittedSolution[socket.id] || 0;
+      if (Date.now() - lastSubmit < SOLUTION_COOLDOWN) {
+        sendTo(socket.id, 'chat/message', {
+          userId: 'SYSTEM',
+          text: 'You already submitted a solution recently. Please wait ' + (10 - Math.floor((Date.now() - lastSubmit) / 1000)) + ' seconds.',
+          bold: true
+        });
+        return;
+      } else {
+        lastSubmittedSolution[socket.id] = Date.now();
+      }
+
+      Game.findOne({
+        gameId: msg.data.gameId
+      }, function(error, foundGame) {
+        if (error) {
+          console.log('Database error in function submitSolution in gameController.js');
+          socketError(socket.id, 'submitSolution', {
+            userErrorMessage: 'Unfortunately something went wrong when submitting your solution!'
+          });
+        }
+        if (foundGame) {
+          codewarsController.submitSolution(foundGame.solutionId, foundGame.projectId, msg.data.solution)
+            .then(function(data) {
+              if (data.success) {
+                solutionsQueue.enqueue({
+                  dmid: data.dmid,
+                  gameId: msg.data.gameId,
+                  submittedBy: msg.data.userId,
+                  socketId: socket.id,
+                  attempts: 0
+                });
+              } else {
+                console.log('Codewars API error in function submitSolution in gameController.js');
+                socketError(socket.id, 'submitSolution', {
+                  userErrorMessage: 'Unfortunately something went wrong when submitting your solution!'
+                });
+              }
+            }, function(err) {
+              //If error submitting solution... TODO: implement better error handling
+              throw err;
+            });
+        } else {
+          console.log('Game not found in function submitSolution in gameController.js');
+          socketError(socket.id, 'submitSolution', {
+            userErrorMessage: 'Unfortunately something went wrong when submitting your solution!'
+          });
+        }
       });
     }
   });

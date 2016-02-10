@@ -6,6 +6,7 @@ var gameSchema = new Schema({
   gameId: {type: String, unique: true},
   active: { type: Boolean, default: false },
   isEmpty: { type: Boolean, default: true },
+  completed: {type: String, default: false},
   lastEmpty: { type: Date },
   question: String,
   initialCode: String,
