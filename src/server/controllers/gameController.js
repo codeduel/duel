@@ -72,8 +72,12 @@ var setWinner = function(gameId) {
 
 //Resolves a solution attempt by dequeueing it and querying its dmid against the Code Wars API
 var resolveSolutionAttempt = function() {
-  if(solutionsQueue.contents().length)
-    console.log(solutionsQueue.contents());
+  console.log(solutionsQueue.contents().map(function(attempt) {
+    return {
+      dmid: attempt.dmid,
+      attempts: attempt.attempts
+    };
+  }));
   //peek first, in case the queued solution is not done processing on the Code Wars server
   var solutionAttempt = solutionsQueue.peek();
   if (solutionAttempt) {
@@ -134,10 +138,11 @@ var resolveSolutionAttempt = function() {
           console.log(solutionAttempt.dmid + ': Timed out');
           sendTo(solutionAttempt.socketId, 'chat/message', {
             userId: 'SYSTEM',
-            text: 'Sorry, your solution attempt timed out. Please try again.',
+            text: 'Sorry, there was an internal error. Please try again.',
             bold: true
           });
           solutionsQueue.dequeue();
+          repeat();
         });
     }
   } else {
@@ -164,9 +169,13 @@ resolveSolutionAttempt();
 exports.createGame = function(req, res) {
   console.log(req.body);
   if (!req.body.userName) {
-    res.send({err: 'user'});
-  } else if(!req.body.difficulty) {
-    res.send({err: 'difficulty'});
+    res.send({
+      err: 'user'
+    });
+  } else if (!req.body.difficulty) {
+    res.send({
+      err: 'difficulty'
+    });
   } else
     codewarsController.generateQuestion(req.body.difficulty)
     .then(function(data) {
@@ -213,7 +222,9 @@ exports.unlock = function(req, res) {
     if (foundGame) {
       res.send({});
     } else {
-      res.send({err: 'incorrect'});
+      res.send({
+        err: 'incorrect'
+      });
     }
   });
 };
