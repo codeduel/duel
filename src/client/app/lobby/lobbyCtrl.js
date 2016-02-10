@@ -1,6 +1,11 @@
 angular.module('duel.lobbyCtrl', [])
 
-.controller('LobbyCtrl', ['$scope', '$state', 'LobbyFact', 'UserFact', function($scope, $state, LobbyFact, UserFact, ChatFact) {
+.controller('LobbyCtrl', ['$scope', '$state', 'LobbyFact', 'UserFact', 'ChatFact' , function($scope, $state, LobbyFact, UserFact, ChatFact) {
+
+  var errors = {
+    'difficulty': 'You must choose a valid difficulty!',
+    'user': 'You must <a href="/#/login">login</a> in order to create a game!'
+  };
 
   $scope.userName = UserFact.getUser().userName;
   $scope.currentView = null;
@@ -28,9 +33,17 @@ angular.module('duel.lobbyCtrl', [])
   $scope.create = function() {
     LobbyFact.createGame($scope.data.difficulty, $scope.data.password, $scope.userName)
       .then(function(response) {
-        $state.go('wrap.game.play', {
-          gameId: response.data.gameId
-        });
+        if (response.data.gameId) {
+          $state.go('wrap.game.play', {
+            gameId: response.data.gameId
+          });
+        } else {
+          ChatFact.add({
+            userId: 'SYSTEM',
+            text: errors[response.data.err],
+            bold: true
+          });
+        }
       });
   };
 

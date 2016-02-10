@@ -72,6 +72,8 @@ var setWinner = function(gameId) {
 
 //Resolves a solution attempt by dequeueing it and querying its dmid against the Code Wars API
 var resolveSolutionAttempt = function() {
+  if(solutionsQueue.contents().length)
+    console.log(solutionsQueue.contents());
   //peek first, in case the queued solution is not done processing on the Code Wars server
   var solutionAttempt = solutionsQueue.peek();
   if (solutionAttempt) {
@@ -160,7 +162,13 @@ resolveSolutionAttempt();
 
 //Generates a Game in database
 exports.createGame = function(req, res) {
-  codewarsController.generateQuestion(req.body.difficulty)
+  console.log(req.body);
+  if (!req.body.userName) {
+    res.send({err: 'user'});
+  } else if(!req.body.difficulty) {
+    res.send({err: 'difficulty'});
+  } else
+    codewarsController.generateQuestion(req.body.difficulty)
     .then(function(data) {
       new Game({
         question: format(data.description),
@@ -291,7 +299,9 @@ exports.playerJoin = function(msg, socket) {
         foundGame.active = true;
         foundGame.save();
         sendTo(msg.data.gameId, 'game/start', modelHelpers.buildGameObj(foundGame));
-        sendTo(msg.data.gameId + '/watch', 'watch/prompt', {question: foundGame.question});
+        sendTo(msg.data.gameId + '/watch', 'watch/prompt', {
+          question: foundGame.question
+        });
       }
     } else {
       console.log('Game not found in function playerJoin in gameController.js');
