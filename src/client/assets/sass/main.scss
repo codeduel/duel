@@ -25,28 +25,39 @@ $textOnSecondary: #002240;
 $textOnSecondaryHover: #002240;
 
 $accentColor: #66D9EF;
-$accentColorLight: desaturate(lighten($accentColor, 10%), 10%);
-$accentColorDark: saturate(darken($accentColor, 10%), 10%);
-$accentColorHover: $accentColorLight;
+$accentColorLight: desaturate(lighten($accentColor, 15%), 15%);
+$accentColorDark: saturate(darken($accentColor, 15%), 15%);
+$accentColorHover: $accentColorDark;
 
 $primaryColor: #002240;
-$primaryColorLight: desaturate(lighten($primaryColor, 10%), 10%);
-$primaryColorDark: saturate(darken($primaryColor, 10%), 10%);
-$primaryColorHover: $primaryColorLight;
+$primaryColorLight: desaturate(lighten($primaryColor, 15%), 15%);
+$primaryColorDark: saturate(darken($primaryColor, 15%), 15%);
+$primaryColorHover: $primaryColorDark;
 
 $secondaryColor: #ecf7f9;
-$secondaryColorLight: desaturate(lighten($secondaryColor, 10%), 10%);
-$secondaryColorDark: saturate(darken($secondaryColor, 10%), 10%);
-$secondaryColorHover: $secondaryColorLight;
+$secondaryColorLight: desaturate(lighten($secondaryColor, 15%), 15%);
+$secondaryColorDark: saturate(darken($secondaryColor, 15%), 15%);
+$secondaryColorHover: $secondaryColorDark;
+
+$altActionColor: #F04848;
+$altActionColorLight: desaturate(lighten($altActionColor, 15%), 15%);
+$altActionColorDark: saturate(darken($altActionColor, 15%), 15%);
+$altActionColorHover: $altActionColorDark;
+
+
+
 
 /*Layout Vars*/
 /**************************************************/
-$padding: 2rem;
-$halfPadding: $padding / 2;
-$quarterPadding: $padding / 4;
+$spacing: 2rem;
+$halfSpacing: $spacing / 2;
+$quarterSpacing: $spacing / 4;
 
-$borderRadius: .25rem;
-$halfBoarderRadius: $borderRadius / 2;
+$doubleSpacing: $spacing * 2;
+
+
+$borderRadius: .5rem;
+$halfBorderRadius: $borderRadius / 2;
 
 /**********************************************************************/
 /*ELEMENTS                                                            */
@@ -89,27 +100,42 @@ body {
 }
 
 .container-fluid {
-  padding:$halfPadding 0;
+  padding:$halfSpacing 0;
 }
 
 .row {
   @extend .autoMarg;
-  padding:0 $halfPadding;
-  max-width: 75rem + ($padding *2); /* 1200px */
+  padding:0 $halfSpacing;
+  max-width: 75rem + $doubleSpacing; /* 1200px */
 }
 
 .padCol {
-    padding: $halfPadding;
+    padding: $halfSpacing;
 }
 
 .innerCol {
-    padding: $padding;
+    padding: $spacing;
     height: 100%;
     width: 100%;
     border-radius: $borderRadius;
 }
+
+/*duelWrapper allows easy class overrides*/
+#duelWrapper .noPadding {
+  padding:0;
+}
+
+#duelWrapper .noRadius {
+  border-radius:0;
+}
+
 /*Basic Typography*/
 /**************************************************/
+h1,h2,h3,h4,h5 {
+  font-weight:700;
+  margin-bottom:1rem;
+}
+
 .inlineText {
   display:inline;
 }
@@ -118,10 +144,15 @@ body {
   text-align:center;
 }
 
+.bigType {
+  font-size: 4em;
+}
+
 
 /*Primary Navigation*/
 /**************************************************/
-#navBar {
+#navBar,
+#navBar .innerCol {
   background-color: $primaryColor;
   color: $textOnPrimary;
 }
@@ -131,24 +162,117 @@ body {
 
 /*Content & Columns Layout*/
 /**************************************************/
-#content .innerCol {
+.innerCol {
   background-color: $secondaryColorLight;
 }
 
-/*Buttons and Forms*/
-/**************************************************/
-.btn {
-  background-color: $accentColor;
-  color:$textOnAccent;
+/*Chat Specific*/
+#chatWrap {
+  border-radius: $borderRadius;
+  overflow:hidden;
 }
 
-.btn:hover {
-  background-color: $accentColorDark;
+#chatUsersInnerCol {
+  background-color: $primaryColor;
+  color: $textOnPrimary;
+}
+
+#chatWindowInnerCol {
+  padding-right:0;
+  padding-left:0;
+  padding-bottom:6rem;
+  position:relative;
+}
+
+#chatDisplay {
+  height: 100%;
+  padding-top:0;
+  padding-bottom:0;
+  overflow-y: scroll;
+}
+
+#chatSendForm {
+  position:absolute;
+  width:100%;
+  bottom:0;
+}
+
+#lobbyChat #chatUsersInnerCol,
+#lobbyChat #chatWindowInnerCol {
+    height:37.5rem;
+}
+
+
+/*Buttons and Forms*/
+/**************************************************/
+.btn,
+input[type="submit"] {
+  background-color: $accentColor;
+  color:$textOnAccent;
+  margin-bottom: $halfSpacing;
+  border-radius: $halfBorderRadius;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.btn:hover,
+input[type="submit"]:hover {
+  background-color: $accentColorHover;
 }
 
 .btn i {
-  margin-right: $quarterPadding;
+  margin-right: $quarterSpacing;
 }
+
+.btn.altAction {
+  background-color: $altActionColor;
+}
+
+.btn.altAction:hover {
+  background-color: $altActionColorHover;
+}
+
+.btnWide {
+  width:100%;
+  max-width:12.5rem; /*200px*/
+}
+
+input,
+select,
+textarea {
+  padding: $quarterSpacing;
+  border-radius: $halfBorderRadius;
+  margin-bottom: $halfSpacing;
+  box-sizing: border-box;
+  width:100%;
+}
+
+input[type="submit"],
+input[type="file"],
+input[type="number"],
+input[type="date"],
+select {
+    width:auto;
+}
+
+input[type="radio"],
+input[type="checkbox"]{
+    height:auto;
+    width:auto;
+    padding:inherit;
+}
+
+/*Lobby Specific*/
+/********************/
+
+
+
+
+
 
 /*Footer Layout*/
 /**************************************************/

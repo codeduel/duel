@@ -1,5 +1,7 @@
-<div id="lobbyUsersContainer">
-<h5>Users in Lobby: {{data.numClients - data.numGuests}}</h5>
-<h5>Guests in Lobby: {{data.numGuests}}</h5>
-<div ng-repeat="clients in data.connectedClients">{{clients}}</div>
+<div id="chatUsersInnerCol" class="innerCol noRadius">
+  <p>
+    <strong>Users in Lobby: {{data.numClients - data.numGuests}}</strong><br>
+    <strong>Guests in Lobby: {{data.numGuests}}</strong>
+  </p>
+  <div ng-repeat="clients in data.connectedClients">{{clients}}</div>
 </div>
