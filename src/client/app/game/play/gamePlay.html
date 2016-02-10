@@ -1,37 +1,50 @@
-  <div id="challengeHeader" class="row">
-    <h3 class='col-xs-4'>{{data.numSpectators}} Spectators</h3>
-    <h3 class='col-xs-4' id="game">Game ID: {{gameId}}</h3>
-    <h3 class='col-xs-4' id="counter">{{counter}}</h3>
-  </div>
-  <div id="gameDescription" class='col-xs-5'>
+<div id="challengeHeader" class="row">
+  <h3 class="col-xs-4">{{data.numSpectators}} Spectators</h3>
+  <h3 class="col-xs-4" id="game">Game ID: {{gameId}}</h3>
+  <h3 class="col-xs-4" id="counter">{{counter}}</h3>
+</div>
+<div id="" class="row">
+  <div id="gameDescription" class="col-md-6 padCol">
+
     <div ng-if="data.currView === 'question'">
-      <div id="challengePrompt" ng-bind-html="client.question | unsafe">
+      <div id="challengePrompt" class="innerCol" ng-bind-html="client.question | unsafe">
         {{client.question}}
       </div>
-      <div class="center">
-        <button ng-click="toggleView('output')" class="toggle">Output</button>
+      <div class="lowerButtonWrap">
+        <button ng-click="toggleView('output')" class="btn btn-large toggle">Output</button>
       </div>
     </div>
+
     <div ng-if="data.currView === 'output'">
-      <div id="output" ng-bind-html="data.output | unsafe">
+      <div id="challengeOutput" ng-bind-html="data.output | unsafe">
         {{data.output}}
       </div>
-      <div class="center">
-        <button ng-click="toggleView('question')" class="toggle">Question</button>
+      <div class="lowerButtonWrap">
+        <button ng-click="toggleView('question')" class="btn btn-large toggle">Question</button>
       </div>
     </div>
+
   </div>
-  <div class='col-xs-7'>
-    <button ng-if="!data.won" class="submit" type="button" ng-click="submitSolution()">Submit Answer</button>
-    <button ng-if="data.won" class="submit winnerButton" type="button" ng-click="spectate()">Spectate</button>
-    <button class="back" ng-click="toLobby()">Exit Game</button>
-    <form id="PlayerAnswer">
-      <div ui-ace="{useWrapMode : true, theme:'cobalt', document: 'javascript', mode: 'javascript'}" ng-model="data.solution" ng-model-options="{debounce: DEBOUNCE_INTERVAL}" ng-change="stream()">
+
+  <div id="gameEditor" class="col-md-6 padCol">
+
+    <div id="playerEditorWrap" class="innerCol noPadding">
+      <div id="playerEditor" ui-ace="{useWrapMode : true, theme:'cobalt', document: 'javascript', mode: 'javascript'}" ng-model="data.solution" ng-model-options="{debounce: DEBOUNCE_INTERVAL}" ng-change="stream()">
       </div>
-    </form>
-    <!-- <h5>Your Answer Must Pass The Following Tests:</h5> -->
+    </div>    
+    <div class="lowerButtonWrap clearfix">
+      <button ng-if="!data.won" class="btn btn-large submit" type="button" ng-click="submitSolution()">Submit Answer</button>
+      <button ng-if="data.won" class="btn btn-large submit winnerButton" type="button" ng-click="spectate()">Spectate</button>
+      <button class="btn btn-large altAction floatRight back" ng-click="toLobby()">Exit Game</button>
+    </div>
+
   </div>
-  <div id="gameDashboard">
-    <div ui-view="users"></div>
-    <div ui-view="chat"></div>
+</div>
+<div class="row">
+  <div id="gameDashboard" class="col-md-12 padCol">
+    <div id="chatWrap" class="row noPadding">
+      <div class="col-md-4 noPadding" ui-view="users"></div>
+      <div class="col-md-8 noPadding" ui-view="chat"></div>
+    </div>
   </div>
+</div>

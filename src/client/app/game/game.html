@@ -1,8 +1,13 @@
-<h2>Welcome {{currentUser}},</h2>
-<h4>Would you like to watch or join this duel?</h4>
-<br>
-<button id="button" ng-click="watch()">Watch</button>
-<button id="button" ng-click="play()">Duel</button>
-<br><br>
-<p> Enter code below to join a password protected duel </p>
-<input type="password" ng-model="data.password" placeholder="password"/>
+<div class="row">
+  <div class="col-md-6 padCol centerCol">
+    <div class="innerCol">
+      <h2>Welcome {{currentUser}},</h2>
+      <p>Would you like to watch or join this duel?</p>
+      <p>You're free to watch any duel but if you want to join a game with a password, you'll need to enter it below.</p>
+      <button id="button" class="btn btn-large" ng-click="watch()">Watch</button>
+      <button id="button" class="btn btn-large" ng-click="play()">Join</button>
+      <input type="password" ng-model="data.password" placeholder="password"/>
+
+    </div>
+  </div>
+</div>

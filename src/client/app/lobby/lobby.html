@@ -49,9 +49,11 @@
       <div id="activeGames" ng-if="currentView === 'games'">
         <h2>Active Games</h2>
         <div class="gameInfo" ng-repeat="(gameId, gameData) in data.activeGames" ng-click="jumpTo(gameId)">
-          <h4>{{gameId}}</h4>
-          <h5>{{gameData.players}} playing</h5>
-          <h5>{{gameData.spectators}} spectating</h5>
+          <div class="gameInfoItem innerCol">
+            <strong>Game ID: {{gameId}}</strong><br>
+            {{gameData.players}} playing<br>
+            {{gameData.spectators}} spectating
+          </div>
         </div>
         <button class="btn btn-large altAction" ng-click="back()">Back...</button>
       </div>

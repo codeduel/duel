@@ -68,6 +68,9 @@ body {
 #duelWrapper .noRadius {
   border-radius: 0; }
 
+#duelWrapper .noBottomMargin {
+  margin-bottom: 0; }
+
 /*Basic Typography*/
 /**************************************************/
 h1, h2, h3, h4, h5 {
@@ -104,12 +107,13 @@ h1, h2, h3, h4, h5 {
 
 #chatUsersInnerCol {
   background-color: #002240;
-  color: #FFF; }
+  color: #FFF;
+  overflow-y: auto; }
 
 #chatWindowInnerCol {
   padding-right: 0;
   padding-left: 0;
-  padding-bottom: 6rem;
+  padding-bottom: 5rem;
   position: relative; }
 
 #chatDisplay {
@@ -123,9 +127,58 @@ h1, h2, h3, h4, h5 {
   width: 100%;
   bottom: 0; }
 
+/*Lobby Specific*/
 #lobbyChat #chatUsersInnerCol,
 #lobbyChat #chatWindowInnerCol {
-  height: 37.5rem; }
+  height: 37.5rem;
+  /*600px*/ }
+
+.gameInfoItem {
+  background-color: #66D9EF;
+  color: #FFF;
+  margin-bottom: 1rem;
+  padding: 1rem; }
+
+.gameInfoItem:hover {
+  background-color: #0ed4fa;
+  cursor: pointer; }
+
+/*Game Specific*/
+#gameDashboard #chatUsersInnerCol,
+#gameDashboard #chatWindowInnerCol {
+  height: 18.75rem;
+  /*300px*/ }
+
+#challengePrompt,
+#challengeOutput {
+  background-color: #002240;
+  color: #FFF;
+  height: 25rem;
+  /*400px*/
+  overflow-y: auto; }
+
+#playerEditorWrap {
+  background-color: #002240;
+  color: #FFF;
+  height: 25rem;
+  /*400px*/
+  overflow: hidden; }
+
+#playerEditor {
+  height: 100%;
+  overflow-y: auto; }
+
+.lowerButtonWrap .btn {
+  margin-top: 1rem;
+  margin-bottom: 0; }
+
+.lowerButtonWrap .btn.floatRight {
+  margin-right: 0; }
+
+/*Spectator Specific*/
+.watchScreen {
+  height: 18.75rem;
+  /*300px*/ }
 
 /*Buttons and Forms*/
 /**************************************************/
@@ -134,6 +187,7 @@ input[type="submit"] {
   background-color: #66D9EF;
   color: #FFF;
   margin-bottom: 1rem;
+  margin-right: 0.5rem;
   border-radius: 0.25rem;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -182,8 +236,6 @@ input[type="checkbox"] {
   width: auto;
   padding: inherit; }
 
-/*Lobby Specific*/
-/********************/
 /*Footer Layout*/
 /**************************************************/
 /* Small devices (tablets, 768px and up) */

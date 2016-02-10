@@ -125,8 +125,13 @@ body {
   padding:0;
 }
 
+
 #duelWrapper .noRadius {
   border-radius:0;
+}
+
+#duelWrapper .noBottomMargin {
+  margin-bottom:0;
 }
 
 /*Basic Typography*/
@@ -175,12 +180,13 @@ h1,h2,h3,h4,h5 {
 #chatUsersInnerCol {
   background-color: $primaryColor;
   color: $textOnPrimary;
+  overflow-y: auto;
 }
 
 #chatWindowInnerCol {
   padding-right:0;
   padding-left:0;
-  padding-bottom:6rem;
+  padding-bottom:5rem;
   position:relative;
 }
 
@@ -197,10 +203,65 @@ h1,h2,h3,h4,h5 {
   bottom:0;
 }
 
+/*Lobby Specific*/
 #lobbyChat #chatUsersInnerCol,
 #lobbyChat #chatWindowInnerCol {
-    height:37.5rem;
+  height:37.5rem; /*600px*/
 }
+
+.gameInfoItem {
+  background-color: $accentColor;
+  color:$textOnAccent;
+  margin-bottom: $halfSpacing;
+  padding: $halfSpacing;
+}
+
+.gameInfoItem:hover {
+  background-color: $accentColorHover;
+  cursor:pointer;
+}
+
+/*Game Specific*/
+#gameDashboard #chatUsersInnerCol,
+#gameDashboard #chatWindowInnerCol {
+  height:18.75rem; /*300px*/
+}
+
+#challengePrompt,
+#challengeOutput{
+  background-color: $primaryColor;
+  color: $textOnPrimary;
+  height:25rem; /*400px*/
+  overflow-y: auto;
+}
+
+#playerEditorWrap{
+  background-color: $primaryColor;
+  color: $textOnPrimary;
+  height:25rem; /*400px*/
+  overflow:hidden;
+}
+
+#playerEditor {
+  height:100%;
+  overflow-y: auto;
+}
+
+.lowerButtonWrap .btn {
+  margin-top:$halfSpacing;
+  margin-bottom:0;
+}
+
+.lowerButtonWrap .btn.floatRight {
+  margin-right: 0;
+}
+
+/*Spectator Specific*/
+.watchScreen {
+  height:18.75rem; /*300px*/
+}
+
+
 
 
 /*Buttons and Forms*/
@@ -210,6 +271,7 @@ input[type="submit"] {
   background-color: $accentColor;
   color:$textOnAccent;
   margin-bottom: $halfSpacing;
+  margin-right: $quarterSpacing;
   border-radius: $halfBorderRadius;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -265,14 +327,6 @@ input[type="checkbox"]{
     width:auto;
     padding:inherit;
 }
-
-/*Lobby Specific*/
-/********************/
-
-
-
-
-
 
 /*Footer Layout*/
 /**************************************************/

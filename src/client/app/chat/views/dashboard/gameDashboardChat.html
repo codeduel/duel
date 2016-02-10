@@ -1,15 +1,18 @@
-<div id="gameChatContainer">
-  <div id="gameChatDisplay" scroll-glue>
-    <div class="message" ng-repeat="message in data.messages">
-      <span ng-style="{'color':'{{nameToColor(message.userId)}}'}" class="username">{{message.userId}}:</span>
-      <span 
-      ng-class="{bold: message.bold}" 
-      ng-bind-html="message.text | unsafe" 
-      class="text">{{message.text}}</span>
+<div id="chatWindowInnerCol" class="innerCol noRadius">
+  <div id="chatDisplay" class="innerCol noRadius" scroll-glue>
+    <div id="chatMessage" ng-repeat="message in data.messages">
+      <span ng-style="{'color':'{{nameToColor(message.userId)}}'}" class="chatUsername">{{message.userId}}:</span>
+      <span class="chatText" ng-bind-html="message.text | unsafe" ng-class="{bold: message.bold}">{{message.text}}</span>
     </div>
   </div>
-  <div id="chatForm">
-    <input type="text" on-enter="sendMessage()" ng-model="data.chatInput">
-    <button ng-click="sendMessage()">Chat</button>
+  <div id="chatSendForm">
+    <div class="row">
+      <div class="col-xs-9">
+      <input type="text" on-enter="sendMessage()" ng-model="data.chatInput">
+    </div>
+    <div class="col-xs-3">
+      <button class="btn btn-large" ng-click="sendMessage()">Chat</button>
+    </div>
+    </row>
   </div>
 </div>

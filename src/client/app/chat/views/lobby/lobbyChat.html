@@ -1,12 +1,12 @@
 <div id="chatWindowInnerCol" class="innerCol noRadius">
   <div id="chatDisplay" class="innerCol noRadius" scroll-glue>
     <div id="chatMessage" ng-repeat="message in data.messages">
-      <span ng-style="{'color':'{{nameToColor(message.userId)}}'}" class="username">{{message.userId}}:</span>
-      <span class="text" ng-bind-html="message.text | unsafe" ng-class="{bold: message.bold}">{{message.text}}</span>
+      <span ng-style="{'color':'{{nameToColor(message.userId)}}'}" class="chatUsername">{{message.userId}}:</span>
+      <span class="chatText" ng-bind-html="message.text | unsafe" ng-class="{bold: message.bold}">{{message.text}}</span>
     </div>
   </div>
   <div id="chatSendForm">
-    <div class="row noPadding">
+    <div class="row">
       <div class="col-xs-9">
       <input type="text" on-enter="sendMessage()" ng-model="data.chatInput">
     </div>
