@@ -6,20 +6,149 @@
 /*!<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>*/
 
 /**********************************************************************/
-/*Layout & Miscellaneous Elements                                     */
+/*VARIABLES                                                           */
 /**********************************************************************/
+/*Color Vars*/
+/**************************************************/
+$headlineFontStack: 'Open Sans', sans-serif;
+$fontStack: 'Open Sans', sans-serif;
 
+$headlineColor: #FFF;
+
+$textOnAccent: #FFF;
+$textOnAccentHover: #FFF;
+
+$textOnPrimary: #FFF;
+$textOnPrimaryHover: #FFF;
+
+$textOnSecondary: #002240;
+$textOnSecondaryHover: #002240;
+
+$accentColor: #66D9EF;
+$accentColorLight: desaturate(lighten($accentColor, 10%), 10%);
+$accentColorDark: saturate(darken($accentColor, 10%), 10%);
+$accentColorHover: $accentColorLight;
+
+$primaryColor: #002240;
+$primaryColorLight: desaturate(lighten($primaryColor, 10%), 10%);
+$primaryColorDark: saturate(darken($primaryColor, 10%), 10%);
+$primaryColorHover: $primaryColorLight;
+
+$secondaryColor: #ecf7f9;
+$secondaryColorLight: desaturate(lighten($secondaryColor, 10%), 10%);
+$secondaryColorDark: saturate(darken($secondaryColor, 10%), 10%);
+$secondaryColorHover: $secondaryColorLight;
+
+/*Layout Vars*/
+/**************************************************/
+$padding: 2rem;
+$halfPadding: $padding / 2;
+$quarterPadding: $padding / 4;
+
+$borderRadius: .25rem;
+$halfBoarderRadius: $borderRadius / 2;
+
+/**********************************************************************/
+/*ELEMENTS                                                            */
+/**********************************************************************/
 /*Basic Layout*/
 /**************************************************/
+html,
+body {
+ height: 100%;
+ width: 100%;
+}
+
+body {
+  min-height: 100%;
+  background-color: $secondaryColor;
+  color: $textOnSecondary;
+  font-family: $fontStack;
+}
+
+.floatLeft{
+  float:left;
+}
+
+.floatRight{
+  float:right;
+}
+
+.inlineBlock {
+  display:inline-block;
+}
+
+.autoMarg{
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.centerCol {
+  @extend .autoMarg;
+  float:none;
+}
+
+.container-fluid {
+  padding:$halfPadding 0;
+}
+
+.row {
+  @extend .autoMarg;
+  padding:0 $halfPadding;
+  max-width: 75rem + ($padding *2); /* 1200px */
+}
+
+.padCol {
+    padding: $halfPadding;
+}
+
+.innerCol {
+    padding: $padding;
+    height: 100%;
+    width: 100%;
+    border-radius: $borderRadius;
+}
+/*Basic Typography*/
+/**************************************************/
+.inlineText {
+  display:inline;
+}
+
+.centerText {
+  text-align:center;
+}
+
 
 /*Primary Navigation*/
 /**************************************************/
+#navBar {
+  background-color: $primaryColor;
+  color: $textOnPrimary;
+}
 
 /*Header Layout*/
 /**************************************************/
 
 /*Content & Columns Layout*/
 /**************************************************/
+#content .innerCol {
+  background-color: $secondaryColorLight;
+}
+
+/*Buttons and Forms*/
+/**************************************************/
+.btn {
+  background-color: $accentColor;
+  color:$textOnAccent;
+}
+
+.btn:hover {
+  background-color: $accentColorDark;
+}
+
+.btn i {
+  margin-right: $quarterPadding;
+}
 
 /*Footer Layout*/
 /**************************************************/
@@ -28,9 +157,21 @@
 
 /* Small devices (tablets, 768px and up) */                                     ///// ///// ///// /////  MEDIA QUERY*/
 @media (min-width: 768px) {
+
   /**********************************************************************/
-  /*Layout & Miscellaneous Elements                                     */
+  /*VARIABLES                                                           */
   /**********************************************************************/
+  /*Color Vars*/
+  /**************************************************/
+
+  /*Layout Vars*/
+  /**************************************************/
+
+  /**********************************************************************/
+  /*ELEMENTS                                                            */
+  /**********************************************************************/
+  /*Basic Typography*/
+  /**************************************************/
 
   /*Basic Layout*/
   /**************************************************/
@@ -42,6 +183,9 @@
   /**************************************************/
 
   /*Content & Columns Layout*/
+  /**************************************************/
+
+  /*Buttons and Forms*/
   /**************************************************/
 
   /*Footer Layout*/
