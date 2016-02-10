@@ -211,9 +211,9 @@ exports.unlock = function(req, res) {
     password: req.body.password
   }, function(error, foundGame) {
     if (foundGame) {
-      res.status(200).send();
+      res.send({});
     } else {
-      res.status(401).send();
+      res.send({err: 'incorrect'});
     }
   });
 };

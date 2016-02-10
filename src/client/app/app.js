@@ -66,9 +66,18 @@ angular.module('duel', [
   'duel.userFact' //Factory for storing user session data
 ])
 
-.run(['$rootScope', 'ChatFact', function($rootScope, ChatFact) {
+.run(['$rootScope', '$state', 'ChatFact', 'UserFact', function($rootScope, $state, ChatFact, UserFact) {
 
   //Socket room router
+
+  $rootScope.$on('$stateChangeStart',
+    function(event, toState, toParams, fromState, fromParams, options) {
+      if (toState.name === 'wrap.game.play' && !UserFact.getUser().userId) {
+        event.preventDefault();
+        alert('You must login in order to play!');
+      }
+    });
+
   $rootScope.$on('$stateChangeSuccess',
     function(event, toState, toParams, fromState, fromParams, options) {
       var room;
@@ -116,108 +125,108 @@ angular.module('duel', [
       }
     })
 
-    .state('wrap.login', {
-      url: '/login',
-      views: {
-        'duelContent@': {
-          templateUrl: 'app/login/login.html',
-          controller: 'LoginCtrl'
-        }
+  .state('wrap.login', {
+    url: '/login',
+    views: {
+      'duelContent@': {
+        templateUrl: 'app/login/login.html',
+        controller: 'LoginCtrl'
       }
-    })
+    }
+  })
 
-    .state('auth', {
-      url: '/auth/:userId/:userName', // Server routes back here after authenticating with GitHub
-      views: {
-        'duelContent@': {
-          templateUrl: 'app/login/login.html',
-          controller: 'AuthCtrl'
-        }
+  .state('auth', {
+    url: '/auth/:userId/:userName', // Server routes back here after authenticating with GitHub
+    views: {
+      'duelContent@': {
+        templateUrl: 'app/login/login.html',
+        controller: 'AuthCtrl'
       }
-    })
+    }
+  })
 
-    .state('wrap.lobby', {
-      url: '/lobby/:userName',
-      views: {
-        'duelContent@': {
-          templateUrl: 'app/lobby/lobby.html',
-          controller: 'LobbyCtrl'
-        },
-        'chat@wrap.lobby': {
-          templateUrl: 'app/chat/views/lobby/lobbyChat.html',
-          controller: 'ChatCtrl'
-        },
-        'users@wrap.lobby': {
-          templateUrl: 'app/chat/views/lobby/lobbyClients.html',
-          controller: 'ChatClientsCtrl'
-        }
-      }
-    })
-
-    .state('wrap.game', {
-      url: '/game/:gameId',
-      params: {
-        gameId: null
+  .state('wrap.lobby', {
+    url: '/lobby/:userName',
+    views: {
+      'duelContent@': {
+        templateUrl: 'app/lobby/lobby.html',
+        controller: 'LobbyCtrl'
       },
-      views: {
-        'duelContent@': {
-          templateUrl: 'app/game/game.html',
-          controller: 'GameCtrl'
-        }
-      }
-    })
-
-    .state('wrap.game.play', {
-      params: {
-        gameId: null
+      'chat@wrap.lobby': {
+        templateUrl: 'app/chat/views/lobby/lobbyChat.html',
+        controller: 'ChatCtrl'
       },
-      views: {
-        'duelContent@': {
-          templateUrl: 'app/game/play/gamePlay.html',
-          controller: 'GamePlayCtrl'
-        },
-        'chat@wrap.game.play': {
-          templateUrl: 'app/chat/views/dashboard/gameDashboardChat.html',
-          controller: 'ChatCtrl'
-        },
-        'users@wrap.game.play': {
-          templateUrl: 'app/chat/views/dashboard/gamePlayDashboardClients.html',
-          controller: 'ChatClientsCtrl'
-        }
+      'users@wrap.lobby': {
+        templateUrl: 'app/chat/views/lobby/lobbyClients.html',
+        controller: 'ChatClientsCtrl'
       }
-    })
+    }
+  })
 
-    .state('wrap.game.watch', {
-      params: {
-        gameId: null
-      },
-      views: {
-        'duelContent@': {
-          templateUrl: 'app/game/watch/gameWatch.html',
-          controller: 'GameWatchCtrl'
-        },
-        'chat@wrap.game.watch': {
-          templateUrl: 'app/chat/views/dashboard/gameDashboardChat.html',
-          controller: 'ChatCtrl'
-        },
-        'users@wrap.game.watch': {
-          templateUrl: 'app/chat/views/dashboard/gameWatchDashboardClients.html',
-          controller: 'ChatClientsCtrl'
-        }
+  .state('wrap.game', {
+    url: '/game/:gameId',
+    params: {
+      gameId: null
+    },
+    views: {
+      'duelContent@': {
+        templateUrl: 'app/game/game.html',
+        controller: 'GameCtrl'
       }
-    })
+    }
+  })
 
-    .state('showError', {
-      params: {
-        errorType: undefined,
-        errorData: undefined
+  .state('wrap.game.play', {
+    params: {
+      gameId: null
+    },
+    views: {
+      'duelContent@': {
+        templateUrl: 'app/game/play/gamePlay.html',
+        controller: 'GamePlayCtrl'
       },
-      views: {
-        'duelContent@': {
-          templateUrl: 'app/showError/showError.html',
-          controller: 'ShowErrorCtrl'
-        }
+      'chat@wrap.game.play': {
+        templateUrl: 'app/chat/views/dashboard/gameDashboardChat.html',
+        controller: 'ChatCtrl'
+      },
+      'users@wrap.game.play': {
+        templateUrl: 'app/chat/views/dashboard/gamePlayDashboardClients.html',
+        controller: 'ChatClientsCtrl'
       }
-    });
+    }
+  })
+
+  .state('wrap.game.watch', {
+    params: {
+      gameId: null
+    },
+    views: {
+      'duelContent@': {
+        templateUrl: 'app/game/watch/gameWatch.html',
+        controller: 'GameWatchCtrl'
+      },
+      'chat@wrap.game.watch': {
+        templateUrl: 'app/chat/views/dashboard/gameDashboardChat.html',
+        controller: 'ChatCtrl'
+      },
+      'users@wrap.game.watch': {
+        templateUrl: 'app/chat/views/dashboard/gameWatchDashboardClients.html',
+        controller: 'ChatClientsCtrl'
+      }
+    }
+  })
+
+  .state('showError', {
+    params: {
+      errorType: undefined,
+      errorData: undefined
+    },
+    views: {
+      'duelContent@': {
+        templateUrl: 'app/showError/showError.html',
+        controller: 'ShowErrorCtrl'
+      }
+    }
+  });
 
 }]);

@@ -12,7 +12,7 @@ angular.module('duel.gameCtrl', [])
       gameId: $scope.gameId
     }
   }).then(function(response) {
-    if(!response.data.found) {
+    if (!response.data.found) {
       alert('Game does not exist!');
       $state.go('wrap.lobby');
     }
@@ -25,7 +25,9 @@ angular.module('duel.gameCtrl', [])
       gameId: $scope.gameId,
       password: $scope.data.password
     }).then(function(response) {
-      if (response.status === 200) {
+      if (response.data.err) {
+        alert('Incorrect password!');
+      } else {
         $state.go('wrap.game.play', {
           gameId: $scope.gameId
         });
