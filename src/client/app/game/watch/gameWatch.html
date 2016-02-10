@@ -2,7 +2,7 @@
   <div class="col-md-12 padCol">
     <button class="btn btn-large altAction" ng-click="toLobby()">Back to lobby</button>
     <h3 class="inlineText">You're watching game # {{gameId}} ({{data.numPlayers}} Player{{(data.numPlayers!==1)?'s':''}})</h3>
-    <div id="spectatorPrompt" ng-bind-html="data.question | unsafe">
+    <div id="spectatorPrompt" class="innerCol" ng-bind-html="data.question | unsafe">
       {{data.question}}
     </div>
   </div>
