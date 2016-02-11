@@ -1,5 +1,6 @@
 <div id="navWrap" class="row">
-  <div class="btn-group" uib-dropdown is-open="status.isopen">
+  <div id="duelLogo"></div>
+  <div class="btn-group floatRight" uib-dropdown is-open="status.isopen">
     <button id="single-button" class="btn btn-sm" uib-dropdown-toggle>Themes<span class="caret"></span></button>
     <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
       <li ng-click = "changeTheme('cobalt')">Default</li>
@@ -9,10 +10,5 @@
       <!-- <li ng-click = "changeTheme('terminal')"> terminal</li> -->
       <!--<li ng-click = "changeTheme('katzenmilch')"> katzenmilch</li>-->
     </ul>
-  </div>
-  <div class="centerText">
-    <img class="floatLeft" src="assets/images/left.png">
-    <h2 class="inlineText bigType">CodeDuel</h2>
-    <img class="floatRight" src="assets/images/right.png">
   </div>
 </div>
