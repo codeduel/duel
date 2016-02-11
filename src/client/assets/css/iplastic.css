@@ -1,0 +1,243 @@
+@charset "UTF-8";
+/*!<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>*/
+/*!  Code Duel - Main Stylesheet                   */
+/*!  Copyright © 2016:                             */
+/*!    Song Gao, Chris Clark,                      */
+/*!    Becky Jaimes, Adam Dobkin                   */
+/*!<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>*/
+/**********************************************************************/
+/*VARIABLES                                                           */
+/**********************************************************************/
+/*Color Vars*/
+/**************************************************/
+/*#eeeeee;*/
+/*#eeeeee;*/
+/*Layout Vars*/
+/**************************************************/
+/**********************************************************************/
+/*ELEMENTS                                                            */
+/**********************************************************************/
+/*Basic Layout*/
+/**************************************************/
+html,
+body {
+  height: 100%;
+  width: 100%; }
+
+body {
+  min-height: 100%;
+  background-color: #dddddd;
+  color: #272822;
+  font-family: "Open Sans", sans-serif; }
+
+.floatLeft {
+  float: left; }
+
+.floatRight {
+  float: right; }
+
+.inlineBlock {
+  display: inline-block; }
+
+.autoMarg, .centerCol, .row {
+  margin-left: auto;
+  margin-right: auto; }
+
+.centerCol {
+  float: none; }
+
+.container-fluid {
+  padding: 1rem 0; }
+
+.row {
+  padding: 0 1rem;
+  max-width: 79rem;
+  /* 1200px */ }
+
+.padCol {
+  padding: 1rem; }
+
+.innerCol {
+  padding: 2rem;
+  height: 100%;
+  width: 100%;
+  border-radius: 0.5rem; }
+
+/*duelWrapper allows easy class overrides*/
+#duelWrapper .noPadding {
+  padding: 0; }
+
+#duelWrapper .noRadius {
+  border-radius: 0; }
+
+#duelWrapper .noBottomMargin {
+  margin-bottom: 0; }
+
+/*Basic Typography*/
+/**************************************************/
+h1, h2, h3, h4, h5 {
+  font-weight: 700;
+  margin-bottom: 1rem; }
+
+.inlineText {
+  display: inline; }
+
+.centerText {
+  text-align: center; }
+
+.bigType {
+  font-size: 4em; }
+
+/*Primary Navigation*/
+/**************************************************/
+#navBar,
+#navBar .innerCol {
+  background-color: #eeeeee;
+  color: #333333; }
+
+/*Header Layout*/
+/**************************************************/
+/*Content & Columns Layout*/
+/**************************************************/
+.innerCol {
+  background-color: white; }
+
+/*Chat Specific*/
+#chatWrap {
+  border-radius: 0.5rem;
+  overflow: hidden; }
+
+#chatUsersInnerCol {
+  background-color: #eeeeee;
+  color: #333333;
+  overflow-y: auto; }
+
+#chatWindowInnerCol {
+  padding-right: 0;
+  padding-left: 0;
+  padding-bottom: 5rem;
+  position: relative; }
+
+#chatDisplay {
+  height: 100%;
+  padding-top: 0;
+  padding-bottom: 0;
+  overflow-y: scroll; }
+
+#chatSendForm {
+  position: absolute;
+  width: 100%;
+  bottom: 0; }
+
+/*Lobby Specific*/
+#lobbyChat #chatUsersInnerCol,
+#lobbyChat #chatWindowInnerCol {
+  height: 37.5rem;
+  /*600px*/ }
+
+.gameInfoItem {
+  background-color: #66D9EF;
+  color: #333333;
+  margin-bottom: 1rem;
+  padding: 1rem; }
+
+.gameInfoItem:hover {
+  background-color: #0ed4fa;
+  cursor: pointer; }
+
+/*Game Specific*/
+#gameDashboard #chatUsersInnerCol,
+#gameDashboard #chatWindowInnerCol {
+  height: 18.75rem;
+  /*300px*/ }
+
+#challengePrompt,
+#challengeOutput {
+  background-color: #eeeeee;
+  color: #333333;
+  height: 25rem;
+  /*400px*/
+  overflow-y: auto; }
+
+#playerEditorWrap {
+  background-color: #eeeeee;
+  color: #333333;
+  height: 25rem;
+  /*400px*/
+  overflow: hidden; }
+
+#playerEditor {
+  height: 100%;
+  overflow-y: auto; }
+
+.lowerButtonWrap .btn {
+  margin-top: 1rem;
+  margin-bottom: 0; }
+
+.lowerButtonWrap .btn.floatRight {
+  margin-right: 0; }
+
+/*Spectator Specific*/
+.watchScreen {
+  height: 18.75rem;
+  /*300px*/ }
+
+/*Buttons and Forms*/
+/**************************************************/
+.btn,
+input[type="submit"] {
+  background-color: #66D9EF;
+  color: #333333;
+  margin-bottom: 1rem;
+  margin-right: 0.5rem;
+  border-radius: 0.25rem;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+
+.btn:hover,
+input[type="submit"]:hover {
+  background-color: #0ed4fa; }
+
+.btn i {
+  margin-right: 0.5rem; }
+
+.btn.altAction {
+  background-color: #F04848; }
+
+.btn.altAction:hover {
+  background-color: #eb0000; }
+
+.btnWide {
+  width: 100%;
+  max-width: 12.5rem;
+  /*200px*/ }
+
+input,
+select,
+textarea {
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  margin-bottom: 1rem;
+  box-sizing: border-box;
+  width: 100%; }
+
+input[type="submit"],
+input[type="file"],
+input[type="number"],
+input[type="date"],
+select {
+  width: auto; }
+
+input[type="radio"],
+input[type="checkbox"] {
+  height: auto;
+  width: auto;
+  padding: inherit; }
+
+/*Footer Layout*/
+/**************************************************/
+/* Small devices (tablets, 768px and up) */

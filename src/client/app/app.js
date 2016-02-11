@@ -10,6 +10,11 @@ require('../../../bower_components/angular-bootstrap/ui-bootstrap.min.js');
 require('../../../bower_components/ace-builds/src-min-noconflict/ace.js');
 require('../../../bower_components/ace-builds/src-min-noconflict/mode-javascript.js');
 require('../../../bower_components/ace-builds/src-min-noconflict/theme-cobalt.js');
+require('../../../bower_components/ace-builds/src-min-noconflict/theme-monokai.js');
+require('../../../bower_components/ace-builds/src-min-noconflict/theme-xcode.js');
+require('../../../bower_components/ace-builds/src-min-noconflict/theme-solarized_dark.js');
+require('../../../bower_components/ace-builds/src-min-noconflict/theme-terminal.js');
+require('../../../bower_components/ace-builds/src-min-noconflict/theme-katzenmilch.js');
 require('../../../bower_components/angular-ui-ace/ui-ace.js');
 require('../../../bower_components/angular-scroll-glue/src/scrollglue.js');
 require('../../../bower_components/jquery/dist/jquery.js');
@@ -35,9 +40,9 @@ require('./lobby/lobbyCtrl.js');
 require('./login/loginCtrl.js');
 require('./showError/showErrorCtrl.js');
 require('./wrap/navBar/navBarCtrl.js');
+require('./wrap/navBar/cssInjector.js');
 
 angular.module('duel', [
-
   //Third-party
   'luegg.directives', //scroll-glue for sticky overflow
   'ui.ace', //ace editor
@@ -55,6 +60,8 @@ angular.module('duel', [
   'duel.loginCtrl', //Controller for 'login' state
   'duel.showErrorCtrl', //Controller for 'showError' state
   'duel.wrap.navBarCtrl', //Controller for 'navBar' state
+  
+  'angular.css.injector', //Injects stylesheets to add themes
 
   //Factories
   'duel.chatFact', //Factory for joining/leaving/messaging chat rooms
@@ -107,8 +114,9 @@ angular.module('duel', [
 }])
 
 //temporary controller until I can refactor ErrorFact as a provider
-.controller('appController', ['ErrorFact', function(ErrorFact) {
-
+//Not temporary any more!  This sets the $rootScope theme for css styles and Ace editor
+.controller('appController', ['ErrorFact', '$rootScope', function(ErrorFact, $rootScope) {
+  $rootScope.theme = 'cobalt';
 }])
 
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {

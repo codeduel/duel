@@ -1,6 +1,6 @@
 angular.module('duel.game.watchCtrl', [])
 
-.controller('GameWatchCtrl', ['$location', '$state', '$stateParams', '$scope', 'GameWatchFact', 'ChatFact', 'UserFact', function($location, $state, $stateParams, $scope, GameWatchFact, ChatFact, UserFact) {
+.controller('GameWatchCtrl', ['$location', '$state', '$stateParams', '$scope', '$rootScope', 'GameWatchFact', 'ChatFact', 'UserFact', function($location, $state, $stateParams, $scope, $rootScope, GameWatchFact, ChatFact, UserFact) {
   $scope.gameId = $stateParams.gameId;
 
   GameWatchFact.reset();
@@ -22,6 +22,20 @@ angular.module('duel.game.watchCtrl', [])
 
 
   $scope.playerCode = GameWatchFact.playerCode;
+  //ACE editor configuration
+  //Changes ACE theme when $rootScope.theme changes
+  $scope.aceOption = {
+    useWrapMode: true,
+    mode: 'javascript',
+    theme: $rootScope.theme,
+    document: 'javascript',
+    onLoad: function (_editor) {
+      $scope.$watch('$root.theme', function(newVal, oldVal){
+        console.log('editor '+ _editor);
+        _editor.setTheme('ace/theme/'+newVal);
+      }, true);
+    }
+  };
 
   $scope.$watch(function() {
     return GameWatchFact.question;
@@ -47,10 +61,6 @@ angular.module('duel.game.watchCtrl', [])
       $scope.data.numPlayers = $scope.data.players.length;
     }
   }, true);
-
-  $scope.aceLoaded = function(_editor) {
-    _editor.blockScrolling = Infinity;
-  };
 
   $scope.toLobby = function() {
     $state.go('wrap.lobby');

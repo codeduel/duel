@@ -1,8 +1,8 @@
 angular.module('duel.game.playCtrl', [])
 
-.controller('GamePlayCtrl', ['$location', '$scope', '$state', '$stateParams', 'GamePlayFact', 'UserFact', 'ChatFact', function($location, $scope, $state, $stateParams, GamePlayFact, UserFact, ChatFact) {
+.controller('GamePlayCtrl', ['$location', '$rootScope', '$scope', '$state', '$stateParams', 'GamePlayFact', 'UserFact', 'ChatFact', function($location, $rootScope, $scope, $state, $stateParams, GamePlayFact, UserFact, ChatFact) {
   GamePlayFact.reset();
-
+  
   $scope.client = GamePlayFact.client;
   $scope.gameId = $stateParams.gameId;
   $scope.userName = UserFact.getUser().userName;
@@ -12,6 +12,13 @@ angular.module('duel.game.playCtrl', [])
   $scope.data.output = GamePlayFact.output;
   $scope.data.won = GamePlayFact.won;
   $scope.data.currView = 'question';
+  
+  //Changes Ace Editor Theme when rootscope.theme changes
+  $scope.theme = $rootScope.theme || 'cobalt';
+  $scope.editor = ace.edit('playerEditor');
+  $scope.$watch('$root.theme', function(newVal, oldVal){
+    $scope.editor.setTheme('ace/theme/'+newVal);
+  }, true);
 
   //Generates a shareable link
   var link = '<a>' + $location.absUrl() + '</a>';

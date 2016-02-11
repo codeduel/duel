@@ -7,10 +7,10 @@
     </div>
   </div>
 </div>
-<div class="row">
+<div id= "players" class="row">
   <div class="col-md-4 padCol watchDiv" ng-repeat="player in data.players">
     <strong>Player:</strong> {{player}}
-    <div class="watchScreen innerCol" ui-ace="{useWrapMode : true, theme:'cobalt', document: 'javascript', mode: 'javascript'}" ng-model="playerCode[player]" readonly>
+    <div class="watchScreen innerCol" ui-ace="aceOption" ng-model="playerCode[player]" readonly>
     </div>
   </div>
 </div>

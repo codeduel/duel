@@ -29,7 +29,7 @@
   <div id="gameEditor" class="col-md-6 padCol">
 
     <div id="playerEditorWrap" class="innerCol noPadding">
-      <div id="playerEditor" ui-ace="{useWrapMode : true, theme:'cobalt', document: 'javascript', mode: 'javascript'}" ng-model="data.solution" ng-model-options="{debounce: DEBOUNCE_INTERVAL}" ng-change="stream()">
+      <div id="playerEditor" ui-ace="{useWrapMode : true, theme:'{{theme}}', document: 'javascript', mode: 'javascript'}" ng-model="data.solution" ng-model-options="{debounce: DEBOUNCE_INTERVAL}" ng-change="stream()">
       </div>
     </div>
     <div class="lowerButtonWrap clearfix">
