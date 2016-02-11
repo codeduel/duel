@@ -1,25 +1,5 @@
 <div id="lobbyRow" class="row">
   <div id="games" class="col-md-4 padCol">
-    <div id="lobbyChoooseGameForm" ng-show="!currentView">
-
-      <h3>Pick an option below:</h3>
-
-      <label>Create a new duel</label>
-      </br>
-      <button class="btn btn-large btnWide" ng-click="currentView = 'create'">Create</button>
-      </br>
-
-      <label>Join an existing duel</label>
-      </br>
-      <button class="btn btn-large btnWide" ng-click="currentView = 'join'">Join</button>
-      </br>
-
-      <label>View active games</label>
-      </br>
-      <button class="btn btn-large btnWide" ng-click="currentView = 'games'">View</button>
-      </br>
-
-    </div>
     <div id="forms">
 
       <form id="createGameForm" ng-if="currentView === 'create'" ng-submit="create()">
@@ -36,26 +16,31 @@
 
         <input type="password" ng-model="data.password" placeholder="password">
         <button type="submit" class="btn btn-large">Create!</button>
-        <button class="btn btn-large altAction" ng-click="back()">Back...</button>
+        <button class="btn btn-large altAction" ng-click="toggleView('games')">Back...</button>
       </form>
 
       <form id="joinGameForm" ng-if="currentView === 'join'" ng-submit="join()">
         <h5>Enter duel id below</h5>
         <input type="text" ng-model="data.gameId">
         <button type="submit" class="btn btn-large">Join!</button>
-        <button class="btn btn-large altAction" ng-click="back()">Back...</button>
+        <button class="btn btn-large altAction" ng-click="toggleView('games')">Back...</button>
       </form>
 
       <div id="activeGames" ng-if="currentView === 'games'">
-        <h2>Active Games</h2>
-        <div class="gameInfo" ng-repeat="(gameId, gameData) in data.activeGames" ng-click="jumpTo(gameId)">
-          <div class="gameInfoItem innerCol">
-            <strong>Game ID: {{gameId}}</strong><br>
-            {{gameData.players}} playing<br>
-            {{gameData.spectators}} spectating
+        <div id="activeGamesHeader" class="centerText">
+          <h2>Active Games</h2>
+          <button class="btn btn-large floatLeft" ng-click="toggleView('create')">Create a Duel</button>
+          <button class="btn btn-large floatRight" ng-click="toggleView('join')">Join a Duel</button>
+        </div>
+        <div id="activeGamesList">
+          <div class="gameInfo" ng-repeat="(gameId, gameData) in data.activeGames" ng-click="jumpTo(gameId)">
+            <div class="gameInfoItem innerCol">
+              <strong>Game ID: {{gameId}}</strong><br>
+              {{gameData.players}} playing<br>
+              {{gameData.spectators}} spectating
+            </div>
           </div>
         </div>
-        <button class="btn btn-large altAction" ng-click="back()">Back...</button>
       </div>
     </div>
   </div>
