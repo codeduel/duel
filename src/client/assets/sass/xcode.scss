@@ -162,10 +162,14 @@ h1,h2,h3,h4,h5 {
   color: $textOnPrimary;
 }
 
+#navBar {
+  padding-top:0;
+  padding-bottom:0;
+}
+
 #duelLogo {
   height:5em;
   width:18.75em;
-  float: left;
   background-image: url('/assets/images/code-duel-logo-light-theme.png');
   background-size:100% 100%;
 }
