@@ -43,4 +43,9 @@ FastQueue.prototype.peek = function() {
   return this._storage[this._first];
 };
 
+//Returns the contents of the queue
+FastQueue.prototype.contents = function() {
+  return this._storage.slice(this._first);
+};
+
 module.exports = FastQueue;

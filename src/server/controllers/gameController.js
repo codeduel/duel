@@ -72,6 +72,12 @@ var setWinner = function(gameId) {
 
 //Resolves a solution attempt by dequeueing it and querying its dmid against the Code Wars API
 var resolveSolutionAttempt = function() {
+  console.log(solutionsQueue.contents().map(function(attempt) {
+    return {
+      dmid: attempt.dmid,
+      attempts: attempt.attempts
+    };
+  }));
   //peek first, in case the queued solution is not done processing on the Code Wars server
   var solutionAttempt = solutionsQueue.peek();
   if (solutionAttempt) {
@@ -132,10 +138,11 @@ var resolveSolutionAttempt = function() {
           console.log(solutionAttempt.dmid + ': Timed out');
           sendTo(solutionAttempt.socketId, 'chat/message', {
             userId: 'SYSTEM',
-            text: 'Sorry, your solution attempt timed out. Please try again.',
+            text: 'Sorry, there was an internal error. Please try again.',
             bold: true
           });
           solutionsQueue.dequeue();
+          repeat();
         });
     }
   } else {
@@ -160,7 +167,17 @@ resolveSolutionAttempt();
 
 //Generates a Game in database
 exports.createGame = function(req, res) {
-  codewarsController.generateQuestion(req.body.difficulty)
+  console.log(req.body);
+  if (!req.body.userName) {
+    res.send({
+      err: 'user'
+    });
+  } else if (!req.body.difficulty) {
+    res.send({
+      err: 'difficulty'
+    });
+  } else
+    codewarsController.generateQuestion(req.body.difficulty)
     .then(function(data) {
       new Game({
         question: format(data.description),
@@ -203,9 +220,11 @@ exports.unlock = function(req, res) {
     password: req.body.password
   }, function(error, foundGame) {
     if (foundGame) {
-      res.status(200).send();
+      res.send({});
     } else {
-      res.status(401).send();
+      res.send({
+        err: 'incorrect'
+      });
     }
   });
 };
@@ -291,7 +310,9 @@ exports.playerJoin = function(msg, socket) {
         foundGame.active = true;
         foundGame.save();
         sendTo(msg.data.gameId, 'game/start', modelHelpers.buildGameObj(foundGame));
-        sendTo(msg.data.gameId + '/watch', 'watch/prompt', {question: foundGame.question});
+        sendTo(msg.data.gameId + '/watch', 'watch/prompt', {
+          question: foundGame.question
+        });
       }
     } else {
       console.log('Game not found in function playerJoin in gameController.js');
