@@ -37,6 +37,9 @@ body {
 .inlineBlock {
   display: inline-block; }
 
+.block {
+  display: block; }
+
 .autoMarg, .centerCol, .row {
   margin-left: auto;
   margin-right: auto; }
@@ -127,11 +130,23 @@ h1, h2, h3, h4, h5 {
   width: 100%;
   bottom: 0; }
 
+.bold {
+  font-weight: bold; }
+
 /*Lobby Specific*/
 #lobbyChat #chatUsersInnerCol,
 #lobbyChat #chatWindowInnerCol {
   height: 37.5rem;
   /*600px*/ }
+
+#activeGamesHeader {
+  height: 100px;
+  border-bottom: 2px solid #002240;
+  margin-bottom: 15px; }
+
+#activeGamesList {
+  height: 31rem;
+  overflow: auto; }
 
 .gameInfoItem {
   background-color: #66D9EF;
@@ -174,6 +189,21 @@ h1, h2, h3, h4, h5 {
 
 .lowerButtonWrap .btn.floatRight {
   margin-right: 0; }
+
+.console-failed {
+  color: red;
+  border-bottom: 1px dashed red;
+  margin: 5px 0px; }
+
+.console-passed {
+  color: green;
+  border-bottom: 1px dashed green;
+  margin: 5px 0px; }
+
+pre {
+  left: 0px;
+  color: #000;
+  background-color: #eee; }
 
 /*Spectator Specific*/
 .watchScreen {

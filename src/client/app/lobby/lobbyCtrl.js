@@ -8,7 +8,7 @@ angular.module('duel.lobbyCtrl', [])
   };
 
   $scope.userName = UserFact.getUser().userName;
-  $scope.currentView = null;
+  $scope.currentView = 'games';
   $scope.data = {};
   $scope.data.activeGames = LobbyFact.activeGames;
 
@@ -52,8 +52,8 @@ angular.module('duel.lobbyCtrl', [])
     path: '/lobby'
   });
 
-  $scope.back = function() {
-    $scope.currentView = null;
+  $scope.toggleView = function(view) {
+    $scope.currentView = view;
   };
 
   $scope.jumpTo = function(gameId) {

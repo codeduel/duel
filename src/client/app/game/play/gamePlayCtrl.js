@@ -70,6 +70,7 @@ angular.module('duel.game.playCtrl', [])
   }, function(newVal, oldVal) {
     if (newVal !== oldVal) {
       $scope.data.output = newVal;
+      $scope.data.currView = 'output';
     }
   }, true);
 
