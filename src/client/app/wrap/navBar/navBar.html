@@ -1,6 +1,8 @@
 <div id="navWrap" class="row">
-  <div id="duelLogo"></div>
-  <div class="btn-group floatRight" uib-dropdown is-open="status.isopen">
+  <div class="padCol floatLeft">
+    <div id="duelLogo"></div>
+  </div>
+  <div class="btn-group floatRight padCol" uib-dropdown is-open="status.isopen">
     <button id="single-button" class="btn btn-sm" uib-dropdown-toggle>Themes<span class="caret"></span></button>
     <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
       <li ng-click = "changeTheme('cobalt')">Default</li>

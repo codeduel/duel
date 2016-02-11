@@ -60,7 +60,7 @@ angular.module('duel', [
   'duel.loginCtrl', //Controller for 'login' state
   'duel.showErrorCtrl', //Controller for 'showError' state
   'duel.wrap.navBarCtrl', //Controller for 'navBar' state
-  
+
   'angular.css.injector', //Injects stylesheets to add themes
 
   //Factories
@@ -139,7 +139,12 @@ angular.module('duel', [
       'duelContent@': {
         templateUrl: 'app/login/login.html',
         controller: 'LoginCtrl'
+      },
+      'duelNavBar@': {
+        templateUrl: 'app/wrap/navBar/navBarLogin.html',
+        controller: 'NavBarCtrl'
       }
+
     }
   })
 

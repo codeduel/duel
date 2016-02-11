@@ -8,7 +8,7 @@
   </div>
 </div>
 <div id= "players" class="row">
-  <div class="col-md-4 padCol watchDiv" ng-repeat="player in data.players">
+  <div class="col-md-6 padCol watchDiv" ng-repeat="player in data.players">
     <strong>Player:</strong> {{player}}
     <div class="watchScreen innerCol" ui-ace="aceOption" ng-model="playerCode[player]" readonly>
     </div>
