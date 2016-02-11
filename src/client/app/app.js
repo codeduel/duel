@@ -56,7 +56,8 @@ angular.module('duel', [
   'duel.loginCtrl', //Controller for 'login' state
   'duel.showErrorCtrl', //Controller for 'showError' state
   'duel.wrap.navBarCtrl', //Controller for 'navBar' state
-  'angular.css.injector',
+  
+  'angular.css.injector', //Injects stylesheets to add themes
 
   //Factories
   'duel.chatFact', //Factory for joining/leaving/messaging chat rooms
@@ -109,6 +110,7 @@ angular.module('duel', [
 }])
 
 //temporary controller until I can refactor ErrorFact as a provider
+//Not temporary any more!  This sets the $rootScope theme for css styles and Ace editor
 .controller('appController', ['ErrorFact', '$rootScope', function(ErrorFact, $rootScope) {
   $rootScope.theme = 'cobalt';
 }])

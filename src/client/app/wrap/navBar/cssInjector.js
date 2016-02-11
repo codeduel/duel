@@ -7,7 +7,7 @@
 */
 angular.module('angular.css.injector', [])
 .provider('cssInjector', ['$interpolateProvider', function($interpolateProvider) {
-	var singlePageMode = true;
+	var singlePageMode = false;
 
 	function CssInjector($compile, $rootScope, $rootElement){
         // Variables
@@ -15,11 +15,11 @@ angular.module('angular.css.injector', [])
             scope;
 
         // Capture the event `locationChangeStart` when the url change. If singlePageMode===TRUE, call the function `removeAll`
-        $rootScope.$on('$locationChangeStart', function()
-        {
-            if(singlePageMode === true)
-                removeAll();
-        });
+        // $rootScope.$on('$locationChangeStart', function()
+        // {
+        //     if(singlePageMode === true)
+        //         removeAll();
+        // });
 
         // Always called by the functions `addStylesheet` and `removeAll` to initialize the variable `scope`
         var _initScope = function()

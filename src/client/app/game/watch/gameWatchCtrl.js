@@ -22,15 +22,20 @@ angular.module('duel.game.watchCtrl', [])
 
 
   $scope.playerCode = GameWatchFact.playerCode;
-
-  $scope.theme = $rootScope.theme || 'cobalt';
-  //BUG FIX WRITE CUSTOM METHOD TO SET THEME FOR NG REPEATS
-  //$scope.editor = ace.edit('watchScreen');
-  // //Changes Ace Editor Theme when rootscope.theme changes
-  $scope.$watch('$root.theme', function(newVal, oldVal){
-    $scope.theme = newVal;
-  }, true);
-
+  //ACE editor configuration
+  //Changes ACE theme when $rootScope.theme changes
+  $scope.aceOption = {
+    useWrapMode: true,
+    mode: 'javascript',
+    theme: $rootScope.theme,
+    document: 'javascript',
+    onLoad: function (_editor) {
+      $scope.$watch('$root.theme', function(newVal, oldVal){
+        console.log('editor '+ _editor);
+        _editor.setTheme('ace/theme/'+newVal);
+      }, true);
+    }
+  };
 
   $scope.$watch(function() {
     return GameWatchFact.question;
@@ -56,10 +61,6 @@ angular.module('duel.game.watchCtrl', [])
       $scope.data.numPlayers = $scope.data.players.length;
     }
   }, true);
-
-  $scope.aceLoaded = function(_editor) {
-    _editor.blockScrolling = Infinity;
-  };
 
   $scope.toLobby = function() {
     $state.go('wrap.lobby');
