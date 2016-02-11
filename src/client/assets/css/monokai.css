@@ -24,7 +24,7 @@ body {
 
 body {
   min-height: 100%;
-  background-color: #2f3129;
+  background-color: #ecf7f9;
   color: #272822;
   font-family: "Open Sans", sans-serif; }
 
@@ -91,14 +91,14 @@ h1, h2, h3, h4, h5 {
 #navBar,
 #navBar .innerCol {
   background-color: #272822;
-  color: #F8F; }
+  color: #F8F8F0; }
 
 /*Header Layout*/
 /**************************************************/
 /*Content & Columns Layout*/
 /**************************************************/
 .innerCol {
-  background-color: #535353; }
+  background-color: white; }
 
 /*Chat Specific*/
 #chatWrap {
@@ -107,7 +107,7 @@ h1, h2, h3, h4, h5 {
 
 #chatUsersInnerCol {
   background-color: #272822;
-  color: #F8F;
+  color: #F8F8F0;
   overflow-y: auto; }
 
 #chatWindowInnerCol {
@@ -135,7 +135,7 @@ h1, h2, h3, h4, h5 {
 
 .gameInfoItem {
   background-color: #66D9EF;
-  color: #F8F;
+  color: #F8F8F0;
   margin-bottom: 1rem;
   padding: 1rem; }
 
@@ -152,14 +152,14 @@ h1, h2, h3, h4, h5 {
 #challengePrompt,
 #challengeOutput {
   background-color: #272822;
-  color: #F8F;
+  color: #F8F8F0;
   height: 25rem;
   /*400px*/
   overflow-y: auto; }
 
 #playerEditorWrap {
   background-color: #272822;
-  color: #F8F;
+  color: #F8F8F0;
   height: 25rem;
   /*400px*/
   overflow: hidden; }
@@ -185,7 +185,7 @@ h1, h2, h3, h4, h5 {
 .btn,
 input[type="submit"] {
   background-color: #66D9EF;
-  color: #F8F;
+  color: #F8F8F0;
   margin-bottom: 1rem;
   margin-right: 0.5rem;
   border-radius: 0.25rem;

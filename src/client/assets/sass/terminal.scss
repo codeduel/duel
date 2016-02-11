@@ -13,28 +13,28 @@
 $headlineFontStack: 'Open Sans', sans-serif;
 $fontStack: 'Open Sans', sans-serif;
 
-$headlineColor: #F8F8F0;
+$headlineColor: #DEDEDE;
 
-$textOnAccent: #F8F8F0;
-$textOnAccentHover: #F8F8F0;
+$textOnAccent: #DEDEDE;
+$textOnAccentHover: #DEDEDE;
 
-$textOnPrimary: #F8F8F0;
-$textOnPrimaryHover: #F8F8F0;
+$textOnPrimary: #DEDEDE;
+$textOnPrimaryHover: #DEDEDE;
 
-$textOnSecondary: #272822;
-$textOnSecondaryHover: #272822;
+$textOnSecondary: steelblue;
+$textOnSecondaryHover: steelbue;
 
 $accentColor: #66D9EF;
 $accentColorLight: desaturate(lighten($accentColor, 15%), 15%);
 $accentColorDark: saturate(darken($accentColor, 15%), 15%);
 $accentColorHover: $accentColorDark;
 
-$primaryColor: #272822;
+$primaryColor: #f3f2f3;
 $primaryColorLight: desaturate(lighten($primaryColor, 15%), 15%);
 $primaryColorDark: saturate(darken($primaryColor, 15%), 15%);
 $primaryColorHover: $primaryColorDark;
 
-$secondaryColor: #ecf7f9;
+$secondaryColor: #1a0005;;
 $secondaryColorLight: desaturate(lighten($secondaryColor, 15%), 15%);
 $secondaryColorDark: saturate(darken($secondaryColor, 15%), 15%);
 $secondaryColorHover: $secondaryColorDark;

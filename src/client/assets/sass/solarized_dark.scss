@@ -13,28 +13,28 @@
 $headlineFontStack: 'Open Sans', sans-serif;
 $fontStack: 'Open Sans', sans-serif;
 
-$headlineColor: #F8F8F0;
+$headlineColor: #93A1A1;
 
-$textOnAccent: #F8F8F0;
-$textOnAccentHover: #F8F8F0;
+$textOnAccent: #93A1A1;
+$textOnAccentHover: #93A1A1;
 
-$textOnPrimary: #F8F8F0;
-$textOnPrimaryHover: #F8F8F0;
+$textOnPrimary: #93A1A1;
+$textOnPrimaryHover: #93A1A1;
 
-$textOnSecondary: #272822;
-$textOnSecondaryHover: #272822;
+$textOnSecondary: #d0edf7;
+$textOnSecondaryHover: #d0edf7;
 
-$accentColor: #66D9EF;
+$accentColor: red;
 $accentColorLight: desaturate(lighten($accentColor, 15%), 15%);
 $accentColorDark: saturate(darken($accentColor, 15%), 15%);
 $accentColorHover: $accentColorDark;
 
-$primaryColor: #272822;
+$primaryColor: #66D9EF;
 $primaryColorLight: desaturate(lighten($primaryColor, 15%), 15%);
 $primaryColorDark: saturate(darken($primaryColor, 15%), 15%);
 $primaryColorHover: $primaryColorDark;
 
-$secondaryColor: #ecf7f9;
+$secondaryColor: #01313f;
 $secondaryColorLight: desaturate(lighten($secondaryColor, 15%), 15%);
 $secondaryColorDark: saturate(darken($secondaryColor, 15%), 15%);
 $secondaryColorHover: $secondaryColorDark;
