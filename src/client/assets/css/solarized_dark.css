@@ -90,7 +90,7 @@ h1, h2, h3, h4, h5 {
 /**************************************************/
 #navBar,
 #navBar .innerCol {
-  background-color: #002B36;
+  background-color: #66D9EF;
   color: #93A1A1; }
 
 /*Header Layout*/
@@ -106,7 +106,7 @@ h1, h2, h3, h4, h5 {
   overflow: hidden; }
 
 #chatUsersInnerCol {
-  background-color: #002B36;
+  background-color: #66D9EF;
   color: #93A1A1;
   overflow-y: auto; }
 
@@ -151,14 +151,14 @@ h1, h2, h3, h4, h5 {
 
 #challengePrompt,
 #challengeOutput {
-  background-color: #002B36;
+  background-color: #66D9EF;
   color: #93A1A1;
   height: 25rem;
   /*400px*/
   overflow-y: auto; }
 
 #playerEditorWrap {
-  background-color: #002B36;
+  background-color: #66D9EF;
   color: #93A1A1;
   height: 25rem;
   /*400px*/

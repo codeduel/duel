@@ -1,15 +1,18 @@
 <div id="navWrap" class="row">
+  <div class="btn-group" uib-dropdown is-open="status.isopen">
+    <button id="single-button" class="btn btn-sm" uib-dropdown-toggle>Themes<span class="caret"></span></button>
+    <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
+      <li ng-click = "changeTheme('cobalt')">cobalt (default)</li>
+      <li ng-click = "changeTheme('monokai')">monokai</li>
+      <!--<li ng-click = "changeTheme('solarized_dark')"> solarized dark</li>-->
+      <li ng-click = "changeTheme('terminal')"> terminal</li>
+      <!--<li ng-click = "changeTheme('katzenmilch')"> katzenmilch</li>-->
+      <li ng-click = "changeTheme('xcode')"> xcode</li>
+    </ul>
+  </div>
   <div class="centerText">
     <img class="floatLeft" src="assets/images/left.png">
     <h2 class="inlineText bigType">CodeDuel</h2>
     <img class="floatRight" src="assets/images/right.png">
-    <div id="cssToggle">
-      <button class="btn btn-sm" id="cobalt" ng-click = "changeTheme('cobalt')">cobalt</button>
-      <button class="btn btn-sm" id="monokai" ng-click = "changeTheme('monokai')">monokai</button>
-      <button class="btn btn-sm" id="monokai" ng-click = "changeTheme('solarized_dark')">solarized dark</button>
-      <button class="btn btn-sm" id="monokai" ng-click = "changeTheme('terminal')">terminal</button>
-      <button class="btn btn-sm" id="monokai" ng-click = "changeTheme('katzenmilch')">katzenmilch</button>
-      <button class="btn btn-sm" id="monokai" ng-click = "changeTheme('xcode')">xcode</button>
-    </div>
   </div>
 </div>

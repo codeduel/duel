@@ -5,19 +5,20 @@ angular.module('duel.wrap.navBarCtrl', [])
   $rootScope.changeTheme = function (theme){
   	var themes = ['molokai', 'solarized_dark', 'terminal', 'xcode', 'katzenmilch'];
     $rootScope.theme = theme;
-    //Cobalt is the default theme in main.css
+
+    //If theme is Cobalt (default), remove all injected css files
     if(theme === 'cobalt'){
       cssInjector.removeAll();
-    }
-    else{
+    } else {
+      //Inject a second css file, after main.css
       cssInjector.add('assets/css/' + theme + '.css');
     }
-    //Removes any other themes we may add
+
+    //Remove any other css files that have been previously injected
     themes.forEach(function(x){
       if(x !== theme){
         cssInjector.remove('assets/css/' + x + '.css');
       }
     });
   };
-
 }]);
