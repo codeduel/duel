@@ -32,7 +32,15 @@ var config = {
       'beginner-series-number-3-sum-of-numbers',
       'exes-and-ohs',
       'credit-card-mask',
-      'the-coupon-code'
+      'the-coupon-code',
+      'tricky-doubles',
+      'sexy-primes-<3',
+      'password-validator',
+      'array-of-primes',
+      'all-none-and-any',
+      'binary-addition',
+      'count-by-x'
+
     ],
     medium: [
       'jaden-casing-strings',
@@ -41,14 +49,25 @@ var config = {
       'unique-in-order',
       'longest-palindrome',
       'sum-of-pairs',
-      'moving-zeros-to-the-end'
+      'moving-zeros-to-the-end',
+      'weird-string-case',
+      'your-order-please',
+      'find-the-divisors',
+      'sum-consecutives'
     ],
     hard: [
       'snail',
       'sum-strings-as-numbers',
       'next-bigger-number-with-the-same-digits',
       'valid-braces',
-      'pascals-triangle'
+      'pascals-triangle',
+      'calculating-with-functions',
+      'a-chain-adding-function',
+      'guess-the-gifts',
+      'valid-parentheses',
+      'moving-zeros-to-the-end',
+      'merged-string-checker'
+
     ],
     demo: [
       'multiply'
