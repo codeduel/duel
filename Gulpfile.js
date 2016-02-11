@@ -76,7 +76,7 @@ gulp.task('nodemon', function(){
 //starts build server
 gulp.task('start', plugin.shell.task([
     'echo Starting the server!',
-    'node build/server.js'
+    'node build/server/server.js'
   ])
 );
 

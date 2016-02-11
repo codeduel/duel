@@ -1,6 +1,6 @@
 angular.module('duel.game.watchCtrl', [])
 
-.controller('GameWatchCtrl', ['$location', '$state', '$stateParams', '$scope', 'GameWatchFact', 'ChatFact', 'UserFact', function($location, $state, $stateParams, $scope, GameWatchFact, ChatFact, UserFact) {
+.controller('GameWatchCtrl', ['$location', '$state', '$stateParams', '$scope', '$rootScope', 'GameWatchFact', 'ChatFact', 'UserFact', function($location, $state, $stateParams, $scope, $rootScope, GameWatchFact, ChatFact, UserFact) {
   $scope.gameId = $stateParams.gameId;
 
   GameWatchFact.reset();
@@ -22,6 +22,15 @@ angular.module('duel.game.watchCtrl', [])
 
 
   $scope.playerCode = GameWatchFact.playerCode;
+
+  $scope.theme = $rootScope.theme || 'cobalt';
+  //BUG FIX WRITE CUSTOM METHOD TO SET THEME FOR NG REPEATS
+  //$scope.editor = ace.edit('watchScreen');
+  // //Changes Ace Editor Theme when rootscope.theme changes
+  $scope.$watch('$root.theme', function(newVal, oldVal){
+    $scope.theme = newVal;
+  }, true);
+
 
   $scope.$watch(function() {
     return GameWatchFact.question;
