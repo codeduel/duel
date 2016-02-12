@@ -126,6 +126,9 @@ angular.module('duel', [
         'duelNavBar@': {
           templateUrl: 'app/wrap/navBar/navBar.html',
           controller: 'NavBarCtrl'
+        },
+        'duelFooter@': {
+          templateUrl: 'app/wrap/footer/footer.html'
         }
       }
     })
@@ -136,12 +139,7 @@ angular.module('duel', [
       'duelContent@': {
         templateUrl: 'app/login/login.html',
         controller: 'LoginCtrl'
-      },
-      'duelNavBar@': {
-        templateUrl: 'app/wrap/navBar/navBarLogin.html',
-        controller: 'NavBarCtrl'
       }
-
     }
   })
 

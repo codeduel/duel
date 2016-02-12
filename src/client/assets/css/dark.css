@@ -27,6 +27,24 @@ body {
   color: #CCC;
   font-family: "Roboto", sans-serif; }
 
+#navBarWrap,
+#footerWrap {
+  background-color: #272822;
+  color: #CCC; }
+  #navBarWrap h1, #navBarWrap h2, #navBarWrap h3, #navBarWrap h4, #navBarWrap h5,
+  #footerWrap h1,
+  #footerWrap h2,
+  #footerWrap h3,
+  #footerWrap h4,
+  #footerWrap h5 {
+    color: #CCC; }
+
+a {
+  color: #1a92aa; }
+
+a:hover {
+  color: #075f71; }
+
 #pageContent {
   background-color: #13140c;
   color: #CCC;
@@ -82,6 +100,7 @@ body {
 /*Basic Typography*/
 /**************************************************/
 h1, h2, h3, h4, h5 {
+  color: #CCC;
   font-weight: 700;
   margin-bottom: 1rem; }
 
@@ -96,11 +115,6 @@ h1, h2, h3, h4, h5 {
 
 /*Primary Navigation*/
 /**************************************************/
-#navBar,
-#navBar .innerCol {
-  background-color: #272822;
-  color: #CCC; }
-
 #navBar {
   padding-top: 0;
   padding-bottom: 0; }
@@ -245,7 +259,8 @@ input[type="submit"] {
 
 .btn:hover,
 input[type="submit"]:hover {
-  background-color: #075f71; }
+  background-color: #075f71;
+  color: #FFF; }
 
 .btn i {
   margin-right: 0.5rem; }

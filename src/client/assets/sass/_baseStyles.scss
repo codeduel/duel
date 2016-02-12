@@ -28,6 +28,25 @@ body {
   font-family: $fontStack;
 }
 
+#navBarWrap,
+#footerWrap {
+  background-color: $primaryColor;
+  color: $textOnPrimary;
+
+  h1,h2,h3,h4,h5 {
+    color:$headlineOnPrimary;
+  }
+
+}
+
+a {
+  color: $accentColor;
+}
+
+a:hover {
+  color: $accentColorHover;
+}
+
 #pageContent{
   background-color: $secondaryColor;
   color: $textOnSecondary;
@@ -98,6 +117,7 @@ body {
 /*Basic Typography*/
 /**************************************************/
 h1,h2,h3,h4,h5 {
+  color:$headlineOnSecondary;
   font-weight:700;
   margin-bottom:1rem;
 }
@@ -117,12 +137,6 @@ h1,h2,h3,h4,h5 {
 
 /*Primary Navigation*/
 /**************************************************/
-#navBar,
-#navBar .innerCol {
-  background-color: $primaryColor;
-  color: $textOnPrimary;
-}
-
 #navBar {
   padding-top:0;
   padding-bottom:0;
@@ -268,8 +282,6 @@ pre {
   overflow:auto;
 }
 
-
-
 /*Buttons and Forms*/
 /**************************************************/
 .btn,
@@ -290,6 +302,7 @@ input[type="submit"] {
 .btn:hover,
 input[type="submit"]:hover {
   background-color: $accentColorHover;
+  color:$textOnAccent;
 }
 
 .btn i {
