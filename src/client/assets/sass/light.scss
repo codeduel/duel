@@ -1,0 +1,51 @@
+@import '_styleHeader.scss';
+
+/**********************************************************************/
+/*THEME VARIABLES                                                     */
+/**********************************************************************/
+$headlineFontStack: 'Roboto', sans-serif;
+$fontStack: 'Roboto', sans-serif;
+
+$headlineOnPrimary: #272822;
+$headlineOnSecondary: #272822;
+
+$textOnAccent: #FFF;
+$textOnAccentHover: #FFF;
+
+$textOnPrimary: #333;
+$textOnPrimaryHover: #333;
+
+$textOnSecondary: #272822;
+$textOnSecondaryHover: #272822;
+
+$textOnInputBox: #333;
+
+$accentColor: #0ed4fa;
+$accentColorLight: desaturate(lighten($accentColor, 15%), 15%);
+$accentColorDark: saturate(darken($accentColor, 15%), 15%);
+$accentColorHover: $accentColorLight;
+
+$primaryColor: #FFFFFF;
+$primaryColorLight: desaturate(lighten($primaryColor, 15%), 15%);
+$primaryColorDark: saturate(darken($primaryColor, 15%), 15%);
+$primaryColorHover: $primaryColorDark;
+
+$secondaryColor: #DDD;
+$secondaryColorLight: desaturate(lighten($secondaryColor, 10%), 10%);
+$secondaryColorDark: saturate(darken($secondaryColor, 15%), 15%);
+$secondaryColorHover: $secondaryColorDark;
+
+$altActionColor: #eb0000;
+$altActionColorLight: desaturate(lighten($altActionColor, 15%), 15%);
+$altActionColorDark: saturate(darken($altActionColor, 15%), 15%);
+$altActionColorHover: $altActionColorLight;
+
+@import '_baseStyles.scss';
+
+#duelLogo {
+  background-image: url('/assets/images/code-duel-logo-light-theme.png');
+}
+
+.innerCol {
+    background-color: $secondaryColorLight;
+}

@@ -72,12 +72,14 @@ var setWinner = function(gameId) {
 
 //Resolves a solution attempt by dequeueing it and querying its dmid against the Code Wars API
 var resolveSolutionAttempt = function() {
-  console.log(solutionsQueue.contents().map(function(attempt) {
-    return {
-      dmid: attempt.dmid,
-      attempts: attempt.attempts
-    };
-  }));
+  
+  // console.log(solutionsQueue.contents().map(function(attempt) {
+  //   return {
+  //     dmid: attempt.dmid,
+  //     attempts: attempt.attempts
+  //   };
+  // }));
+
   //peek first, in case the queued solution is not done processing on the Code Wars server
   var solutionAttempt = solutionsQueue.peek();
   if (solutionAttempt) {

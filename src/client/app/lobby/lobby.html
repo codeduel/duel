@@ -27,10 +27,10 @@
       </form>
 
       <div id="activeGames" ng-if="currentView === 'games'">
-        <div id="activeGamesHeader" class="centerText">
+        <div id="activeGamesHeader">
           <h2>Active Games</h2>
-          <button class="btn btn-large floatLeft" ng-click="toggleView('create')">Create a Duel</button>
-          <button class="btn btn-large floatRight" ng-click="toggleView('join')">Join a Duel</button>
+          <button class="btn btn-large" ng-click="toggleView('create')">Create a Duel</button>
+          <button class="btn btn-large" ng-click="toggleView('join')">Join a Duel</button>
         </div>
         <div id="activeGamesList">
           <div class="gameInfo" ng-repeat="(gameId, gameData) in data.activeGames" ng-click="jumpTo(gameId)">

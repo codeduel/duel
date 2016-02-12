@@ -1,19 +1,18 @@
 @charset "UTF-8";
 /*!<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>*/
-/*!  Code Duel - Main Stylesheet                   */
+/*!  Code Duel - Stylesheet                        */
 /*!  Copyright © 2016:                             */
 /*!    Song Gao, Chris Clark,                      */
 /*!    Becky Jaimes, Adam Dobkin                   */
 /*!<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>*/
 /**********************************************************************/
-/*VARIABLES                                                           */
+/*THEME VARIABLES                                                     */
 /**********************************************************************/
-/*Color Vars*/
-/**************************************************/
-/*Layout Vars*/
-/**************************************************/
 /**********************************************************************/
-/*ELEMENTS                                                            */
+/*STANDARD VARIABLES                                                  */
+/**********************************************************************/
+/**********************************************************************/
+/*ELEMENT STYLES                                                      */
 /**********************************************************************/
 /*Basic Layout*/
 /**************************************************/
@@ -24,9 +23,32 @@ body {
 
 body {
   min-height: 100%;
+  background-color: #002240;
+  color: #FFF;
+  font-family: "Roboto", sans-serif; }
+
+#navBarWrap,
+#footerWrap {
+  background-color: #002240;
+  color: #FFF; }
+  #navBarWrap h1, #navBarWrap h2, #navBarWrap h3, #navBarWrap h4, #navBarWrap h5,
+  #footerWrap h1,
+  #footerWrap h2,
+  #footerWrap h3,
+  #footerWrap h4,
+  #footerWrap h5 {
+    color: #FFF; }
+
+a {
+  color: #66D9EF; }
+
+a:hover {
+  color: #0ed4fa; }
+
+#pageContent {
   background-color: #ecf7f9;
   color: #002240;
-  font-family: "Roboto", sans-serif; }
+  min-height: 37.5rem; }
 
 .floatLeft {
   float: left; }
@@ -59,6 +81,7 @@ body {
   padding: 1rem; }
 
 .innerCol {
+  background-color: white;
   padding: 2rem;
   height: 100%;
   width: 100%;
@@ -77,6 +100,7 @@ body {
 /*Basic Typography*/
 /**************************************************/
 h1, h2, h3, h4, h5 {
+  color: #002240;
   font-weight: 700;
   margin-bottom: 1rem; }
 
@@ -91,11 +115,6 @@ h1, h2, h3, h4, h5 {
 
 /*Primary Navigation*/
 /**************************************************/
-#navBar,
-#navBar .innerCol {
-  background-color: #002240;
-  color: #FFF; }
-
 #navBar {
   padding-top: 0;
   padding-bottom: 0; }
@@ -110,9 +129,6 @@ h1, h2, h3, h4, h5 {
 /**************************************************/
 /*Content & Columns Layout*/
 /**************************************************/
-.innerCol {
-  background-color: white; }
-
 /*Chat Specific*/
 #chatWrap {
   border-radius: 0.5rem;
@@ -243,7 +259,8 @@ input[type="submit"] {
 
 .btn:hover,
 input[type="submit"]:hover {
-  background-color: #0ed4fa; }
+  background-color: #0ed4fa;
+  color: #FFF; }
 
 .btn i {
   margin-right: 0.5rem; }
@@ -266,7 +283,8 @@ textarea {
   border-radius: 0.25rem;
   margin-bottom: 1rem;
   box-sizing: border-box;
-  width: 100%; }
+  width: 100%;
+  color: #002240; }
 
 input[type="submit"],
 input[type="file"],

@@ -1,66 +1,17 @@
-/*!<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>*/
-/*!  Code Duel - Main Stylesheet                   */
-/*!  Copyright © 2016:                             */
-/*!    Song Gao, Chris Clark,                      */
-/*!    Becky Jaimes, Adam Dobkin                   */
-/*!<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>*/
-
 /**********************************************************************/
-/*VARIABLES                                                           */
+/*STANDARD VARIABLES                                                  */
 /**********************************************************************/
-/*Color Vars*/
-/**************************************************/
-$headlineFontStack: 'Roboto', sans-serif;
-$fontStack: 'Roboto', sans-serif;
-
-$headlineColor: #100011;
-
-$textOnAccent: #100011;
-$textOnAccentHover: #100011;
-
-$textOnPrimary: #000000;
-$textOnPrimaryHover: #000000;
-
-$textOnSecondary: #272822;
-$textOnSecondaryHover: #272822;
-
-$accentColor: #66D9EF;
-$accentColorLight: desaturate(lighten($accentColor, 15%), 15%);
-$accentColorDark: saturate(darken($accentColor, 15%), 15%);
-$accentColorHover: $accentColorDark;
-
-$primaryColor: #FFFFFF;
-$primaryColorLight: desaturate(lighten($primaryColor, 15%), 15%);
-$primaryColorDark: saturate(darken($primaryColor, 15%), 15%);
-$primaryColorHover: $primaryColorDark;
-
-$secondaryColor: #e8e8e8;
-$secondaryColorLight: desaturate(lighten($secondaryColor, 15%), 15%);
-$secondaryColorDark: saturate(darken($secondaryColor, 15%), 15%);
-$secondaryColorHover: $secondaryColorDark;
-
-$altActionColor: #F04848;
-$altActionColorLight: desaturate(lighten($altActionColor, 15%), 15%);
-$altActionColorDark: saturate(darken($altActionColor, 15%), 15%);
-$altActionColorHover: $altActionColorDark;
-
-
-
-
-/*Layout Vars*/
-/**************************************************/
 $spacing: 2rem;
 $halfSpacing: $spacing / 2;
 $quarterSpacing: $spacing / 4;
 
 $doubleSpacing: $spacing * 2;
 
-
 $borderRadius: .5rem;
 $halfBorderRadius: $borderRadius / 2;
 
 /**********************************************************************/
-/*ELEMENTS                                                            */
+/*ELEMENT STYLES                                                      */
 /**********************************************************************/
 /*Basic Layout*/
 /**************************************************/
@@ -72,9 +23,34 @@ body {
 
 body {
   min-height: 100%;
+  background-color: $primaryColor;
+  color: $textOnPrimary;
+  font-family: $fontStack;
+}
+
+#navBarWrap,
+#footerWrap {
+  background-color: $primaryColor;
+  color: $textOnPrimary;
+
+  h1,h2,h3,h4,h5 {
+    color:$headlineOnPrimary;
+  }
+
+}
+
+a {
+  color: $accentColor;
+}
+
+a:hover {
+  color: $accentColorHover;
+}
+
+#pageContent{
   background-color: $secondaryColor;
   color: $textOnSecondary;
-  font-family: $fontStack;
+  min-height: 37.5rem; //600px
 }
 
 .floatLeft{
@@ -87,6 +63,10 @@ body {
 
 .inlineBlock {
   display:inline-block;
+}
+
+.block {
+  display:block;
 }
 
 .autoMarg{
@@ -114,6 +94,7 @@ body {
 }
 
 .innerCol {
+    background-color: $secondaryColorLight;
     padding: $spacing;
     height: 100%;
     width: 100%;
@@ -124,7 +105,6 @@ body {
 #duelWrapper .noPadding {
   padding:0;
 }
-
 
 #duelWrapper .noRadius {
   border-radius:0;
@@ -137,6 +117,7 @@ body {
 /*Basic Typography*/
 /**************************************************/
 h1,h2,h3,h4,h5 {
+  color:$headlineOnSecondary;
   font-weight:700;
   margin-bottom:1rem;
 }
@@ -156,12 +137,6 @@ h1,h2,h3,h4,h5 {
 
 /*Primary Navigation*/
 /**************************************************/
-#navBar,
-#navBar .innerCol {
-  background-color: $primaryColor;
-  color: $textOnPrimary;
-}
-
 #navBar {
   padding-top:0;
   padding-bottom:0;
@@ -170,7 +145,7 @@ h1,h2,h3,h4,h5 {
 #duelLogo {
   height:5em;
   width:18.75em;
-  background-image: url('/assets/images/code-duel-logo-light-theme.png');
+  background-image: url('/assets/images/code-duel-logo.png');
   background-size:100% 100%;
 }
 
@@ -179,10 +154,6 @@ h1,h2,h3,h4,h5 {
 
 /*Content & Columns Layout*/
 /**************************************************/
-.innerCol {
-  background-color: $secondaryColorLight;
-}
-
 /*Chat Specific*/
 #chatWrap {
   border-radius: $borderRadius;
@@ -215,10 +186,25 @@ h1,h2,h3,h4,h5 {
   bottom:0;
 }
 
+.bold {
+  font-weight: bold;
+}
+
 /*Lobby Specific*/
 #lobbyChat #chatUsersInnerCol,
 #lobbyChat #chatWindowInnerCol {
   height:37.5rem; /*600px*/
+}
+
+#activeGamesHeader {
+  height: 100px;
+  border-bottom: 2px solid $primaryColor;
+  margin-bottom: 15px;
+}
+
+#activeGamesList {
+  height: 31rem;
+  overflow: auto;
 }
 
 .gameInfoItem {
@@ -268,13 +254,33 @@ h1,h2,h3,h4,h5 {
   margin-right: 0;
 }
 
-/*Spectator Specific*/
-.watchScreen {
-  height:18.75rem; /*300px*/
+.console-failed {
+  color: red;
+  border-bottom: 1px dashed red;
+  margin: 5px 0px;
 }
 
+.console-passed {
+  color: green;
+  border-bottom: 1px dashed green;
+  margin: 5px 0px;
+}
 
+pre {
+  left: 0px;
+  color: #000;
+  background-color: #eee;
+}
 
+/*Spectator Specific*/
+.watchScreen {
+  height:25rem; /*400px*/
+}
+
+#spectatorPrompt {
+  height:18.75rem; /*300px*/
+  overflow:auto;
+}
 
 /*Buttons and Forms*/
 /**************************************************/
@@ -296,6 +302,7 @@ input[type="submit"] {
 .btn:hover,
 input[type="submit"]:hover {
   background-color: $accentColorHover;
+  color:$textOnAccent;
 }
 
 .btn i {
@@ -323,6 +330,7 @@ textarea {
   margin-bottom: $halfSpacing;
   box-sizing: border-box;
   width:100%;
+  color:$textOnInputBox;
 }
 
 input[type="submit"],

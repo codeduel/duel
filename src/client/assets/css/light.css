@@ -1,19 +1,18 @@
 @charset "UTF-8";
 /*!<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>*/
-/*!  Code Duel - Main Stylesheet                   */
+/*!  Code Duel - Stylesheet                        */
 /*!  Copyright © 2016:                             */
 /*!    Song Gao, Chris Clark,                      */
 /*!    Becky Jaimes, Adam Dobkin                   */
 /*!<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>*/
 /**********************************************************************/
-/*VARIABLES                                                           */
+/*THEME VARIABLES                                                     */
 /**********************************************************************/
-/*Color Vars*/
-/**************************************************/
-/*Layout Vars*/
-/**************************************************/
 /**********************************************************************/
-/*ELEMENTS                                                            */
+/*STANDARD VARIABLES                                                  */
+/**********************************************************************/
+/**********************************************************************/
+/*ELEMENT STYLES                                                      */
 /**********************************************************************/
 /*Basic Layout*/
 /**************************************************/
@@ -24,9 +23,32 @@ body {
 
 body {
   min-height: 100%;
-  background-color: #13140c;
-  color: #CCC;
+  background-color: #FFFFFF;
+  color: #333;
   font-family: "Roboto", sans-serif; }
+
+#navBarWrap,
+#footerWrap {
+  background-color: #FFFFFF;
+  color: #333; }
+  #navBarWrap h1, #navBarWrap h2, #navBarWrap h3, #navBarWrap h4, #navBarWrap h5,
+  #footerWrap h1,
+  #footerWrap h2,
+  #footerWrap h3,
+  #footerWrap h4,
+  #footerWrap h5 {
+    color: #272822; }
+
+a {
+  color: #0ed4fa; }
+
+a:hover {
+  color: #66d9ef; }
+
+#pageContent {
+  background-color: #DDD;
+  color: #272822;
+  min-height: 37.5rem; }
 
 .floatLeft {
   float: left; }
@@ -36,6 +58,9 @@ body {
 
 .inlineBlock {
   display: inline-block; }
+
+.block {
+  display: block; }
 
 .autoMarg, .centerCol, .row {
   margin-left: auto;
@@ -56,6 +81,7 @@ body {
   padding: 1rem; }
 
 .innerCol {
+  background-color: #f7f7f7;
   padding: 2rem;
   height: 100%;
   width: 100%;
@@ -74,6 +100,7 @@ body {
 /*Basic Typography*/
 /**************************************************/
 h1, h2, h3, h4, h5 {
+  color: #272822;
   font-weight: 700;
   margin-bottom: 1rem; }
 
@@ -88,11 +115,6 @@ h1, h2, h3, h4, h5 {
 
 /*Primary Navigation*/
 /**************************************************/
-#navBar,
-#navBar .innerCol {
-  background-color: #272822;
-  color: #CCC; }
-
 #navBar {
   padding-top: 0;
   padding-bottom: 0; }
@@ -100,24 +122,21 @@ h1, h2, h3, h4, h5 {
 #duelLogo {
   height: 5em;
   width: 18.75em;
-  background-image: url("/assets/images/code-duel-logo-dark-theme.png");
+  background-image: url("/assets/images/code-duel-logo.png");
   background-size: 100% 100%; }
 
 /*Header Layout*/
 /**************************************************/
 /*Content & Columns Layout*/
 /**************************************************/
-.innerCol {
-  background-color: #3a3c31; }
-
 /*Chat Specific*/
 #chatWrap {
   border-radius: 0.5rem;
   overflow: hidden; }
 
 #chatUsersInnerCol {
-  background-color: #272822;
-  color: #CCC;
+  background-color: #FFFFFF;
+  color: #333;
   overflow-y: auto; }
 
 #chatWindowInnerCol {
@@ -137,20 +156,32 @@ h1, h2, h3, h4, h5 {
   width: 100%;
   bottom: 0; }
 
+.bold {
+  font-weight: bold; }
+
 /*Lobby Specific*/
 #lobbyChat #chatUsersInnerCol,
 #lobbyChat #chatWindowInnerCol {
   height: 37.5rem;
   /*600px*/ }
 
+#activeGamesHeader {
+  height: 100px;
+  border-bottom: 2px solid #FFFFFF;
+  margin-bottom: 15px; }
+
+#activeGamesList {
+  height: 31rem;
+  overflow: auto; }
+
 .gameInfoItem {
-  background-color: #1a92aa;
+  background-color: #0ed4fa;
   color: #FFF;
   margin-bottom: 1rem;
   padding: 1rem; }
 
 .gameInfoItem:hover {
-  background-color: #075f71;
+  background-color: #66d9ef;
   cursor: pointer; }
 
 /*Game Specific*/
@@ -161,15 +192,15 @@ h1, h2, h3, h4, h5 {
 
 #challengePrompt,
 #challengeOutput {
-  background-color: #272822;
-  color: #CCC;
+  background-color: #FFFFFF;
+  color: #333;
   height: 25rem;
   /*400px*/
   overflow-y: auto; }
 
 #playerEditorWrap {
-  background-color: #272822;
-  color: #CCC;
+  background-color: #FFFFFF;
+  color: #333;
   height: 25rem;
   /*400px*/
   overflow: hidden; }
@@ -185,16 +216,36 @@ h1, h2, h3, h4, h5 {
 .lowerButtonWrap .btn.floatRight {
   margin-right: 0; }
 
+.console-failed {
+  color: red;
+  border-bottom: 1px dashed red;
+  margin: 5px 0px; }
+
+.console-passed {
+  color: green;
+  border-bottom: 1px dashed green;
+  margin: 5px 0px; }
+
+pre {
+  left: 0px;
+  color: #000;
+  background-color: #eee; }
+
 /*Spectator Specific*/
 .watchScreen {
+  height: 25rem;
+  /*400px*/ }
+
+#spectatorPrompt {
   height: 18.75rem;
-  /*300px*/ }
+  /*300px*/
+  overflow: auto; }
 
 /*Buttons and Forms*/
 /**************************************************/
 .btn,
 input[type="submit"] {
-  background-color: #1a92aa;
+  background-color: #0ed4fa;
   color: #FFF;
   margin-bottom: 1rem;
   margin-right: 0.5rem;
@@ -208,16 +259,17 @@ input[type="submit"] {
 
 .btn:hover,
 input[type="submit"]:hover {
-  background-color: #075f71; }
+  background-color: #66d9ef;
+  color: #FFF; }
 
 .btn i {
   margin-right: 0.5rem; }
 
 .btn.altAction {
-  background-color: #F04848; }
+  background-color: #eb0000; }
 
 .btn.altAction:hover {
-  background-color: #eb0000; }
+  background-color: #f04747; }
 
 .btnWide {
   width: 100%;
@@ -231,7 +283,8 @@ textarea {
   border-radius: 0.25rem;
   margin-bottom: 1rem;
   box-sizing: border-box;
-  width: 100%; }
+  width: 100%;
+  color: #333; }
 
 input[type="submit"],
 input[type="file"],
@@ -249,3 +302,8 @@ input[type="checkbox"] {
 /*Footer Layout*/
 /**************************************************/
 /* Small devices (tablets, 768px and up) */
+#duelLogo {
+  background-image: url("/assets/images/code-duel-logo-light-theme.png"); }
+
+.innerCol {
+  background-color: #f7f7f7; }
