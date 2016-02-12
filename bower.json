@@ -10,7 +10,8 @@
     "jquery": "~2.2.0",
     "angular-bootstrap": "^1.1.1",
     "angular-scroll-glue": "^2.0.6",
-    "bootstrap": "v4.0.0-alpha.2"
+    "bootstrap": "v4.0.0-alpha.2",
+    "angular-css-injector": "https://github.com/Yappli/angular-css-injector.git#1.4.0"
   },
   "resolutions": {
     "angular": "1.5.0"

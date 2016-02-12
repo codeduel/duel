@@ -1,6 +1,6 @@
 angular.module('duel.game.watchCtrl', [])
 
-.controller('GameWatchCtrl', ['$location', '$state', '$stateParams', '$scope', '$rootScope', 'GameWatchFact', 'ChatFact', 'UserFact', function($location, $state, $stateParams, $scope, $rootScope, GameWatchFact, ChatFact, UserFact) {
+.controller('GameWatchCtrl', ['$location', '$state', '$stateParams', '$scope', 'ThemeFact', 'GameWatchFact', 'ChatFact', 'UserFact', function($location, $state, $stateParams, $scope, ThemeFact, GameWatchFact, ChatFact, UserFact) {
   $scope.gameId = $stateParams.gameId;
 
   GameWatchFact.reset();
@@ -22,17 +22,20 @@ angular.module('duel.game.watchCtrl', [])
 
 
   $scope.playerCode = GameWatchFact.playerCode;
+  //attaches theme data to scope so we can watch it for changes
+  $scope.themeData = ThemeFact.data;
   //ACE editor configuration
-  //Changes ACE theme when $rootScope.theme changes
+  //Changes ACE theme when set theme Changes
+  //using getTheme() ensures theme is pulled from local storage if a player returns to this page
   $scope.aceOption = {
     useWrapMode: true,
     mode: 'javascript',
-    theme: $rootScope.theme,
+    theme: ThemeFact.getTheme().aceThemeName,
     document: 'javascript',
     onLoad: function (_editor) {
-      $scope.$watch('$root.theme', function(newVal, oldVal){
-        console.log('editor '+ _editor);
-        _editor.setTheme('ace/theme/'+newVal);
+      $scope.$watch('themeData.theme', function(){
+        console.log(ThemeFact.getTheme());
+        _editor.setTheme('ace/theme/' + ThemeFact.getTheme().aceThemeName);
       }, true);
     }
   };

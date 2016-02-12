@@ -3,14 +3,11 @@
     <div id="duelLogo"></div>
   </div>
   <div class="btn-group floatRight padCol" uib-dropdown is-open="status.isopen">
-    <button id="single-button" class="btn btn-sm" uib-dropdown-toggle>Themes<span class="caret"></span></button>
+    <button id="single-button" class="btn btn-lg" uib-dropdown-toggle>Themes<span class="caret"></span></button>
     <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
-      <li ng-click = "changeTheme('cobalt')">Default</li>
-      <li ng-click = "changeTheme('monokai')">Dark</li>
-      <li ng-click = "changeTheme('xcode')"> Light</li>
-      <!--<li ng-click = "changeTheme('solarized_dark')"> solarized dark</li>-->
-      <!-- <li ng-click = "changeTheme('terminal')"> terminal</li> -->
-      <!--<li ng-click = "changeTheme('katzenmilch')"> katzenmilch</li>-->
+      <li ng-click = "changeTheme('default')">Default</li>
+      <li ng-click = "changeTheme('dark')">Dark</li>
+      <li ng-click = "changeTheme('light')"> Light</li>
     </ul>
   </div>
 </div>

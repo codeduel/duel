@@ -1,19 +1,18 @@
 @charset "UTF-8";
 /*!<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>*/
-/*!  Code Duel - Main Stylesheet                   */
+/*!  Code Duel - Stylesheet                        */
 /*!  Copyright © 2016:                             */
 /*!    Song Gao, Chris Clark,                      */
 /*!    Becky Jaimes, Adam Dobkin                   */
 /*!<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>*/
 /**********************************************************************/
-/*VARIABLES                                                           */
+/*THEME VARIABLES                                                     */
 /**********************************************************************/
-/*Color Vars*/
-/**************************************************/
-/*Layout Vars*/
-/**************************************************/
 /**********************************************************************/
-/*ELEMENTS                                                            */
+/*STANDARD VARIABLES                                                  */
+/**********************************************************************/
+/**********************************************************************/
+/*ELEMENT STYLES                                                      */
 /**********************************************************************/
 /*Basic Layout*/
 /**************************************************/
@@ -24,9 +23,14 @@ body {
 
 body {
   min-height: 100%;
+  background-color: #002240;
+  color: #FFF;
+  font-family: "Roboto", sans-serif; }
+
+#pageContent {
   background-color: #ecf7f9;
   color: #002240;
-  font-family: "Roboto", sans-serif; }
+  min-height: 37.5rem; }
 
 .floatLeft {
   float: left; }
@@ -59,6 +63,7 @@ body {
   padding: 1rem; }
 
 .innerCol {
+  background-color: white;
   padding: 2rem;
   height: 100%;
   width: 100%;
@@ -110,9 +115,6 @@ h1, h2, h3, h4, h5 {
 /**************************************************/
 /*Content & Columns Layout*/
 /**************************************************/
-.innerCol {
-  background-color: white; }
-
 /*Chat Specific*/
 #chatWrap {
   border-radius: 0.5rem;
@@ -266,7 +268,8 @@ textarea {
   border-radius: 0.25rem;
   margin-bottom: 1rem;
   box-sizing: border-box;
-  width: 100%; }
+  width: 100%;
+  color: #002240; }
 
 input[type="submit"],
 input[type="file"],

@@ -1,0 +1,42 @@
+@import '_styleHeader.scss';
+
+/**********************************************************************/
+/*THEME VARIABLES                                                     */
+/**********************************************************************/
+$headlineFontStack: 'Roboto', sans-serif;
+$fontStack: 'Roboto', sans-serif;
+
+$headlineColor: #FFF;
+
+$textOnAccent: #FFF;
+$textOnAccentHover: #FFF;
+
+$textOnPrimary: #FFF;
+$textOnPrimaryHover: #FFF;
+
+$textOnSecondary: #002240;
+$textOnSecondaryHover: #002240;
+
+$textOnInputBox: #002240;
+
+$accentColor: #66D9EF;
+$accentColorLight: desaturate(lighten($accentColor, 15%), 15%);
+$accentColorDark: saturate(darken($accentColor, 15%), 15%);
+$accentColorHover: $accentColorDark;
+
+$primaryColor: #002240;
+$primaryColorLight: desaturate(lighten($primaryColor, 15%), 15%);
+$primaryColorDark: saturate(darken($primaryColor, 15%), 15%);
+$primaryColorHover: $primaryColorDark;
+
+$secondaryColor: #ecf7f9;
+$secondaryColorLight: desaturate(lighten($secondaryColor, 15%), 15%);
+$secondaryColorDark: saturate(darken($secondaryColor, 15%), 15%);
+$secondaryColorHover: $secondaryColorDark;
+
+$altActionColor: #F04848;
+$altActionColorLight: desaturate(lighten($altActionColor, 15%), 15%);
+$altActionColorDark: saturate(darken($altActionColor, 15%), 15%);
+$altActionColorHover: $altActionColorDark;
+
+@import '_baseStyles.scss';

@@ -1,0 +1,47 @@
+@import '_styleHeader.scss';
+
+/**********************************************************************/
+/*THEME VARIABLES                                                     */
+/**********************************************************************/
+$headlineFontStack: 'Roboto', sans-serif;
+$fontStack: 'Roboto', sans-serif;
+
+$headlineColor: #CCC;
+
+$textOnAccent: #FFF;
+$textOnAccentHover: #FFF;
+
+$textOnPrimary: #CCC;
+$textOnPrimaryHover: #CCC;
+
+$textOnSecondary: #CCC;
+$textOnSecondaryHover: #CCC;
+
+$textOnInputBox: #333;
+
+$accentColor: #1a92aa;
+$accentColorLight: desaturate(lighten($accentColor, 15%), 15%);
+$accentColorDark: saturate(darken($accentColor, 15%), 15%);
+$accentColorHover: $accentColorDark;
+
+$primaryColor: #272822;
+$primaryColorLight: desaturate(lighten($primaryColor, 15%), 15%);
+$primaryColorDark: saturate(darken($primaryColor, 15%), 15%);
+$primaryColorHover: $primaryColorDark;
+
+$secondaryColor: #13140c;
+$secondaryColorLight: desaturate(lighten($secondaryColor, 15%), 15%);
+$secondaryColorDark: saturate(darken($secondaryColor, 15%), 15%);
+$secondaryColorHover: $secondaryColorDark;
+
+$altActionColor: #F04848;
+$altActionColorLight: desaturate(lighten($altActionColor, 15%), 15%);
+$altActionColorDark: saturate(darken($altActionColor, 15%), 15%);
+$altActionColorHover: $altActionColorDark;
+
+@import '_baseStyles.scss';
+
+
+#duelLogo {
+  background-image: url('/assets/images/code-duel-logo-dark-theme.png');
+}

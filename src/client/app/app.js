@@ -12,9 +12,7 @@ require('../../../bower_components/ace-builds/src-min-noconflict/mode-javascript
 require('../../../bower_components/ace-builds/src-min-noconflict/theme-cobalt.js');
 require('../../../bower_components/ace-builds/src-min-noconflict/theme-monokai.js');
 require('../../../bower_components/ace-builds/src-min-noconflict/theme-xcode.js');
-require('../../../bower_components/ace-builds/src-min-noconflict/theme-solarized_dark.js');
-require('../../../bower_components/ace-builds/src-min-noconflict/theme-terminal.js');
-require('../../../bower_components/ace-builds/src-min-noconflict/theme-katzenmilch.js');
+require('../../../bower_components/angular-css-injector/angular-css-injector.js'); //Injects stylesheets to add themes
 require('../../../bower_components/angular-ui-ace/ui-ace.js');
 require('../../../bower_components/angular-scroll-glue/src/scrollglue.js');
 require('../../../bower_components/jquery/dist/jquery.js');
@@ -26,6 +24,7 @@ require('./game/watch/gameWatchFact.js');
 require('./lobby/lobbyFact.js');
 require('./util/errorFact.js');
 require('./util/socketFact.js');
+require('./util/themeFact.js');
 require('./util/userFact.js');
 
 //Controllers
@@ -40,7 +39,6 @@ require('./lobby/lobbyCtrl.js');
 require('./login/loginCtrl.js');
 require('./showError/showErrorCtrl.js');
 require('./wrap/navBar/navBarCtrl.js');
-require('./wrap/navBar/cssInjector.js');
 
 angular.module('duel', [
   //Third-party
@@ -61,8 +59,6 @@ angular.module('duel', [
   'duel.showErrorCtrl', //Controller for 'showError' state
   'duel.wrap.navBarCtrl', //Controller for 'navBar' state
 
-  'angular.css.injector', //Injects stylesheets to add themes
-
   //Factories
   'duel.chatFact', //Factory for joining/leaving/messaging chat rooms
   'duel.errorFact', //Factory for handling errors
@@ -70,6 +66,7 @@ angular.module('duel', [
   'duel.game.playFact', //Factory for gameplay
   'duel.lobbyFact', //Factory for creating/joining a game session
   'duel.socketFact', //Factory for creating socket connections
+  'duel.themeFact', //Factory for creating socket connections
   'duel.userFact' //Factory for storing user session data
 ])
 
@@ -115,8 +112,8 @@ angular.module('duel', [
 
 //temporary controller until I can refactor ErrorFact as a provider
 //Not temporary any more!  This sets the $rootScope theme for css styles and Ace editor
-.controller('appController', ['ErrorFact', '$rootScope', function(ErrorFact, $rootScope) {
-  $rootScope.theme = 'cobalt';
+.controller('appController', ['ErrorFact', 'ThemeFact', function(ErrorFact, ThemeFact) {
+  ThemeFact.init();
 }])
 
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
