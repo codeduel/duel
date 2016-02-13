@@ -15,6 +15,10 @@ angular.module('duel.themeFact', ['angular.css.injector'])
   themeFact.setTheme = function(themeName){
     //save the last theme to remove later
     var lastTheme = themeFact.data.theme;
+    //don't change theme if it's the same
+    if(themeName === lastTheme){
+      return;
+    }
     //make sure the new themeName exists and then set it
     if(themeName in themeObjects){
       themeFact.data.theme = themeName;
@@ -27,8 +31,6 @@ angular.module('duel.themeFact', ['angular.css.injector'])
       if(lastTheme && lastTheme !== 'default' && lastTheme in themeObjects){
         cssInjector.remove('assets/css/' + themeObjects[lastTheme].cssThemeName);
       }
-    } else {
-      setTheme('default');
     }
   };
 
