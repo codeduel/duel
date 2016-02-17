@@ -9,8 +9,8 @@ require('../../../bower_components/angular-ui-router/release/angular-ui-router.j
 require('../../../bower_components/angular-bootstrap/ui-bootstrap.min.js');
 require('../../../bower_components/ace-builds/src-min-noconflict/ace.js');
 require('../../../bower_components/ace-builds/src-min-noconflict/mode-javascript.js');
-require('../../../bower_components/ace-builds/src-min-noconflict/theme-cobalt.js');
-require('../../../bower_components/ace-builds/src-min-noconflict/theme-monokai.js');
+require('../../../bower_components/ace-builds/src-min-noconflict/theme-tomorrow_night.js');
+require('../../../bower_components/ace-builds/src-min-noconflict/theme-clouds_midnight.js');
 require('../../../bower_components/ace-builds/src-min-noconflict/theme-xcode.js');
 require('../../../bower_components/angular-css-injector/angular-css-injector.js'); //Injects stylesheets to add themes
 require('../../../bower_components/angular-ui-ace/ui-ace.js');
@@ -117,7 +117,7 @@ angular.module('duel', [
 }])
 
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/login');
+  $urlRouterProvider.otherwise('/');
 
   $stateProvider
     .state('wrap', {
@@ -129,6 +129,15 @@ angular.module('duel', [
         },
         'duelFooter@': {
           templateUrl: 'app/wrap/footer/footer.html'
+        }
+      }
+    })
+
+    .state('wrap.home', {
+      url: '/',
+      views: {
+        'duelContent@': {
+          templateUrl: 'app/staticPages/home.html',
         }
       }
     })

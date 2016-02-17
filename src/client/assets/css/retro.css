@@ -23,31 +23,31 @@ body {
 
 body {
   min-height: 100%;
-  background-color: #272822;
-  color: #CCC;
-  font-family: "Roboto", sans-serif; }
+  background-color: #CCC9C4;
+  color: #191919;
+  font-family: "Press Start 2P", sans-serif; }
 
 #navBarWrap,
 #footerWrap {
-  background-color: #272822;
-  color: #CCC; }
+  background-color: #CCC9C4;
+  color: #191919; }
   #navBarWrap h1, #navBarWrap h2, #navBarWrap h3, #navBarWrap h4, #navBarWrap h5,
   #footerWrap h1,
   #footerWrap h2,
   #footerWrap h3,
   #footerWrap h4,
   #footerWrap h5 {
-    color: #CCC; }
+    color: #CC2414; }
 
 a {
-  color: #1a92aa; }
+  color: #CC2414; }
 
 a:hover {
-  color: #075f71; }
+  color: #dd5c50; }
 
 #pageContent {
-  background-color: #13140c;
-  color: #CCC;
+  background-color: #737373;
+  color: #272822;
   min-height: 37.5rem; }
 
 .floatLeft {
@@ -81,11 +81,11 @@ a:hover {
   padding: 1rem; }
 
 .innerCol {
-  background-color: #3a3c31;
+  background-color: #a6a6a6;
   padding: 2rem;
   height: 100%;
   width: 100%;
-  border-radius: 0.5rem; }
+  border-radius: 0; }
 
 /*duelWrapper allows easy class overrides*/
 #duelWrapper .noPadding {
@@ -97,10 +97,14 @@ a:hover {
 #duelWrapper .noBottomMargin {
   margin-bottom: 0; }
 
+.padCol > :last-child,
+.innerCol > :last-child {
+  margin-bottom: 0; }
+
 /*Basic Typography*/
 /**************************************************/
 h1, h2, h3, h4, h5 {
-  color: #CCC;
+  color: #CC2414;
   font-weight: 700;
   margin-bottom: 1rem; }
 
@@ -118,12 +122,36 @@ h1, h2, h3, h4, h5 {
 #navBar {
   padding-top: 0;
   padding-bottom: 0; }
+  #navBar .dropdown-menu {
+    height: auto;
+    width: auto; }
+  #navBar .dropdown-menu li {
+    padding: 0.5rem 2rem;
+    display: block;
+    width: 100%; }
 
 #duelLogo {
-  height: 5em;
-  width: 18.75em;
-  background-image: url("/assets/images/code-duel-logo.png");
+  height: 5rem;
+  width: 18.75rem;
+  background-image: url("/assets/images/code-duel-logo-dark.png");
   background-size: 100% 100%; }
+
+#navContent {
+  margin-top: 1rem; }
+  #navContent ul {
+    float: right;
+    list-style: none;
+    margin: 0; }
+  #navContent li {
+    float: left; }
+    #navContent li a {
+      padding: 1rem 2rem;
+      color: #CC2414;
+      font-weight: bold;
+      text-decoration: none; }
+    #navContent li a:hover {
+      color: #dd5c50;
+      text-decoration: none; }
 
 /*Header Layout*/
 /**************************************************/
@@ -131,12 +159,12 @@ h1, h2, h3, h4, h5 {
 /**************************************************/
 /*Chat Specific*/
 #chatWrap {
-  border-radius: 0.5rem;
+  border-radius: 0;
   overflow: hidden; }
 
 #chatUsersInnerCol {
-  background-color: #272822;
-  color: #CCC;
+  background-color: #CCC9C4;
+  color: #191919;
   overflow-y: auto; }
 
 #chatWindowInnerCol {
@@ -166,22 +194,21 @@ h1, h2, h3, h4, h5 {
   /*600px*/ }
 
 #activeGamesHeader {
-  height: 100px;
-  border-bottom: 2px solid #272822;
-  margin-bottom: 15px; }
+  height: auto;
+  margin-bottom: 2rem; }
 
 #activeGamesList {
-  height: 31rem;
+  height: auto;
   overflow: auto; }
 
 .gameInfoItem {
-  background-color: #1a92aa;
+  background-color: #CC2414;
   color: #FFF;
   margin-bottom: 1rem;
   padding: 1rem; }
 
 .gameInfoItem:hover {
-  background-color: #075f71;
+  background-color: #dd5c50;
   cursor: pointer; }
 
 /*Game Specific*/
@@ -192,15 +219,15 @@ h1, h2, h3, h4, h5 {
 
 #challengePrompt,
 #challengeOutput {
-  background-color: #272822;
-  color: #CCC;
+  background-color: #CCC9C4;
+  color: #191919;
   height: 25rem;
   /*400px*/
   overflow-y: auto; }
 
 #playerEditorWrap {
-  background-color: #272822;
-  color: #CCC;
+  background-color: #CCC9C4;
+  color: #191919;
   height: 25rem;
   /*400px*/
   overflow: hidden; }
@@ -245,11 +272,11 @@ pre {
 /**************************************************/
 .btn,
 input[type="submit"] {
-  background-color: #1a92aa;
+  background-color: #CC2414;
   color: #FFF;
   margin-bottom: 1rem;
   margin-right: 0.5rem;
-  border-radius: 0.25rem;
+  border-radius: 0;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -259,17 +286,17 @@ input[type="submit"] {
 
 .btn:hover,
 input[type="submit"]:hover {
-  background-color: #075f71;
+  background-color: #dd5c50;
   color: #FFF; }
 
 .btn i {
   margin-right: 0.5rem; }
 
 .btn.altAction {
-  background-color: #F04848; }
+  background-color: #222; }
 
 .btn.altAction:hover {
-  background-color: #eb0000; }
+  background-color: #484848; }
 
 .btnWide {
   width: 100%;
@@ -280,11 +307,11 @@ input,
 select,
 textarea {
   padding: 0.5rem;
-  border-radius: 0.25rem;
+  border-radius: 0;
   margin-bottom: 1rem;
   box-sizing: border-box;
   width: 100%;
-  color: #333; }
+  color: #191919; }
 
 input[type="submit"],
 input[type="file"],
@@ -302,5 +329,44 @@ input[type="checkbox"] {
 /*Footer Layout*/
 /**************************************************/
 /* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  /**********************************************************************/
+  /*VARIABLES                                                           */
+  /**********************************************************************/
+  /*Color Vars*/
+  /**************************************************/
+  /*Layout Vars*/
+  /**************************************************/
+  /**********************************************************************/
+  /*ELEMENTS                                                            */
+  /**********************************************************************/
+  /*Basic Typography*/
+  /**************************************************/
+  /*Basic Layout*/
+  /**************************************************/
+  /*Primary Navigation*/
+  /**************************************************/
+  /*Header Layout*/
+  /**************************************************/
+  /*Content & Columns Layout*/
+  /**************************************************/
+  #gameIdNumber {
+    text-align: center; }
+  #currentCounter {
+    text-align: right; }
+  /*Buttons and Forms*/
+  /**************************************************/
+  /*Footer Layout*/
+  /**************************************************/ }
+
+#navBar {
+  border-bottom: 1rem solid #222; }
+
+#pageFooter {
+  border-top: 4rem solid #222; }
+
 #duelLogo {
-  background-image: url("/assets/images/code-duel-logo-dark-theme.png"); }
+  background-image: url("/assets/images/code-duel-logo-retro.png"); }
+
+.innerCol {
+  background-color: #a6a6a6; }

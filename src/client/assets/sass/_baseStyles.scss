@@ -1,16 +1,4 @@
 /**********************************************************************/
-/*STANDARD VARIABLES                                                  */
-/**********************************************************************/
-$spacing: 2rem;
-$halfSpacing: $spacing / 2;
-$quarterSpacing: $spacing / 4;
-
-$doubleSpacing: $spacing * 2;
-
-$borderRadius: .5rem;
-$halfBorderRadius: $borderRadius / 2;
-
-/**********************************************************************/
 /*ELEMENT STYLES                                                      */
 /**********************************************************************/
 /*Basic Layout*/
@@ -114,6 +102,9 @@ a:hover {
   margin-bottom:0;
 }
 
+.padCol > :last-child,
+.innerCol > :last-child {margin-bottom:0;}
+
 /*Basic Typography*/
 /**************************************************/
 h1,h2,h3,h4,h5 {
@@ -140,14 +131,54 @@ h1,h2,h3,h4,h5 {
 #navBar {
   padding-top:0;
   padding-bottom:0;
+
+  .dropdown-menu {
+    height:auto;
+    width: auto;
+  }
+
+  .dropdown-menu li{
+    padding:$quarterSpacing $spacing;
+    display:block;
+    width:100%;
+  }
+
 }
 
 #duelLogo {
-  height:5em;
-  width:18.75em;
-  background-image: url('/assets/images/code-duel-logo.png');
+  height:5rem;
+  width:18.75rem;
+  background-image: url('/assets/images/code-duel-logo-dark.png');
   background-size:100% 100%;
 }
+
+#navContent {
+  margin-top: $halfSpacing;
+
+  ul {
+    float:right;
+    list-style:none;
+    margin:0;
+  }
+
+  li {
+    float:left;
+
+    a {
+      padding: $halfSpacing $spacing;
+      color:$accentColor;
+      font-weight:bold;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color:$accentColorHover;
+      text-decoration: none;
+    }
+  }
+}
+
+
 
 /*Header Layout*/
 /**************************************************/
@@ -197,13 +228,12 @@ h1,h2,h3,h4,h5 {
 }
 
 #activeGamesHeader {
-  height: 100px;
-  border-bottom: 2px solid $primaryColor;
-  margin-bottom: 15px;
+  height: auto;
+  margin-bottom: $spacing;
 }
 
 #activeGamesList {
-  height: 31rem;
+  height: auto;
   overflow: auto;
 }
 
@@ -382,6 +412,10 @@ input[type="checkbox"]{
 
   /*Content & Columns Layout*/
   /**************************************************/
+  #gameIdNumber {text-align: center;}
+
+  #currentCounter {text-align:right;}
+
 
   /*Buttons and Forms*/
   /**************************************************/

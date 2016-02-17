@@ -3,46 +3,59 @@
 /**********************************************************************/
 /*THEME VARIABLES                                                     */
 /**********************************************************************/
-$headlineFontStack: 'Roboto', sans-serif;
-$fontStack: 'Roboto', sans-serif;
+$headlineFontStack:  'Press Start 2P', sans-serif;
+$fontStack:  'Press Start 2P', sans-serif;
 
-$headlineOnPrimary: #CCC;
-$headlineOnSecondary: #CCC;
+$headlineOnPrimary: #CC2414;
+$headlineOnSecondary: #CC2414;
 
 $textOnAccent: #FFF;
 $textOnAccentHover: #FFF;
 
-$textOnPrimary: #CCC;
-$textOnPrimaryHover: #CCC;
+$textOnPrimary: #191919;
+$textOnPrimaryHover: #191919;
 
-$textOnSecondary: #CCC;
-$textOnSecondaryHover: #CCC;
+$textOnSecondary: #272822;
+$textOnSecondaryHover: #272822;
 
-$textOnInputBox: #333;
+$textOnInputBox: #191919;
 
-$accentColor: #1a92aa;
+$accentColor: #CC2414;
 $accentColorLight: desaturate(lighten($accentColor, 15%), 15%);
 $accentColorDark: saturate(darken($accentColor, 15%), 15%);
-$accentColorHover: $accentColorDark;
+$accentColorHover: $accentColorLight;
 
-$primaryColor: #272822;
+$primaryColor: #CCC9C4;
 $primaryColorLight: desaturate(lighten($primaryColor, 15%), 15%);
 $primaryColorDark: saturate(darken($primaryColor, 15%), 15%);
 $primaryColorHover: $primaryColorDark;
 
-$secondaryColor: #13140c;
-$secondaryColorLight: desaturate(lighten($secondaryColor, 15%), 15%);
+$secondaryColor: #737373;
+$secondaryColorLight: desaturate(lighten($secondaryColor, 20%), 5%);
 $secondaryColorDark: saturate(darken($secondaryColor, 15%), 15%);
 $secondaryColorHover: $secondaryColorDark;
 
-$altActionColor: #F04848;
+$altActionColor: #222;
 $altActionColorLight: desaturate(lighten($altActionColor, 15%), 15%);
 $altActionColorDark: saturate(darken($altActionColor, 15%), 15%);
-$altActionColorHover: $altActionColorDark;
+$altActionColorHover: $altActionColorLight;
+
+
+@import '_standardVars.scss';
+
+$borderRadius: 0;
+$halfBorderRadius: $borderRadius / 2;
 
 @import '_baseStyles.scss';
 
+#navBar {border-bottom: $halfSpacing solid #222;}
+
+#pageFooter {border-top: 4rem solid #222;}
 
 #duelLogo {
-  background-image: url('/assets/images/code-duel-logo-dark-theme.png');
+  background-image: url('/assets/images/code-duel-logo-retro.png');
+}
+
+.innerCol {
+    background-color: $secondaryColorLight;
 }

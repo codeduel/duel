@@ -3,35 +3,35 @@
 /**********************************************************************/
 /*THEME VARIABLES                                                     */
 /**********************************************************************/
-$headlineFontStack: 'Roboto', sans-serif;
-$fontStack: 'Roboto', sans-serif;
+$headlineFontStack: 'Open Sans', sans-serif;
+$fontStack: 'Open Sans', sans-serif;
 
-$headlineOnPrimary: #FFF;
-$headlineOnSecondary: #002240;
+$headlineOnPrimary: #EEE;
+$headlineOnSecondary: #EEE;
 
 $textOnAccent: #FFF;
 $textOnAccentHover: #FFF;
 
-$textOnPrimary: #FFF;
-$textOnPrimaryHover: #FFF;
+$textOnPrimary: #EEE;
+$textOnPrimaryHover: #EEE;
 
-$textOnSecondary: #002240;
-$textOnSecondaryHover: #002240;
+$textOnSecondary: #EEE;
+$textOnSecondaryHover: #EEE;
 
-$textOnInputBox: #002240;
+$textOnInputBox: #333;
 
-$accentColor: #66D9EF;
+$accentColor: #1AAECC;
 $accentColorLight: desaturate(lighten($accentColor, 15%), 15%);
 $accentColorDark: saturate(darken($accentColor, 15%), 15%);
 $accentColorHover: $accentColorDark;
 
-$primaryColor: #002240;
+$primaryColor: #25282C;
 $primaryColorLight: desaturate(lighten($primaryColor, 15%), 15%);
 $primaryColorDark: saturate(darken($primaryColor, 15%), 15%);
 $primaryColorHover: $primaryColorDark;
 
-$secondaryColor: #ecf7f9;
-$secondaryColorLight: desaturate(lighten($secondaryColor, 15%), 15%);
+$secondaryColor: #565D66;
+$secondaryColorLight: lighten($secondaryColor, 10%);
 $secondaryColorDark: saturate(darken($secondaryColor, 15%), 15%);
 $secondaryColorHover: $secondaryColorDark;
 
@@ -39,5 +39,7 @@ $altActionColor: #F04848;
 $altActionColorLight: desaturate(lighten($altActionColor, 15%), 15%);
 $altActionColorDark: saturate(darken($altActionColor, 15%), 15%);
 $altActionColorHover: $altActionColorDark;
+
+@import '_standardVars.scss';
 
 @import '_baseStyles.scss';

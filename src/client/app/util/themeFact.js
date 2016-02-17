@@ -6,9 +6,9 @@ angular.module('duel.themeFact', ['angular.css.injector'])
   themeFact.data.theme = undefined;
 
   var themeObjects = {
-    default: {aceThemeName: 'cobalt', cssThemeName: 'duel.css'},
+    default: {aceThemeName: 'tomorrow_night', cssThemeName: 'duel.css'},
     light: {aceThemeName: 'xcode', cssThemeName: 'light.css'},
-    dark: {aceThemeName: 'monokai', cssThemeName: 'dark.css'}
+    retro: {aceThemeName: 'clouds_midnight', cssThemeName: 'retro.css'}
   };
 
   //set the theme
