@@ -24,10 +24,6 @@ angular.module('duel.lobbyCtrl', [])
     $state.go('wrap.game', {
       gameId: $scope.data.gameId
     });
-    analytics.track('Joined Game', {
-      userName: $scope.userName,
-      gameId: $scope.data.gameId
-    });
   };
 
   $scope.create = function() {
@@ -46,11 +42,6 @@ angular.module('duel.lobbyCtrl', [])
         }
       });
   };
-
-  analytics.page('Lobby', {
-    title: 'Lobby',
-    path: '/lobby'
-  });
 
   $scope.toggleView = function(view) {
     $scope.currentView = view;

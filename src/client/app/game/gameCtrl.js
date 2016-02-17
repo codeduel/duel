@@ -31,10 +31,6 @@ angular.module('duel.gameCtrl', [])
         $state.go('wrap.game.play', {
           gameId: $scope.gameId
         });
-        analytics.track('Joined to Play', {
-          userName: $scope.currentUser,
-          gameId: $scope.gameId
-        });
       }
     });
   };
@@ -43,10 +39,13 @@ angular.module('duel.gameCtrl', [])
     $state.go('wrap.game.watch', {
       gameId: $scope.gameId
     });
+
+    //leaving this on the client (for now) as anonymous users can be spectators
     analytics.track('Joined to Watch', {
       userName: $scope.currentUser,
       gameId: $scope.gameId
     });
+
   };
 
 }]);

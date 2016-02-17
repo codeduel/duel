@@ -107,6 +107,8 @@ angular.module('duel.game.playCtrl', [])
       gameId: $scope.gameId,
       solution: $scope.data.solution
     });
+
+    //leaving this client side until we have the counter on the server
     analytics.track('Submitted Solution', {
       userName: $scope.userName,
       gameId: $scope.gameId,
@@ -118,10 +120,6 @@ angular.module('duel.game.playCtrl', [])
     $state.go('wrap.lobby');
   };
 
-  analytics.track('Entered Game', {
-    userName: $scope.userName,
-    gameId: $scope.gameId
-  });
 
   $scope.spectate = function() {
     $state.go('wrap.game.watch', {

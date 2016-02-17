@@ -5,11 +5,11 @@ angular.module('duel.loginCtrl', [])
     //TODO: change this for auth
     UserFact.setUserName($scope.userName);
 
-    //TODO update with database userId when available
-    analytics.identify({
-      name: $scope.userName,
-      method: 'Typed Username'
-    });
+    //Signing in with email is disabled for now.  
+    // analytics.identify({
+    //   name: $scope.userName,
+    //   method: 'Typed Username'
+    // });
 
     $state.go('wrap.lobby');
   };

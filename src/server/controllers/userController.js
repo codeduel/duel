@@ -1,5 +1,7 @@
 var User = require('../models/userModel.js').User;
-
+//Imports the Analytics library to pipe server side analytics
+var Analytics = require('analytics-node');
+var analytics = new Analytics('59YB1CrcYkdrsCsPWtFbpxPjeEe3SCJX', { flushAt: 1 });
 
 exports.userExists = function (login) {
   return User.findOne({ 'gitHubAuth.login':  login });
@@ -58,6 +60,18 @@ exports.createUser = function(req, res) {
           res.status(500).send(err);
         }
         res.redirect('/#/auth/' + newUser._id +'/'+ newUser.userName);
+        
+        analytics.track({
+          userId: newUser.userName,
+          event: 'Registered New User - server',
+          properties: {
+            name: newUser.gitHubAuth.name,
+            avatar_url: newUser.gitHubAuth.avatar_url,
+            login: newUser.gitHubAuth.login,
+            email: newUser.gitHubAuth.email,
+            location: newUser.gitHubAuth.location
+          }
+        });
       });
     } else {
       res.redirect('/#/auth/' + user._id +'/' + user.userName);
