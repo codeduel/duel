@@ -1,16 +1,4 @@
 /**********************************************************************/
-/*STANDARD VARIABLES                                                  */
-/**********************************************************************/
-$spacing: 2rem;
-$halfSpacing: $spacing / 2;
-$quarterSpacing: $spacing / 4;
-
-$doubleSpacing: $spacing * 2;
-
-$borderRadius: .5rem;
-$halfBorderRadius: $borderRadius / 2;
-
-/**********************************************************************/
 /*ELEMENT STYLES                                                      */
 /**********************************************************************/
 /*Basic Layout*/
@@ -145,8 +133,19 @@ h1,h2,h3,h4,h5 {
 #duelLogo {
   height:5em;
   width:18.75em;
-  background-image: url('/assets/images/code-duel-logo.png');
+  background-image: url('/assets/images/code-duel-logo-dark.png');
   background-size:100% 100%;
+}
+
+#navBar .dropdown-menu {
+  height:auto;
+  width: auto;
+}
+
+#navBar .dropdown-menu li{
+  padding:$quarterSpacing $spacing;
+  display:block;
+  width:100%;
 }
 
 /*Header Layout*/
