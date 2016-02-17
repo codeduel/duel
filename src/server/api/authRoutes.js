@@ -3,6 +3,9 @@ var router = express.Router();
 var passport = require('passport');
 var GithubStrategy = require('passport-github2').Strategy;
 var userController = require('../controllers/userController.js');
+//Imports the Analytics library to pipe server side analytics
+var Analytics = require('analytics-node');
+var analytics = new Analytics('59YB1CrcYkdrsCsPWtFbpxPjeEe3SCJX', { flushAt: 1 });
 
 router.get('/github',
   passport.authenticate('github', {
@@ -28,6 +31,20 @@ router.get('/github/callback',
         }
         //user doesnt exist, create one
         else userController.createUser({body:req.user, fromGitHub:true}, res);
+      });
+
+      //analytics identify
+      analytics.identify({
+        userId: req.user.username,
+        traits: {
+          name: req.user.displayName,
+          email: req.user['_json']['email'],
+          location: req.user['_json']['location'],
+          githubFollowers: req.user['_json']['followers'],
+          githubFollowing: req.user['_json']['following'],
+          githubAcctCreated: req.user['_json']['created_at'],
+          githubAcctUpdated: req.user['_json']['updated_at']
+        }
       });
   });
 

@@ -80,10 +80,13 @@ angular.module('duel.chatFact', [])
         userId: userId
       });
       SocketFact.socket.emit('chat/message', msg);
+
       analytics.track('Sent Chat', {
-        userName: UserFact.getUser().userName,
-        channel: chatFact.currRoom
+        userName: msg.data.userId,
+        channel: msg.data.room,
+        text: msg.data.text
       });
+    
     } else {
       chatFact.messages.push({
         userId: 'SYSTEM',

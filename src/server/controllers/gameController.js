@@ -12,11 +12,9 @@ var Game = require('../models/gameModel.js').Game;
 var clientConnections = require('../models/clientConnectionsModel.js');
 //Imports model helper functions
 var modelHelpers = require('../models/modelHelpers.js');
-//Imports the Analytics library to make pipe server side analytics
+//Imports the Analytics library to pipe server side analytics
 var Analytics = require('analytics-node');
-var analytics = new Analytics('59YB1CrcYkdrsCsPWtFbpxPjeEe3SCJX', {
-  flushAt: 1
-});
+var analytics = new Analytics('59YB1CrcYkdrsCsPWtFbpxPjeEe3SCJX', { flushAt: 1 });
 
 
 
@@ -66,6 +64,7 @@ var setWinner = function(gameId) {
     if (foundGame) {
       foundGame.winner = true;
       foundGame.save();
+      console.log('found winner', foundGame);
     }
   });
 };
@@ -169,7 +168,7 @@ resolveSolutionAttempt();
 
 //Generates a Game in database
 exports.createGame = function(req, res) {
-  console.log(req.body);
+  // console.log('created game', req.body);
   if (!req.body.userName) {
     res.send({
       err: 'user'
@@ -198,6 +197,7 @@ exports.createGame = function(req, res) {
         res.send({
           gameId: createdGame.gameId
         });
+
         analytics.track({
           userId: req.body.userName,
           event: 'Created Game - Server',

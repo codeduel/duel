@@ -27,6 +27,5 @@
       };
       analytics.SNIPPET_VERSION = '3.1.0';
       analytics.load('59YB1CrcYkdrsCsPWtFbpxPjeEe3SCJX');
-      analytics.page();
     }
 })();
