@@ -2,13 +2,23 @@
   <div class="padCol floatLeft">
     <div id="duelLogo"></div>
   </div>
-  <div class="btn-group floatRight padCol" uib-dropdown is-open="status.isopen">
-    <button id="single-button" class="btn" uib-dropdown-toggle><i class="fa fa-cog"></i></button>
-    <div class="dropdown-menu innerCol" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-      <h5>Theme</h5>
-      <button class="btn btnWide" role="menuitem" ng-click="changeTheme('default')">Dark</button>
-      <button class="btn btnWide" role="menuitem" ng-click="changeTheme('light')">Light</button>
-      <button class="btn btnWide noBottomMargin" role="menuitem" ng-click="changeTheme('retro')">Retro</button>
+  <nav id="navContent" class="padCol floatRight clearfix">
+
+    <div class="btn-group floatRight" uib-dropdown is-open="status.isopen">
+      <button id="single-button" class="btn noBottomMargin" uib-dropdown-toggle><i class="fa fa-cog"></i></button>
+      <div class="dropdown-menu innerCol" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+        <h5>Theme</h5>
+        <button class="btn btnWide" role="menuitem" ng-click="changeTheme('default')">Dark</button>
+        <button class="btn btnWide" role="menuitem" ng-click="changeTheme('light')">Light</button>
+        <button class="btn btnWide noBottomMargin" role="menuitem" ng-click="changeTheme('retro')">Retro</button>
+      </div>
     </div>
-  </div>
+
+    <ul>
+      <li><a ui-sref="wrap.home">Home</a></li>
+      <li><a ui-sref="wrap.lobby">Lobby</a></li>
+      <li><a ui-sref="wrap.login">Login</a></li>
+    </ul>
+
+  </nav>
 </div>

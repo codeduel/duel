@@ -117,7 +117,7 @@ angular.module('duel', [
 }])
 
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/login');
+  $urlRouterProvider.otherwise('/');
 
   $stateProvider
     .state('wrap', {
@@ -129,6 +129,15 @@ angular.module('duel', [
         },
         'duelFooter@': {
           templateUrl: 'app/wrap/footer/footer.html'
+        }
+      }
+    })
+
+    .state('wrap.home', {
+      url: '/',
+      views: {
+        'duelContent@': {
+          templateUrl: 'app/staticPages/home.html',
         }
       }
     })

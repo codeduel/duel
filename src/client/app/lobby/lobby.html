@@ -27,12 +27,13 @@
       </form>
 
       <div id="activeGames" ng-if="currentView === 'games'">
-        <div id="activeGamesHeader">
-          <h2>Active Games</h2>
-          <button class="btn btn-large" ng-click="toggleView('create')">Create a Duel</button>
-          <button class="btn btn-large" ng-click="toggleView('join')">Join a Duel</button>
+        <div id="activeGamesHeader" class="innerCol">
+          <h3>Games Options</h3>
+          <button class="btn btn-large noBottomMargin" ng-click="toggleView('create')">Create a Duel</button>
+          <button class="btn btn-large noBottomMargin" ng-click="toggleView('join')">Join a Duel</button>
         </div>
-        <div id="activeGamesList">
+        <div id="activeGamesList" class="innerCol">
+          <h3>Active Games</h3>
           <div class="gameInfo" ng-repeat="(gameId, gameData) in data.activeGames" ng-click="jumpTo(gameId)">
             <div class="gameInfoItem innerCol">
               <strong>Game ID: {{gameId}}</strong><br>

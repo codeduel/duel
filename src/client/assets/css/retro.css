@@ -97,6 +97,10 @@ a:hover {
 #duelWrapper .noBottomMargin {
   margin-bottom: 0; }
 
+.padCol > :last-child,
+.innerCol > :last-child {
+  margin-bottom: 0; }
+
 /*Basic Typography*/
 /**************************************************/
 h1, h2, h3, h4, h5 {
@@ -118,21 +122,36 @@ h1, h2, h3, h4, h5 {
 #navBar {
   padding-top: 0;
   padding-bottom: 0; }
+  #navBar .dropdown-menu {
+    height: auto;
+    width: auto; }
+  #navBar .dropdown-menu li {
+    padding: 0.5rem 2rem;
+    display: block;
+    width: 100%; }
 
 #duelLogo {
-  height: 5em;
-  width: 18.75em;
+  height: 5rem;
+  width: 18.75rem;
   background-image: url("/assets/images/code-duel-logo-dark.png");
   background-size: 100% 100%; }
 
-#navBar .dropdown-menu {
-  height: auto;
-  width: auto; }
-
-#navBar .dropdown-menu li {
-  padding: 0.5rem 2rem;
-  display: block;
-  width: 100%; }
+#navContent {
+  margin-top: 1rem; }
+  #navContent ul {
+    float: right;
+    list-style: none;
+    margin: 0; }
+  #navContent li {
+    float: left; }
+    #navContent li a {
+      padding: 1rem 2rem;
+      color: #CC2414;
+      font-weight: bold;
+      text-decoration: none; }
+    #navContent li a:hover {
+      color: #dd5c50;
+      text-decoration: none; }
 
 /*Header Layout*/
 /**************************************************/
@@ -175,12 +194,11 @@ h1, h2, h3, h4, h5 {
   /*600px*/ }
 
 #activeGamesHeader {
-  height: 100px;
-  border-bottom: 2px solid #CCC9C4;
-  margin-bottom: 15px; }
+  height: auto;
+  margin-bottom: 2rem; }
 
 #activeGamesList {
-  height: 31rem;
+  height: auto;
   overflow: auto; }
 
 .gameInfoItem {
@@ -311,6 +329,36 @@ input[type="checkbox"] {
 /*Footer Layout*/
 /**************************************************/
 /* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  /**********************************************************************/
+  /*VARIABLES                                                           */
+  /**********************************************************************/
+  /*Color Vars*/
+  /**************************************************/
+  /*Layout Vars*/
+  /**************************************************/
+  /**********************************************************************/
+  /*ELEMENTS                                                            */
+  /**********************************************************************/
+  /*Basic Typography*/
+  /**************************************************/
+  /*Basic Layout*/
+  /**************************************************/
+  /*Primary Navigation*/
+  /**************************************************/
+  /*Header Layout*/
+  /**************************************************/
+  /*Content & Columns Layout*/
+  /**************************************************/
+  #gameIdNumber {
+    text-align: center; }
+  #currentCounter {
+    text-align: right; }
+  /*Buttons and Forms*/
+  /**************************************************/
+  /*Footer Layout*/
+  /**************************************************/ }
+
 #navBar {
   border-bottom: 1rem solid #222; }
 
