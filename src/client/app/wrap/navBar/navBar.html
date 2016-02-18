@@ -17,7 +17,8 @@
     <ul>
       <li><a ui-sref="wrap.home">Home</a></li>
       <li><a ui-sref="wrap.lobby">Lobby</a></li>
-      <li><a ui-sref="wrap.login">Login</a></li>
+      <li><a ng-show="!login()" ui-sref="wrap.login">Login</a></li>
+      <li><a ng-show="login()" href="/auth/logout" ng-click="logout()">Logout</a></li>
     </ul>
 
   </nav>

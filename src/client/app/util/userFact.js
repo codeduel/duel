@@ -9,6 +9,7 @@ angular.module('duel.userFact', [])
   _data = {};
   _data.userName = undefined;
   _data.hasAuth = false;
+  _data.loggedIn = false;
   //gameRole will be spectator or player, default is spectator
   _data.gameRole = 'spectator';
 
@@ -16,6 +17,7 @@ angular.module('duel.userFact', [])
   userFact.setUserName = function(userName){
     if(userName !== undefined){
       _data.userName = userName;
+      _data.loggedIn = true;
       $window.localStorage.setItem('duel.userName', userName);
     }
   };
@@ -31,13 +33,21 @@ angular.module('duel.userFact', [])
       return {userName: _data.userName, userId: _data.userName};
     }
   };
-
+ 
   //should be called by any logout methods
   userFact.removeUser = function(){
     _data.userName = undefined;
     _data.hasAuth = false;
     _data.gameRole = 'spectator';
+    _data.loggedIn = false;
     $window.localStorage.removeItem('duel.userName');
+    $window.localStorage.removeItem('duel.theme');
+    $window.localStorage.removeItem('duel.userId');
+
+  };
+  
+  userFact.loggedIn = function() {
+    return _data.loggedIn;
   };
 
   return userFact;
