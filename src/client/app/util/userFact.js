@@ -41,7 +41,6 @@ angular.module('duel.userFact', [])
     _data.gameRole = 'spectator';
     _data.loggedIn = false;
     $window.localStorage.removeItem('duel.userName');
-    $window.localStorage.removeItem('duel.theme');
     $window.localStorage.removeItem('duel.userId');
 
   };
