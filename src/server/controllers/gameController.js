@@ -47,7 +47,7 @@ var format = function(str) {
 
 //Calculates a solution's progress to being completed
 var calculateProgress = function(passed, failed) {
-  if (passed === 0) return 0;
+  if (!passed) return 0;
   return Math.floor(passed / (passed + failed) * 10000) / 100;
 };
 
