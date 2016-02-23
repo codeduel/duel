@@ -38,7 +38,7 @@ angular.module('duel.game.playCtrl', [])
     GamePlayFact.stream({
       code: $scope.data.solution,
       gameId: $scope.gameId,
-      userId: UserFact.getUser().userName
+      userId: UserFact.getUser().userId
     });
   };
 

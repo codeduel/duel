@@ -34,7 +34,7 @@ angular.module('duel.chatFact', [])
   //clears factory data
   chatFact.reset = function() {
     chatFact.messages = [];
-    if (!UserFact.getUser().userId) {
+    if (!UserFact.getUser().hasAuth) {
       chatFact.messages.push({
         userId: 'SYSTEM',
         text: 'Hello guest. Please <a href="/#/login">login</a> to chat!',
@@ -86,7 +86,7 @@ angular.module('duel.chatFact', [])
         channel: msg.data.room,
         text: msg.data.text
       });
-    
+
     } else {
       chatFact.messages.push({
         userId: 'SYSTEM',

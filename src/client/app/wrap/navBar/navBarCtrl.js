@@ -9,10 +9,7 @@ angular.module('duel.wrap.navBarCtrl', [])
       });
   };
 
-  $scope.login = function() {
-    UserFact.loggedIn();
-    return _data.loggedIn;
-  };
+  $scope.userData = UserFact.data;
 
 
   $scope.logout = function() {

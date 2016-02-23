@@ -5,48 +5,87 @@ angular.module('duel.userFact', [])
 
 .factory('UserFact', ['$window', function($window) {
   var userFact = {};
-  //data object is private to reduce errors through get/set and session restoration
-  _data = {};
-  _data.userName = undefined;
-  _data.hasAuth = false;
-  _data.loggedIn = false;
+  userFact.data = {};
+  userFact.data.userName = undefined;
+  userFact.data.userId = undefined;
+  userFact.data.hasAuth = false;
   //gameRole will be spectator or player, default is spectator
-  _data.gameRole = 'spectator';
+  userFact.data.gameRole = 'spectator';
+
+
+  //checks a user to ensure all properties are set
+  var checkUser = function(){
+    //cleaner and easier to extend than a single long expression
+    var userBool = true;
+    userBool = userBool && userFact.data.userName;
+    userBool = userBool && userFact.data.userId;
+    userBool = userBool && userFact.data.hasAuth;
+    userBool = userBool && userFact.data.gameRole;
+    return userBool;
+  };
+
+  //checks auth specific user properties
+  var checkAndSetUserAuth = function(){
+    //cleaner and easier to extend than a single long expression
+    var userAuthBool = true;
+    userAuthBool = userAuthBool && userFact.data.userName;
+    userAuthBool = userAuthBool && userFact.data.userId;
+    //if all the correct properties are set, authorize the user
+    if(userAuthBool){
+      userFact.data.hasAuth = true;
+    }
+  };
+
+  //regenerate user info from local storage
+  //update later to pull from database based on session token
+  var regenerateUser = function(){
+    userFact.data.userName = $window.localStorage.getItem('duel.userName');
+    userFact.data.userId = $window.localStorage.getItem('duel.userId');
+    checkAndSetUserAuth();
+  };
 
   //set the userName
   userFact.setUserName = function(userName){
     if(userName !== undefined){
-      _data.userName = userName;
-      _data.loggedIn = true;
+      userFact.data.userName = userName;
       $window.localStorage.setItem('duel.userName', userName);
+
+      //TODO: REMOVE THIS AFTER REFACTOR - temporary fix until userName and userId is implemented in chat
+      userFact.data.userId = userName;
+      $window.localStorage.setItem('duel.userId', userName);
     }
+    checkAndSetUserAuth();
   };
+
+  // //set the userId
+  // userFact.setUserId = function(userId){
+  //   if(userId !== undefined){
+  //     userFact.data.userId = userId;
+  //     $window.localStorage.setItem('duel.userId', userId);
+  //   }
+  //   checkAndSetUserAuth();
+  // };
 
   //get the user in object form... allows for session restoration in the event of refresh
-  //will refactor to use session tokens in local storage and ajax for restoration
+  //refactor to use session tokens in local storage and ajax for restoration
   //will need to return a promise in the future since it's dependent on ajax
   userFact.getUser = function(){
-    if(_data.userName !== undefined){
-      return {userName: _data.userName, userId: _data.userName};
+    if(checkUser()){
+      return userFact.data;
     } else {
-      _data.userName = $window.localStorage.getItem('duel.userName');
-      return {userName: _data.userName, userId: _data.userName};
+      regenerateUser();
+      return userFact.data;
     }
   };
- 
+
   //should be called by any logout methods
   userFact.removeUser = function(){
-    _data.userName = undefined;
-    _data.hasAuth = false;
-    _data.gameRole = 'spectator';
-    _data.loggedIn = false;
     $window.localStorage.removeItem('duel.userName');
     $window.localStorage.removeItem('duel.userId');
-
-  };
-  
-  userFact.loggedIn = function() {
-    return _data.loggedIn;
+    userFact.data.userName = undefined;
+    userFact.data.userId= undefined;
+    userFact.data.hasAuth = false;
+    userFact.data.gameRole = 'spectator';
   };
 
   return userFact;
