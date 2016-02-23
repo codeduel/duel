@@ -76,7 +76,7 @@ angular.module('duel', [
 
   $rootScope.$on('$stateChangeStart',
     function(event, toState, toParams, fromState, fromParams, options) {
-      if (toState.name === 'wrap.game.play' && !UserFact.data.hasAuth) {
+      if (toState.name === 'wrap.game.play' && !UserFact.getUser().hasAuth) {
         event.preventDefault();
         alert('You must login in order to play!');
       }

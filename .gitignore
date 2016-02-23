@@ -34,3 +34,8 @@ ace_min/
 
 #Concatinated files
 allScripts.js
+
+#Compiled CSS
+duel.css
+light.css
+retro.css
