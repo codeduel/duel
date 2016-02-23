@@ -48,6 +48,14 @@ $altActionColorHover: $altActionColorLight;
   background-image: url('/assets/images/code-duel-logo-light.png');
 }
 
+#pageBanner {
+  background-image: url('/assets/images/code-duel-home-background-light.png');
+}
+
+#codeDuelHomeBanner {
+  background-image: url('/assets/images/code-duel-home-light.png');
+}
+
 .innerCol {
     background-color: $secondaryColorLight;
 }

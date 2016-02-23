@@ -43,3 +43,8 @@ $altActionColorHover: $altActionColorDark;
 @import '_standardVars.scss';
 
 @import '_baseStyles.scss';
+
+a,
+a:visited {color: $accentColorLight;}
+
+a:hover {color: $accentColor;}

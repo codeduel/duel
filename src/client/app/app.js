@@ -76,7 +76,7 @@ angular.module('duel', [
 
   $rootScope.$on('$stateChangeStart',
     function(event, toState, toParams, fromState, fromParams, options) {
-      if (toState.name === 'wrap.game.play' && !UserFact.getUser().userId) {
+      if (toState.name === 'wrap.game.play' && !UserFact.data.hasAuth) {
         event.preventDefault();
         alert('You must login in order to play!');
       }
@@ -110,8 +110,8 @@ angular.module('duel', [
     });
 }])
 
-//temporary controller until I can refactor ErrorFact as a provider
-//Not temporary any more!  This sets the $rootScope theme for css styles and Ace editor
+
+//sets the $rootScope theme for css styles and Ace editor
 .controller('appController', ['ErrorFact', 'ThemeFact', function(ErrorFact, ThemeFact) {
   ThemeFact.init();
 }])
@@ -136,6 +136,9 @@ angular.module('duel', [
     .state('wrap.home', {
       url: '/',
       views: {
+        'duelBanner@': {
+          templateUrl: 'app/staticPages/homeBanner.html',
+        },
         'duelContent@': {
           templateUrl: 'app/staticPages/home.html',
         }

@@ -5,9 +5,8 @@ angular.module('duel.authCtrl', [])
   var userName = $stateParams.userName;
   var userId = $stateParams.userId;
   UserFact.setUserName(userName);
-  $window.localStorage.setItem('duel.userName', userName);
-  $window.localStorage.setItem('duel.userId', userId);
-
+  //TODO ENABLE ONCE CHAT ETC HAS BEEN REFACTORED - see UserFact for details
+  //UserFact.setUserId(userId);
 
   $state.go('wrap.lobby');
   analytics.page('Lobby');

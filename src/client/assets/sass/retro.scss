@@ -56,6 +56,26 @@ $halfBorderRadius: $borderRadius / 2;
   background-image: url('/assets/images/code-duel-logo-retro.png');
 }
 
+#pageBanner {
+  background-image: url('/assets/images/code-duel-home-background-retro.png');
+}
+
+#codeDuelHomeBanner {
+  background-image: url('/assets/images/code-duel-home-retro.png');
+}
+
 .innerCol {
-    background-color: $secondaryColorLight;
+  background-color: $secondaryColorLight;
+}
+
+h1 {
+  font-size:1.5rem;
+}
+
+h2 {
+  font-size:1.25rem;
+}
+
+h3,h4,h5 {
+  font-size:1rem;
 }

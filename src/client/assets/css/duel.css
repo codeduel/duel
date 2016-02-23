@@ -39,7 +39,8 @@ body {
   #footerWrap h5 {
     color: #EEE; }
 
-a {
+a,
+a:visited {
   color: #1AAECC; }
 
 a:hover {
@@ -48,7 +49,15 @@ a:hover {
 #pageContent {
   background-color: #565D66;
   color: #EEE;
-  min-height: 37.5rem; }
+  min-height: 30rem; }
+
+#pageBanner {
+  background-color: #565D66;
+  color: #EEE;
+  background-image: url("/assets/images/code-duel-home-background-dark.png");
+  background-size: auto 100%;
+  background-position: center;
+  background-repeat: repeat-x; }
 
 .floatLeft {
   float: left; }
@@ -87,6 +96,11 @@ a:hover {
   width: 100%;
   border-radius: 0.5rem; }
 
+.respImg {
+  display: block;
+  height: auto;
+  max-width: 100%; }
+
 /*duelWrapper allows easy class overrides*/
 #duelWrapper .noPadding {
   padding: 0; }
@@ -97,16 +111,16 @@ a:hover {
 #duelWrapper .noBottomMargin {
   margin-bottom: 0; }
 
-.padCol > :last-child,
-.innerCol > :last-child {
-  margin-bottom: 0; }
-
 /*Basic Typography*/
 /**************************************************/
 h1, h2, h3, h4, h5 {
   color: #EEE;
   font-weight: 700;
   margin-bottom: 1rem; }
+
+p {
+  max-width: 40.625em;
+  /*650px*/ }
 
 .inlineText {
   display: inline; }
@@ -117,6 +131,12 @@ h1, h2, h3, h4, h5 {
 .bigType {
   font-size: 4em; }
 
+.buttonAlign {
+  line-height: 1rem;
+  padding: .75rem 0;
+  display: inline-block;
+  vertical-align: top; }
+
 /*Primary Navigation*/
 /**************************************************/
 #navBar {
@@ -124,7 +144,9 @@ h1, h2, h3, h4, h5 {
   padding-bottom: 0; }
   #navBar .dropdown-menu {
     height: auto;
-    width: auto; }
+    width: auto;
+    left: initial;
+    right: 0; }
   #navBar .dropdown-menu li {
     padding: 0.5rem 2rem;
     display: block;
@@ -145,7 +167,8 @@ h1, h2, h3, h4, h5 {
   #navContent li {
     float: left; }
     #navContent li a {
-      padding: 1rem 2rem;
+      display: block;
+      padding: 0.5rem 1rem;
       color: #1AAECC;
       font-weight: bold;
       text-decoration: none; }
@@ -268,6 +291,20 @@ pre {
   /*300px*/
   overflow: auto; }
 
+/*Home Specific*/
+#codeDuelHomeBanner {
+  padding-top: 25%;
+  width: 100%;
+  background-image: url("/assets/images/code-duel-home-dark.png");
+  background-size: 100% 100%; }
+
+.devProfile {
+  text-align: center; }
+
+.devProfile img {
+  border-radius: 50%;
+  margin-bottom: 2rem; }
+
 /*Buttons and Forms*/
 /**************************************************/
 .btn,
@@ -284,6 +321,9 @@ input[type="submit"] {
   -ms-user-select: none;
   user-select: none; }
 
+a:visited.btn {
+  color: #FFF; }
+
 .btn:hover,
 input[type="submit"]:hover {
   background-color: #067c94;
@@ -291,6 +331,22 @@ input[type="submit"]:hover {
 
 .btn i {
   margin-right: 0.5rem; }
+
+.btn.iconOnly {
+  text-align: center;
+  height: 2.5rem;
+  width: 2.5rem;
+  position: relative; }
+
+.btn.iconOnly i {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  padding: .75rem 0;
+  text-align: center;
+  margin-right: 0;
+  top: 0;
+  left: 0; }
 
 .btn.altAction {
   background-color: #F04848; }
@@ -346,6 +402,8 @@ input[type="checkbox"] {
   /**************************************************/
   /*Primary Navigation*/
   /**************************************************/
+  #navContent li a {
+    padding: 0.5rem 2rem; }
   /*Header Layout*/
   /**************************************************/
   /*Content & Columns Layout*/
@@ -358,3 +416,10 @@ input[type="checkbox"] {
   /**************************************************/
   /*Footer Layout*/
   /**************************************************/ }
+
+a,
+a:visited {
+  color: #5ac3d9; }
+
+a:hover {
+  color: #1AAECC; }
